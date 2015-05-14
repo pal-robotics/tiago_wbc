@@ -1,0 +1,30 @@
+<launch>
+
+  <arg name="debug" default="false"/>
+
+  <!-- Upload robot description -->
+  <include file="$(find tiago_description)/robots/upload_tiago.launch" />
+  
+ <!-- Upload capsule collision operations  & description-->
+  <include file="$(find tiago_wbc)/launch/tiago_capsule_description.launch" />
+
+  <!-- Configure wbc -->
+  <rosparam command="load"
+    file="$(find tiago_wbc)/config/tiago_wbc.yaml" />
+
+  <!-- Joint state controller -->
+  <rosparam command="load" file="$(find joint_state_controller)/joint_state_controller.yaml" />
+
+  <!-- Robot state publisher -->
+  <node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher">
+    <param name="publish_frequency" type="double" value="50.0" />
+    <param name="tf_prefix" type="string" value="" />
+  </node>
+  
+  <!-- Spawn controller -->
+  <node name="walking_controllers_spawner"
+        pkg="controller_manager" type="spawner" output="screen"
+        args="whole_body_kinematic_controler
+              joint_state_controller" />
+        
+</launch>

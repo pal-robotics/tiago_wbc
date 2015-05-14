@@ -1,0 +1,27 @@
+whole_body_kinematic_controler:
+  type: wbc/WholeBodyControlKinematicController
+  
+  dt: 0.005
+  floating_base: False
+  formulation: velocity
+  stack_configuration: tiago_stack
+  use_damping: true
+  damp: 0.2
+  
+  robot_model_chains:
+    [arm_7_link,
+     xtion_optical_frame]
+
+  default_configuration:
+ 
+    arm_1_joint: 1.7
+    arm_2_joint: -0.5
+    arm_3_joint: -3.4
+    arm_4_joint: 0.5
+    arm_5_joint: 0.0
+    arm_6_joint: 0.0
+    arm_7_joint: 0.0
+    head_1_joint: 0.0
+    head_2_joint: 0.0
+    torso_lift_joint: 0.14
+

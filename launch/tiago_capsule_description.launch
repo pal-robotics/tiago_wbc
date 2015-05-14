@@ -1,0 +1,13 @@
+<launch>
+
+ <!-- Upload capsule collision decompositoin -->
+  <param name="collision_decomposition_description" textfile="$(find tiago_wbc)/config/tiago_capsule_params.txt" />
+
+ <!-- Upload extra collision operations -->
+  <rosparam command="load" file="$(find tiago_wbc)/config/tiago_extra_collision_descriptions.yaml" />
+
+ <!-- Upload capsule collision operations -->
+  <param name="capsule_collision_operations" textfile="$(find tiago_wbc)/config/tiago_collision_operations.xml" />
+
+</launch>
+

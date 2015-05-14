@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package>
+  <name>tiago_wbc</name>
+  <version>0.0.0</version>
+  <description>The tiago_wbc package</description>
+
+  <maintainer email="hilario.tome@pal-robotics.com">hilariotome</maintainer>
+
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>pal_wbc_controller</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>wbc_tasks</build_depend>
+  <build_depend>pluginlib</build_depend>
+
+  <run_depend>pal_wbc_controller</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>wbc_tasks</run_depend>
+  <run_depend>pluginlib</run_depend>
+
+  <export>
+    <pal_wbc_controller plugin="${prefix}/tiago_wbc_plugins.xml" />
+  </export>
+
+</package>

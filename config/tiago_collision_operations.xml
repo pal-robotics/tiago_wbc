@@ -1,0 +1,26 @@
+<robot name="tiago">
+
+    <group name="arm_group">
+        <link name="arm_3_link" />
+        <link name="arm_4_link" />
+        <link name="arm_5_link" />
+        <link name="arm_7_link" />
+    </group>
+    
+    <group name="head_group">
+        <link name="head_1_link" />
+        <link name="head_2_link" />
+    </group>
+ 
+    <group name="base_torso_group">
+        <link name="torso_1_link" />
+        <link name="torso_2_link" />
+        <link name="base_link" />
+    </group>
+    
+    
+    <enable_collisions_group group1="arm_group" group2 ="head_group" />
+    <enable_collisions_group group1="arm_group" group2 ="base_torso_group" />
+     
+ </robot>
+

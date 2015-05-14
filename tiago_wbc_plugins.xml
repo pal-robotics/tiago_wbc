@@ -1,0 +1,10 @@
+<library path="lib/libtiago_wbc">
+
+  <class name="tiago_stack" type="tiago_stack" base_class_type="StackConfigurationKinematic">
+    <description>
+      WBC stack plugin for tiago
+    </description>
+  </class>
+
+</library>
+
