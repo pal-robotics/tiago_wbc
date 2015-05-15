@@ -73,7 +73,7 @@ class tiago_stack: public StackConfigurationKinematic{
         SelfCollisionSafetyKinematicTaskPtr self_collision(new SelfCollisionSafetyKinematicTask() );
         self_collision->setUpTask(sc_params, *stack.get(), nh);
         self_collision->setDamping(0.1);
-        stack->pushTask(self_collision);
+        //stack->pushTask(self_collision);
 
         // 4. Position Target Reference for right and left arm
         //GoToPositionMetaTaskPtr go_to_position_arm(new GoToPositionMetaTask(*stack.get(), "arm_7_link", "interactive_marker", nh));
@@ -94,9 +94,9 @@ class tiago_stack: public StackConfigurationKinematic{
 
 
         //Gaze task
-        //GazePointKinematicMetaTaskPtr gaze_task(new GazePointKinematicMetaTask(*stack.get(), "xtion_optical_frame", "interactive_marker", nh));
-        //gaze_task->setDamping(0.1);
-        //stack->pushTask(gaze_task);
+        GazePointKinematicMetaTaskPtr gaze_task(new GazePointKinematicMetaTask(*stack.get(), "xtion_optical_frame", "interactive_marker", nh));
+        gaze_task->setDamping(0.1);
+        stack->pushTask(gaze_task);
 
     }
 };
