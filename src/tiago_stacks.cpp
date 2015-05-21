@@ -63,6 +63,7 @@ class tiago_stack: public StackConfigurationKinematic{
 
         stack->pushTask(joint_position_limit_task);
 
+        /*
         // Self collision
         SelfCollisionSafetyKinematicTask::SelfCollisionSafetyParameters sc_params;
         sc_params.min_distance = 0.08;
@@ -73,6 +74,7 @@ class tiago_stack: public StackConfigurationKinematic{
         SelfCollisionSafetyKinematicTaskPtr self_collision(new SelfCollisionSafetyKinematicTask() );
         self_collision->setUpTask(sc_params, *stack.get(), nh);
         self_collision->setDamping(0.1);
+        */
         //stack->pushTask(self_collision);
 
         // 4. Position Target Reference for right and left arm
