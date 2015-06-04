@@ -2,6 +2,9 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 1.0.0 (2015-06-04)
 ------------------
 * Fixing versions
