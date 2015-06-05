@@ -3,6 +3,7 @@ project(tiago_wbc)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 
+find_package(cmake_modules REQUIRED)
 find_package(catkin REQUIRED COMPONENTS
   pal_wbc_controller
   roscpp

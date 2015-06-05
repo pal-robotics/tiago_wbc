@@ -14,7 +14,9 @@
   <build_depend>roscpp</build_depend>
   <build_depend>wbc_tasks</build_depend>
   <build_depend>pluginlib</build_depend>
-
+  <build_depend>cmake_modules</build_depend>
+  
+  <run_depend>cmake_modules</run_depend>
   <run_depend>pal_wbc_controller</run_depend>
   <run_depend>roscpp</run_depend>
   <run_depend>wbc_tasks</run_depend>
