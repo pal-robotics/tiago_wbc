@@ -2,6 +2,9 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 1.0.2 (2015-06-05)
 ------------------
 * Added robot design tools
