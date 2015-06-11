@@ -2,6 +2,11 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Added more coments
+* Contributors: Hilario Tome
+
 1.0.3 (2015-06-10)
 ------------------
 
