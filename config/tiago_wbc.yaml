@@ -1,12 +1,13 @@
 whole_body_kinematic_controler:
   type: wbc/WholeBodyControlKinematicController
   
+  useFT: False  
   dt: 0.005
-  floating_base: False
+  floating_base: True
   formulation: velocity
+  force_torque: True
   stack_configuration: tiago_stack
-  use_damping: true
-  damp: 0.2
+  solver: QpReductionuEqualitiesQuadprogHeapAllocation
   
   robot_model_chains:
     [arm_7_link,
