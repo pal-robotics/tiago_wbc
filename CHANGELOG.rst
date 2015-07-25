@@ -2,6 +2,17 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.5 (2015-06-12)
+------------------
+
+1.0.4 (2015-06-11)
+------------------
+* Added more coments
+* Contributors: Hilario Tome
+
+1.0.3 (2015-06-10)
+------------------
+
 1.0.2 (2015-06-05)
 ------------------
 * Added robot design tools
