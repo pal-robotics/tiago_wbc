@@ -13,8 +13,8 @@
     </group>
  
     <group name="base_torso_group">
-        <link name="torso_1_link" />
-        <link name="torso_2_link" />
+        <link name="torso_lift_link" />
+        <link name="torso_fixed_link" />
         <link name="base_link" />
     </group>
     

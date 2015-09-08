@@ -63,7 +63,7 @@ class tiago_stack: public StackConfigurationKinematic{
 
         stack->pushTask(joint_position_limit_task);
 
-        /*
+
         // Self collision
         SelfCollisionSafetyKinematicTask::SelfCollisionSafetyParameters sc_params;
         sc_params.min_distance = 0.08;
@@ -74,18 +74,18 @@ class tiago_stack: public StackConfigurationKinematic{
         SelfCollisionSafetyKinematicTaskPtr self_collision(new SelfCollisionSafetyKinematicTask() );
         self_collision->setUpTask(sc_params, *stack.get(), nh);
         self_collision->setDamping(0.1);
-        */
-        //stack->pushTask(self_collision);
+
+        stack->pushTask(self_collision);
 
         // 4. Position Target Reference for right and left arm
-        //GoToPositionMetaTaskPtr go_to_position_arm(new GoToPositionMetaTask(*stack.get(), "arm_7_link", "interactive_marker", nh));
-        GoToSplinePositionMetaTaskPtr go_to_position_arm(new GoToSplinePositionMetaTask(*stack.get(), "arm_7_link", "interactive_marker", nh));
+        GoToPositionMetaTaskPtr go_to_position_arm(new GoToPositionMetaTask(*stack.get(), "arm_7_link", "interactive_marker", nh));
+        //GoToSplinePositionMetaTaskPtr go_to_position_arm(new GoToSplinePositionMetaTask(*stack.get(), "arm_7_link", "interactive_marker", nh));
         go_to_position_arm->setDamping(0.1);
         stack->pushTask(TaskAbstractPtr(go_to_position_arm));
 
 
-       // GoToOrientationMetaTaskPtr go_to_orientation_arm(new GoToOrientationMetaTask(*stack.get(), "arm_7_link", "topic", nh));
-        GoToSplineOrientationMetaTaskPtr go_to_orientation_arm(new GoToSplineOrientationMetaTask(*stack.get(), "arm_7_link", "interactive_marker", nh));
+        GoToOrientationMetaTaskPtr go_to_orientation_arm(new GoToOrientationMetaTask(*stack.get(), "arm_7_link", "interactive_marker", nh));
+        //GoToSplineOrientationMetaTaskPtr go_to_orientation_arm(new GoToSplineOrientationMetaTask(*stack.get(), "arm_7_link", "interactive_marker", nh));
         go_to_orientation_arm->setDamping(0.1);
         stack->pushTask(TaskAbstractPtr(go_to_orientation_arm));
 
