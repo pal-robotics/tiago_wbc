@@ -3,7 +3,7 @@ whole_body_kinematic_controler:
   
   useFT: False  
   dt: 0.005
-  floating_base: True
+  floating_base: False
   formulation: velocity
   force_torque: True
   stack_configuration: tiago_stack
