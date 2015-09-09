@@ -27,3 +27,9 @@ whole_body_kinematic_controler:
     head_2_joint: 0.0
     torso_lift_joint: 0.14
 
+  go_to_arm_tool_link_RollPitchYaw:
+    proportional_orientation_e_gain: 3.0
+
+  go_to_arm_tool_link_XYZ:
+    proportional_position_e_gain: 4.0
+    
