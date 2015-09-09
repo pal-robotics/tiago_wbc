@@ -16,6 +16,7 @@
         <link name="torso_lift_link" />
         <link name="torso_fixed_link" />
         <link name="base_link" />
+        <link name="laptop_tray_fixed_link" />
     </group>
     
     

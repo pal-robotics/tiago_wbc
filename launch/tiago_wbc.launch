@@ -2,8 +2,8 @@
 
   <arg name="debug" default="false"/>
 
-  <!-- Upload robot description -->
-  <include file="$(find tiago_description)/robots/upload_tiago.launch" />
+  <!-- Upload robot description (dont do this in the robot)-->
+  <!-- <include file="$(find tiago_description)/robots/upload_tiago.launch" /> -->
   
  <!-- Upload capsule collision operations  & description-->
   <include file="$(find tiago_wbc)/launch/tiago_capsule_description.launch" />
