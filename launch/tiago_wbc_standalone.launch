@@ -1,0 +1,12 @@
+<launch>
+
+  <include file="$(find tiago_description)/robots/upload_tiago.launch" />
+
+  <include file="$(find pal_dynamics)/launch/KinematicSimulatorRosControl.launch" />
+
+  <include file="$(find tiago_wbc)/launch/tiago_wbc.launch" />
+
+  <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tiago_wbc)/config/rviz/tiago_wbc.rviz" /> -->
+
+</launch>
+

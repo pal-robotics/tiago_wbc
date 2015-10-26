@@ -11,8 +11,7 @@ whole_body_kinematic_controler:
   
   robot_model_chains:
     [arm_7_link,
-     xtion_optical_frame,
-     laptop_tray_fixed_link]
+     xtion_optical_frame]
 
   default_configuration:
  

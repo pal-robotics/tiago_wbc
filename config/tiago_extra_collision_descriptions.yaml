@@ -4,15 +4,3 @@ extra_capsule_descriptions:
      orientation: [0.0, 0.0, 0.0, 1.0]
      l: 0.15
      r: 0.1
-
-  head_2_link:
-     position: [0.0, 0.0, 0.0]
-     orientation: [0.0, 0.0, 0.0, 1.0]
-     l: 0.15
-     r: 0.1
-
-  laptop_tray_fixed_link:
-     position: [0.0, 0.0, 0.0]
-     orientation: [0.70710678, 0.0, 0.0, 0.70710678]
-     l: 0.15
-     r: 0.15

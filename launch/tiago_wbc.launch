@@ -24,7 +24,6 @@
   <!-- Spawn controller -->
   <node name="walking_controllers_spawner"
         pkg="controller_manager" type="spawner" output="screen"
-        args="whole_body_kinematic_controler
-              joint_state_controller" />
+        args="whole_body_kinematic_controler" />
         
 </launch>
