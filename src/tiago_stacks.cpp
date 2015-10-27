@@ -77,26 +77,29 @@ class tiago_stack: public StackConfigurationKinematic{
 
         stack->pushTask(self_collision);
 
+        std::string sourceData; //either "topic" or "interactive_marker"
+        nh.param<std::string>("source_data", sourceData, "interactive_marker");
+
         // 4. Position Target Reference for right and left arm
-        GoToPositionMetaTaskPtr go_to_position_arm(new GoToPositionMetaTask(*stack.get(), "arm_7_link", "interactive_marker", nh));
-        //GoToSplinePositionMetaTaskPtr go_to_position_arm(new GoToSplinePositionMetaTask(*stack.get(), "arm_7_link", "interactive_marker", nh));
+        GoToPositionMetaTaskPtr go_to_position_arm(new GoToPositionMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
+        //GoToSplinePositionMetaTaskPtr go_to_position_arm(new GoToSplinePositionMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
         go_to_position_arm->setDamping(0.1);
         stack->pushTask(TaskAbstractPtr(go_to_position_arm));
 
 
-        GoToOrientationMetaTaskPtr go_to_orientation_arm(new GoToOrientationMetaTask(*stack.get(), "arm_7_link", "interactive_marker", nh));
-        //GoToSplineOrientationMetaTaskPtr go_to_orientation_arm(new GoToSplineOrientationMetaTask(*stack.get(), "arm_7_link", "interactive_marker", nh));
+        GoToOrientationMetaTaskPtr go_to_orientation_arm(new GoToOrientationMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
+        //GoToSplineOrientationMetaTaskPtr go_to_orientation_arm(new GoToSplineOrientationMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
         go_to_orientation_arm->setDamping(0.1);
         stack->pushTask(TaskAbstractPtr(go_to_orientation_arm));
 
         //  4. Position Target Reference for right and left arm
-        //GoToPoseMetaTaskPtr go_to_pose_arm(new GoToPoseMetaTask(*stack.get(), "arm_7_link", "interactive_marker", nh));
+        //GoToPoseMetaTaskPtr go_to_pose_arm(new GoToPoseMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
         //go_to_pose_arm->setDamping(0.1);
         //stack->pushTask(TaskAbstractPtr(go_to_pose_arm));
 
 
         //Gaze task
-        GazePointKinematicMetaTaskPtr gaze_task(new GazePointKinematicMetaTask(*stack.get(), "xtion_optical_frame", "interactive_marker", nh));
+        GazePointKinematicMetaTaskPtr gaze_task(new GazePointKinematicMetaTask(*stack.get(), "xtion_optical_frame", sourceData, nh));
         gaze_task->setDamping(0.1);
         stack->pushTask(gaze_task);
 

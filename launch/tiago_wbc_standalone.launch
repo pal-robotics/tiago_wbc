@@ -1,10 +1,14 @@
 <launch>
 
+  <arg name="source_data" default="interactive_marker"/>  <!-- interactive_marker or topic -->
+
   <include file="$(find tiago_description)/robots/upload_tiago.launch" />
 
   <include file="$(find pal_dynamics)/launch/KinematicSimulatorRosControl.launch" />
 
-  <include file="$(find tiago_wbc)/launch/tiago_wbc.launch" />
+  <include file="$(find tiago_wbc)/launch/tiago_wbc.launch">
+    <arg name="source_data" value="$(arg source_data)" />
+  </include>
 
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tiago_wbc)/config/rviz/tiago_wbc.rviz" />
 
