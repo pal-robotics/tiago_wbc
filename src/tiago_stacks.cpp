@@ -65,7 +65,7 @@ class tiago_stack: public StackConfigurationKinematic{
 
 
         // Self collision
-        SelfCollisionSafetyKinematicTask::SelfCollisionSafetyParameters sc_params;
+        SelfCollisionSafetyParameters sc_params;
         sc_params.min_distance = 0.08;
         sc_params.influence_distance = 0.08;
         sc_params.epsison = 0.02;
