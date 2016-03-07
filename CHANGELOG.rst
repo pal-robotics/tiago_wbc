@@ -2,6 +2,22 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Added half implemented total variation, momentum tasks
+* add arguments to choose input: marker or topic
+* Added tiago standalone
+* Added marco wbc, pid gains are mandatory parameters in all dynamics tasks, added cop box constraint task
+* Fix the parameters for the position and orientation tasks
+* Added params to fasten up the leap demo for the goto position and orientation tasks
+* added laptop tray to tiago config (for marco)
+* Fixed collision checking for TiaGo
+* Fixed tiago floating base to false
+* fixed merge
+* Merge
+* Added cmake modules to package.xml
+* Contributors: Hilario Tome, Jordi Pages, Sammy Pfeiffer
+
 1.0.5 (2015-06-12)
 ------------------
 
