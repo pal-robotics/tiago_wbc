@@ -2,8 +2,8 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.6 (2016-03-07)
+------------------
 * Added half implemented total variation, momentum tasks
 * add arguments to choose input: marker or topic
 * Added tiago standalone
