@@ -2,6 +2,9 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.7 (2016-03-09)
+------------------
+
 1.0.6 (2016-03-07)
 ------------------
 * Added half implemented total variation, momentum tasks
