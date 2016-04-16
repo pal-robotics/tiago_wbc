@@ -2,8 +2,8 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.8 (2016-04-16)
+------------------
 * Finished IMU parsing implementation in kinematic wbc controller, modified com stabilizer task to use new way of accesing ft, reemc humanoids dance ft working in gazebo
 * Added momemtum task and not tested environment colliison task
 * Contributors: Hilario Tome
