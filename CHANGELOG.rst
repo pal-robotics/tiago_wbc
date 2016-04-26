@@ -2,8 +2,8 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.9 (2016-04-26)
+------------------
 * Added parameter to parse imu sensors, added deadband to admitance task
 * Contributors: Hilario Tome
 
