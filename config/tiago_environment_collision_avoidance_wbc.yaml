@@ -1,0 +1,35 @@
+whole_body_kinematic_controler:
+  type: wbc/WholeBodyControlKinematicController
+  
+  useFT: False  
+  dt: 0.005
+  floating_base: False
+  formulation: velocity
+  force_torque: True
+  stack_configuration: tiago_environment_collision_stack
+  solver: QpReductionuEqualitiesQuadprogHeapAllocation
+  
+#  robot_model_chains:
+#    [xtion_optical_frame,
+#     gripper_left_finger_link,
+#     gripper_right_finger_link,
+#     gripper_grasping_frame]
+
+  default_configuration:
+ 
+    arm_1_joint: 0.
+    arm_2_joint: 0.
+    arm_3_joint: 0.
+    arm_4_joint: 0.
+    arm_5_joint: 0.0
+    arm_6_joint: 0.0
+    arm_7_joint: 0.0
+    head_1_joint: 0.0
+    head_2_joint: 0.0
+    torso_lift_joint: 0.0
+
+  go_to_arm_7_link_RollPitchYaw:
+    proportional_orientation_e_gain: 3.0
+
+  go_to_arm_7_link_XYZ:
+    proportional_position_e_gain: 4.0

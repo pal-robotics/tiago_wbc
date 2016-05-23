@@ -18,6 +18,7 @@
 #include <wbc_tasks/environment_collision_task.h>
 #include <pal_wbc_controller/generic_meta_task.h>
 #include <pluginlib/class_list_macros.h>
+#include <pal_collision_tools/fcl/FCLCollisionEnvironment.h>
 
 class tiago_environment_collision_stack: public StackConfigurationKinematic{
     void setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh){
@@ -79,46 +80,66 @@ class tiago_environment_collision_stack: public StackConfigurationKinematic{
         stack->pushTask(self_collision);
         */
 
-        std::vector<std::string> linkCollisionNames;
-        linkCollisionNames.push_back("arm_5_link");
-        linkCollisionNames.push_back("arm_4_link");
-        linkCollisionNames.push_back("arm_2_link");
-        linkCollisionNames.push_back("arm_1_link");
-        linkCollisionNames.push_back("base_link");
-        linkCollisionNames.push_back("torso_lift_link");
-        linkCollisionNames.push_back("head_2_link");
+        std::vector<std::string> collisionCheckingLinks;
+        collisionCheckingLinks.push_back("arm_5_link");
+        collisionCheckingLinks.push_back("arm_4_link");
+        collisionCheckingLinks.push_back("arm_2_link");
+        collisionCheckingLinks.push_back("arm_1_link");
+        collisionCheckingLinks.push_back("base_link");
+        collisionCheckingLinks.push_back("torso_lift_link");
+        collisionCheckingLinks.push_back("head_2_link");
 
-        CollisionEnvironmentPtr ce(new CollisionEnvironment());
+        collisionCheckingLinks.push_back("arm_3_link");
+        collisionCheckingLinks.push_back("arm_6_link");
+        collisionCheckingLinks.push_back("arm_7_link");
+        collisionCheckingLinks.push_back("gripper_link");
+        collisionCheckingLinks.push_back("gripper_left_finger_link");
+        collisionCheckingLinks.push_back("gripper_right_finger_link");
+
+        FCLCollisionEnvironmentPtr ce(new FCLCollisionEnvironment(false, false, stack->getSubTreeTipsRobotModel()));
+
+        /// @todo Add fake table to collision environment
+        // Add synthetic table to collision environment
+        std::vector<boost::shared_ptr<fcl::CollisionObject> > table;
+        eMatrixHom tableTf = createMatrix(Eigen::Quaterniond::Identity(), eVector3(0.7, 0., 0));
+        createTable(0.8, tableTf, table);
+        std::vector<fclEnvironmentCollisionObjectPtr> tableObject;
+        for(size_t i = 0; i < table.size(); ++i){
+          boost::shared_ptr<fcl::CollisionObject> c = table[i];
+          tableObject.push_back(fclEnvironmentCollisionObjectPtr(
+                                  new fclEnvironmentCollisionObject("table_" + std::to_string(i), c)) );
+        }
+        ce->addCollisionObjectoToEnvironment(tableObject);
 
         EnvironmentCollisionMetaTaskPtr envirnoment_collision_task(
-              new EnvironmentCollisionMetaTask(*stack.get(), ce, linkCollisionNames, nh));
+              new EnvironmentCollisionMetaTask(*stack.get(), ce, collisionCheckingLinks, nh));
+        envirnoment_collision_task->setDamping(0.1);
         stack->pushTask(envirnoment_collision_task);
 
         std::string sourceData; //either "topic" or "interactive_marker"
         nh.param<std::string>("source_data", sourceData, "interactive_marker");
 
         // 4. Position Target Reference for right and left arm
-        GoToPositionMetaTaskPtr go_to_position_arm(new GoToPositionMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
+        GoToPositionMetaTaskPtr go_to_position_arm(new GoToPositionMetaTask(*stack.get(), "arm_7_link", "interactive_marker", nh));
         //GoToSplinePositionMetaTaskPtr go_to_position_arm(new GoToSplinePositionMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
         go_to_position_arm->setDamping(0.1);
         stack->pushTask(TaskAbstractPtr(go_to_position_arm));
 
-
-        GoToOrientationMetaTaskPtr go_to_orientation_arm(new GoToOrientationMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
+        //GoToOrientationMetaTaskPtr go_to_orientation_arm(new GoToOrientationMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
         //GoToSplineOrientationMetaTaskPtr go_to_orientation_arm(new GoToSplineOrientationMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
-        go_to_orientation_arm->setDamping(0.1);
-        stack->pushTask(TaskAbstractPtr(go_to_orientation_arm));
+        //go_to_orientation_arm->setDamping(0.1);
+        //stack->pushTask(TaskAbstractPtr(go_to_orientation_arm));
+
 
         //  4. Position Target Reference for right and left arm
         //GoToPoseMetaTaskPtr go_to_pose_arm(new GoToPoseMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
         //go_to_pose_arm->setDamping(0.1);
         //stack->pushTask(TaskAbstractPtr(go_to_pose_arm));
 
-
-        //Gaze task
-        GazePointKinematicMetaTaskPtr gaze_task(new GazePointKinematicMetaTask(*stack.get(), "xtion_optical_frame", sourceData, nh));
-        gaze_task->setDamping(0.1);
-        stack->pushTask(gaze_task);
+//        //Gaze task
+//        GazePointKinematicMetaTaskPtr gaze_task(new GazePointKinematicMetaTask(*stack.get(), "xtion_optical_frame", sourceData, nh));
+//        gaze_task->setDamping(0.1);
+//        stack->pushTask(gaze_task);
 
     }
 };

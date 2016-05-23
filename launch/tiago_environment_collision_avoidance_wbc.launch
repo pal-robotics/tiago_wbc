@@ -9,7 +9,7 @@
 
   <!-- Configure wbc -->
   <rosparam command="load"
-    file="$(find tiago_wbc)/config/tiago_wbc.yaml" />
+    file="$(find tiago_wbc)/config/tiago_environment_collision_avoidance_wbc.yaml" />
   
   <!-- Spawn controller -->
   <node name="wbc_controllers_spawner"
