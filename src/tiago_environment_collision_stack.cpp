@@ -11,7 +11,6 @@
 #include <wbc_tasks/com_kinematic_task.h>
 #include <wbc_tasks/momentum_kinematic_task.h>
 #include <wbc_tasks/reference_kinematic_task.h>
-#include <wbc_tasks/grasping_kinematic_task.h>
 #include <wbc_tasks/self_collision_kinematic_task.h>
 #include <wbc_tasks/self_collision_safety_kinematic_task.h>
 #include <wbc_tasks/gaze_kinematic_task.h>
@@ -19,6 +18,7 @@
 #include <pal_wbc_controller/generic_meta_task.h>
 #include <pluginlib/class_list_macros.h>
 #include <pal_collision_tools/fcl/FCLCollisionEnvironment.h>
+#include <pal_collision_tools/fcl/FCLsyntheticCollisionObjects.h>
 
 class tiago_environment_collision_stack: public StackConfigurationKinematic{
     void setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh){
@@ -96,25 +96,27 @@ class tiago_environment_collision_stack: public StackConfigurationKinematic{
         collisionCheckingLinks.push_back("gripper_left_finger_link");
         collisionCheckingLinks.push_back("gripper_right_finger_link");
 
-        FCLCollisionEnvironmentPtr ce(new FCLCollisionEnvironment(false, false, stack->getSubTreeTipsRobotModel()));
+        CollisionMatrixPtr ColMatrix( new CollisionMatrix());
+        FCLCollisionEnvironmentPtr ce(new FCLCollisionEnvironment(false, false, stack->getSubTreeTipsRobotModel(), ColMatrix));
 
         /// @todo Add fake table to collision environment
         // Add synthetic table to collision environment
-        std::vector<boost::shared_ptr<fcl::CollisionObject> > table;
+        std::vector<std::unique_ptr<CollisionObjectBase> > table;
         eMatrixHom tableTf = createMatrix(Eigen::Quaterniond::Identity(), eVector3(0.7, 0., 0));
-        createTable(0.8, tableTf, table);
-        std::vector<fclEnvironmentCollisionObjectPtr> tableObject;
-        for(size_t i = 0; i < table.size(); ++i){
-          boost::shared_ptr<fcl::CollisionObject> c = table[i];
-          tableObject.push_back(fclEnvironmentCollisionObjectPtr(
-                                  new fclEnvironmentCollisionObject("table_" + std::to_string(i), c)) );
-        }
-        ce->addCollisionObjectoToEnvironment(tableObject);
+        createTableFCL("table", 0.8, tableTf, table, Eigen::Vector3d(1,0,0));
 
-        EnvironmentCollisionMetaTaskPtr envirnoment_collision_task(
+        /*std::vector<std::unique_ptr<CollisionObjectBase> > tableObject;
+        for(size_t i = 0; i < table.size(); ++i){
+          std::unique_ptr<CollisionObjectBase> c = std::move(table[i]);
+          tableObject.push_back(c);
+        }*/
+
+        //ce->addCollisionObjectoToEnvironment(tableObject);
+
+        /*EnvironmentCollisionMetaTaskPtr envirnoment_collision_task(
               new EnvironmentCollisionMetaTask(*stack.get(), ce, collisionCheckingLinks, nh));
         envirnoment_collision_task->setDamping(0.1);
-        stack->pushTask(envirnoment_collision_task);
+        stack->pushTask(envirnoment_collision_task);*/
 
         std::string sourceData; //either "topic" or "interactive_marker"
         nh.param<std::string>("source_data", sourceData, "interactive_marker");
