@@ -96,23 +96,25 @@ class tiago_environment_collision_stack: public StackConfigurationKinematic{
         collisionCheckingLinks.push_back("gripper_left_finger_link");
         collisionCheckingLinks.push_back("gripper_right_finger_link");
 
-        FCLCollisionEnvironmentPtr ce(new FCLCollisionEnvironment(false, false, stack->getSubTreeTipsRobotModel()));
+        CollisionMatrixPtr collisionMatrix(new CollisionMatrix);
+        FCLCollisionEnvironmentPtr ce(
+              new FCLCollisionEnvironment(false, false, stack->getSubTreeTipsRobotModel(), collisionMatrix));
 
-        /// @todo Add fake table to collision environment
-        // Add synthetic table to collision environment
-        std::vector<boost::shared_ptr<fcl::CollisionObject> > table;
-        eMatrixHom tableTf = createMatrix(Eigen::Quaterniond::Identity(), eVector3(0.7, 0., 0));
-        createTable(0.8, tableTf, table);
-        std::vector<fclEnvironmentCollisionObjectPtr> tableObject;
-        for(size_t i = 0; i < table.size(); ++i){
-          boost::shared_ptr<fcl::CollisionObject> c = table[i];
-          tableObject.push_back(fclEnvironmentCollisionObjectPtr(
-                                  new fclEnvironmentCollisionObject("table_" + std::to_string(i), c)) );
-        }
-        ce->addCollisionObjectoToEnvironment(tableObject);
+//        /// @todo Add fake table to collision environment
+//        // Add synthetic table to collision environment
+//        std::vector<boost::shared_ptr<fcl::CollisionObject> > table;
+//        eMatrixHom tableTf = createMatrix(Eigen::Quaterniond::Identity(), eVector3(0.7, 0., 0));
+//        createTable(0.8, tableTf, table);
+//        std::vector<fclEnvironmentCollisionObjectPtr> tableObject;
+//        for(size_t i = 0; i < table.size(); ++i){
+//          boost::shared_ptr<fcl::CollisionObject> c = table[i];
+//          tableObject.push_back(fclEnvironmentCollisionObjectPtr(
+//                                  new fclEnvironmentCollisionObject("table_" + std::to_string(i), c)) );
+//        }
+//        ce->addCollisionObjectoToEnvironment(tableObject);
 
         EnvironmentCollisionMetaTaskPtr envirnoment_collision_task(
-              new EnvironmentCollisionMetaTask(*stack.get(), ce, collisionCheckingLinks, nh));
+              new EnvironmentCollisionMetaTask(*stack.get(), std::move(ce), collisionCheckingLinks, nh));
         envirnoment_collision_task->setDamping(0.1);
         stack->pushTask(envirnoment_collision_task);
 
