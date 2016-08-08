@@ -11,7 +11,6 @@
 #include <wbc_tasks/com_kinematic_task.h>
 #include <wbc_tasks/momentum_kinematic_task.h>
 #include <wbc_tasks/reference_kinematic_task.h>
-#include <wbc_tasks/grasping_kinematic_task.h>
 #include <wbc_tasks/self_collision_kinematic_task.h>
 #include <wbc_tasks/self_collision_safety_kinematic_task.h>
 #include <wbc_tasks/gaze_kinematic_task.h>
