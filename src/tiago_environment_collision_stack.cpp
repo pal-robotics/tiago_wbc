@@ -1,5 +1,4 @@
 #include <Eigen/Dense>
-#include <rbdl/addons/rbdlUrdfParser.h>
 
 #include <pal_wbc_controller/task_abstract.h>
 #include <pal_wbc_controller/StackOfTasksKinematic.h>
