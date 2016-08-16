@@ -96,7 +96,8 @@ class tiago_environment_collision_stack: public StackConfigurationKinematic{
         collisionCheckingLinks.push_back("gripper_right_finger_link");
 
         CollisionMatrixPtr ColMatrix( new CollisionMatrix());
-        FCLCollisionEnvironmentPtr ce(new FCLCollisionEnvironment(false, false, stack->getSubTreeTipsRobotModel(), ColMatrix));
+        FCLCollisionEnvironmentPtr ce(new FCLCollisionEnvironment(RigidBodyDynamics::FloatingBaseType::FixedBase,
+                                                                  stack->getSubTreeTipsRobotModel(), ColMatrix));
 
         /// @todo Add fake table to collision environment
         // Add synthetic table to collision environment
