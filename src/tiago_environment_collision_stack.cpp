@@ -13,11 +13,11 @@
 #include <wbc_tasks/self_collision_kinematic_task.h>
 #include <wbc_tasks/self_collision_safety_kinematic_task.h>
 #include <wbc_tasks/gaze_kinematic_task.h>
-#include <wbc_tasks/environment_collision_task.h>
+//#include <wbc_tasks/environment_collision_task.h>
 #include <pal_wbc_controller/generic_meta_task.h>
 #include <pluginlib/class_list_macros.h>
-#include <pal_collision_tools/fcl/FCLCollisionEnvironment.h>
-#include <pal_collision_tools/fcl/FCLsyntheticCollisionObjects.h>
+//#include <pal_collision_tools/fcl/FCLCollisionEnvironment.h>
+//#include <pal_collision_tools/fcl/FCLsyntheticCollisionObjects.h>
 
 class tiago_environment_collision_stack: public StackConfigurationKinematic{
     void setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh){
