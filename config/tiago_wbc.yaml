@@ -1,11 +1,11 @@
 whole_body_kinematic_controler:
   type: wbc/WholeBodyControlKinematicController
   
-  useFT: False  
+  useFT: False
+  useIMU: False
   dt: 0.005
   floating_base: FixedBase
   formulation: velocity
-  force_torque: True
   stack_configuration: tiago_stack
   solver: QpReductionuEqualitiesQuadprogHeapAllocation
   
