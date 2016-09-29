@@ -16,6 +16,8 @@
 #include <pal_wbc_controller/generic_meta_task.h>
 #include <pluginlib/class_list_macros.h>
 
+using namespace pal_wbc;
+
 class tiago_stack: public StackConfigurationKinematic{
   void setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh){
 
