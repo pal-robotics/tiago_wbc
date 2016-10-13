@@ -2,8 +2,8 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.10 (2016-10-13)
+-------------------
 * Added pal_wbc namespace
 * Merge branch 'dubnium-devel' into base_controller_local_joint_control
 * Removed pal collision depen for tor (we will make a separate wbc task plugin for it), added floating base publisher to stack dynamic
