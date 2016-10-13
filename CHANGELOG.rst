@@ -2,6 +2,20 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Added pal_wbc namespace
+* Merge branch 'dubnium-devel' into base_controller_local_joint_control
+* Removed pal collision depen for tor (we will make a separate wbc task plugin for it), added floating base publisher to stack dynamic
+* Initial migration to rbdl quaternion
+* fk and com tests working
+* API fixes and new rbdl version does not setZero when computing interia matrix and jacobians
+* Fixed merge
+* API fixes
+* Fixed problems with merge
+* Added gain parameters to a lot of kinematic tasks, experimental environment collision avoidance task
+* Contributors: Adria Roig, Hilario Tome
+
 1.0.9 (2016-04-26)
 ------------------
 * Added parameter to parse imu sensors, added deadband to admitance task
