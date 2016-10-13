@@ -2,8 +2,8 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.11 (2016-10-13)
+-------------------
 * Removed dynamic introspection register from kinematic wbc controller
 * Contributors: Hilario Tome
 
