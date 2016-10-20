@@ -4,6 +4,8 @@ Changelog for package tiago_wbc
 
 Forthcoming
 -----------
+* Updated changelog
+* Contributors: Hilario Tome
 
 1.0.13 (2016-10-13)
 -------------------
