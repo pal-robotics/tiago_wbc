@@ -20,9 +20,9 @@ using namespace pal_wbc;
 class tiago_stack: public StackConfigurationKinematic{
   bool setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh){
 
-    if(ros::console::set_logger_level(ROSCONSOLE_DEFAULT_NAME, ros::console::levels::Debug)){
-      ros::console::notifyLoggerLevelsChanged();
-    }
+//    if(ros::console::set_logger_level(ROSCONSOLE_DEFAULT_NAME, ros::console::levels::Debug)){
+//      ros::console::notifyLoggerLevelsChanged();
+//    }
 
     ROS_ERROR_STREAM("Loading tiago stack");
 
@@ -69,7 +69,7 @@ class tiago_stack: public StackConfigurationKinematic{
     stack->pushTask(joint_position_limit_task);
     ROS_ERROR_STREAM("Loading tiago stack 2");
 
-    /*
+
     // Self collision
     SelfCollisionSafetyParameters sc_params;
     sc_params.min_distance = 0.08;
@@ -82,7 +82,7 @@ class tiago_stack: public StackConfigurationKinematic{
     self_collision->setDamping(0.1);
 
     stack->pushTask(self_collision);
-    */
+
     ROS_ERROR_STREAM("Loading tiago stack 3");
 
     std::string sourceData; //either "topic" or "interactive_marker"

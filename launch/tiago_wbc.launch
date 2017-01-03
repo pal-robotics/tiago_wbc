@@ -1,6 +1,5 @@
 <launch>
 
-  <arg name="debug" default="false"/>
   <arg name="source_data" default="interactive_marker"/>  <!-- interactive_marker or topic -->
   <arg name="stack" default="tiago_wbc"/>
     
