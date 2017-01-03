@@ -5,12 +5,21 @@
       WBC stack plugin for tiago
     </description>
   </class>
+  
+  <class name="tiago_rcp_stack" type="tiago_rcp_stack" base_class_type="StackConfigurationKinematic">
+    <description>
+      WBC stack plugin for tiago
+    </description>
+  </class>
 
+<!--
   <class name="tiago_environment_collision_stack" type="tiago_environment_collision_stack" base_class_type="StackConfigurationKinematic">
     <description>
       WBC stack plugin for tiago
     </description>
   </class>
+  
+  -->
 
 </library>
 

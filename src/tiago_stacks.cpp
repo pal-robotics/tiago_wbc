@@ -8,7 +8,6 @@
 #include <wbc_tasks/go_to_kinematic_task.h>
 #include <wbc_tasks/go_to_spline_kinematic_task.h>
 #include <wbc_tasks/com_kinematic_task.h>
-#include <wbc_tasks/momentum_kinematic_task.h>
 #include <wbc_tasks/reference_kinematic_task.h>
 #include <wbc_tasks/self_collision_kinematic_task.h>
 #include <wbc_tasks/self_collision_safety_kinematic_task.h>
@@ -19,7 +18,13 @@
 using namespace pal_wbc;
 
 class tiago_stack: public StackConfigurationKinematic{
-  void setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh){
+  bool setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh){
+
+    if(ros::console::set_logger_level(ROSCONSOLE_DEFAULT_NAME, ros::console::levels::Debug)){
+      ros::console::notifyLoggerLevelsChanged();
+    }
+
+    ROS_ERROR_STREAM("Loading tiago stack");
 
     std::vector< double > joint_pos_min_override = stack->getJointPositionLimitMin();
     joint_pos_min_override[stack->getJointIndex("arm_4_joint")] = 0.2;
@@ -62,6 +67,7 @@ class tiago_stack: public StackConfigurationKinematic{
                                                            nh));
 
     stack->pushTask(joint_position_limit_task);
+    ROS_ERROR_STREAM("Loading tiago stack 2");
 
     // Self collision
     SelfCollisionSafetyParameters sc_params;
@@ -70,11 +76,12 @@ class tiago_stack: public StackConfigurationKinematic{
     sc_params.epsison = 0.02;
     sc_params.safety_distance = 0;
     sc_params.number_collisions = 10;
-    SelfCollisionSafetyKinematicTaskPtr self_collision(new SelfCollisionSafetyKinematicTask() );
+    SelfCollisionSafetyKinematicTaskPtr self_collision(new SelfCollisionSafetyKinematicTask);
     self_collision->setUpTask(sc_params, *stack.get(), nh);
     self_collision->setDamping(0.1);
 
     stack->pushTask(self_collision);
+    ROS_ERROR_STREAM("Loading tiago stack 3");
 
     std::string sourceData; //either "topic" or "interactive_marker"
     nh.param<std::string>("source_data", sourceData, "interactive_marker");
@@ -85,6 +92,7 @@ class tiago_stack: public StackConfigurationKinematic{
     go_to_position_arm->setDamping(0.1);
     stack->pushTask(TaskAbstractPtr(go_to_position_arm));
 
+    ROS_ERROR_STREAM("Loading tiago stack 4");
 
     GoToOrientationMetaTaskPtr go_to_orientation_arm(new GoToOrientationMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
     //    GoToSplineOrientationMetaTaskPtr go_to_orientation_arm(new GoToSplineOrientationMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
@@ -101,6 +109,9 @@ class tiago_stack: public StackConfigurationKinematic{
     gaze_task->setDamping(0.1);
     stack->pushTask(gaze_task);
 
+    ROS_ERROR_STREAM("Loading tiago stack 5");
+
+    return true;
   }
 };
 
