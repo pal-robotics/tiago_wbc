@@ -64,6 +64,7 @@ class tiago_rcp_stack: public StackConfigurationKinematic{
     stack->pushTask(joint_position_limit_task);
 
 
+    /*
     // Self collision
     SelfCollisionSafetyParameters sc_params;
     sc_params.min_distance = 0.08;
@@ -76,7 +77,7 @@ class tiago_rcp_stack: public StackConfigurationKinematic{
     self_collision->setDamping(0.1);
 
     stack->pushTask(self_collision);
-
+    */
 
     ReferenceKinematicTaskAllJointsMetaTaskPtr default_reference(
           new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
