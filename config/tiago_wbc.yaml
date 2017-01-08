@@ -7,14 +7,14 @@ whole_body_kinematic_controler:
   floating_base: FixedBase
   formulation: velocity
   stack_configuration: tiago_stack
-  solver: QpReductionuEqualitiesQuadprogHeapAllocation
+  solver_type: QpReductionuEqualitiesQuadprogHeapAllocation
+  real_hardware: False
   
   robot_model_chains:
     [arm_7_link,
      xtion_optical_frame]
 
   default_configuration:
- 
     arm_1_joint: 1.7
     arm_2_joint: -0.5
     arm_3_joint: -3.4
@@ -31,3 +31,17 @@ whole_body_kinematic_controler:
 
   go_to_arm_7_link_XYZ:
     proportional_position_e_gain: 4.0
+    
+  position_joints:        
+    - arm_1_joint
+    - arm_2_joint
+    - arm_3_joint
+    - arm_4_joint
+    - arm_5_joint
+    - arm_6_joint
+    - arm_7_joint
+    - head_1_joint
+    - head_2_joint
+    - torso_lift_joint
+    
+  estimator_type: none
