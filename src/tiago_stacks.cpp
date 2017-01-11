@@ -15,6 +15,7 @@
 #include <pal_wbc_controller/generic_meta_task.h>
 #include <pluginlib/class_list_macros.h>
 #include <wbc_tasks/kinematic/differntial_drive_kinematic_task.h>
+#include <wbc_tasks/kinematic/differntial_drive_wheel_velocity_limit_kinematic_task.h>
 
 using namespace pal_wbc;
 
@@ -157,10 +158,21 @@ class tiago_diffdrive_stack: public StackConfigurationKinematic{
 
     stack->pushTask(joint_position_limit_task);
 
+    std::vector<TaskAbstractPtr> diff_drive_tasks;
     DifferentialDriveKinematicMetaTaskPtr diff_drive_task(new DifferentialDriveKinematicMetaTask(*stack.get(), nh));
     diff_drive_task->setDamping(0.02);
-    stack->pushTask(diff_drive_task);
+    diff_drive_tasks.push_back(diff_drive_task);
 
+    double baseLenght = 0.4044;
+    double wheelRadius = 0.0985;
+    double maxWheelSpeed = 0.02;
+    DifferentialDriveWheelVelocityLimitKinematicMetaTaskPtr diff_drive_vel_limit_task(
+          new DifferentialDriveWheelVelocityLimitKinematicMetaTask(*stack.get(), nh, baseLenght, wheelRadius, maxWheelSpeed));
+    diff_drive_vel_limit_task->setWeight(0.02);
+    diff_drive_tasks.push_back(diff_drive_vel_limit_task);
+    GenericMetaTaskPtr diff_drive_metatask(new GenericMetaTask(diff_drive_tasks, stack->getStateSize()));
+    stack->pushTask(diff_drive_metatask);
+    diff_drive_metatask->setWeight(0.02);
 
     // Self collision
     SelfCollisionSafetyParameters sc_params;
