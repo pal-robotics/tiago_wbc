@@ -16,6 +16,7 @@
 #include <pluginlib/class_list_macros.h>
 #include <wbc_tasks/kinematic/differntial_drive_kinematic_task.h>
 #include <wbc_tasks/kinematic/differntial_drive_wheel_velocity_limit_kinematic_task.h>
+#include <pal_robot_tools/permutation.h>
 
 using namespace pal_wbc;
 
@@ -64,7 +65,7 @@ class tiago_stack: public StackConfigurationKinematic{
                                                            stack->getJointNames(),
                                                            1.0, false, nh));
 
-    stack->pushTask(joint_position_limit_task);
+    stack->pushTask("joint_limits", joint_position_limit_task);
 
     // Self collision
     SelfCollisionSafetyParameters sc_params;
@@ -77,7 +78,7 @@ class tiago_stack: public StackConfigurationKinematic{
     self_collision->setUpTask(sc_params, *stack.get(), nh);
     self_collision->setDamping(0.1);
 
-    stack->pushTask(self_collision);
+    stack->pushTask("sellf_collision", self_collision);
 
     std::string sourceData; //either "topic" or "interactive_marker"
     nh.param<std::string>("source_data", sourceData, "interactive_marker");
@@ -86,12 +87,12 @@ class tiago_stack: public StackConfigurationKinematic{
     GoToPositionMetaTaskPtr go_to_position_arm(new GoToPositionMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
     //GoToSplinePositionMetaTaskPtr go_to_position_arm(new GoToSplinePositionMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
     go_to_position_arm->setDamping(0.1);
-    stack->pushTask(TaskAbstractPtr(go_to_position_arm));
+    stack->pushTask("go_to_position", go_to_position_arm);
 
     GoToOrientationMetaTaskPtr go_to_orientation_arm(new GoToOrientationMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
     //    GoToSplineOrientationMetaTaskPtr go_to_orientation_arm(new GoToSplineOrientationMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
     go_to_orientation_arm->setDamping(0.1);
-    stack->pushTask(TaskAbstractPtr(go_to_orientation_arm));
+    stack->pushTask("go_to_orientation", go_to_orientation_arm);
 
     //      4. Position Target Reference for right and left arm
     //    GoToPoseMetaTaskPtr go_to_pose_arm(new GoToPoseMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
@@ -101,7 +102,7 @@ class tiago_stack: public StackConfigurationKinematic{
     //    Gaze task
     GazePointKinematicMetaTaskPtr gaze_task(new GazePointKinematicMetaTask(*stack.get(), "xtion_optical_frame", sourceData, nh));
     gaze_task->setDamping(0.1);
-    stack->pushTask(gaze_task);
+    stack->pushTask("gaze", gaze_task);
 
     return true;
   }
@@ -134,18 +135,11 @@ class tiago_diffdrive_stack: public StackConfigurationKinematic{
 
     Eigen::VectorXd default_reference_posture(default_reference_joints.size());
     default_reference_posture.setZero();
-    default_reference_posture(0) = 1.7;
-    default_reference_posture(1) = -0.5;
-    default_reference_posture(2) = -3.4;
-    default_reference_posture(3) = 0.5;
-    default_reference_posture(4) = 0.0;
-    default_reference_posture(5) = 0.0;
-    default_reference_posture(6) = 0.0;
-
-    default_reference_posture(7) = 0.0;
-    default_reference_posture(8) = 0.0;
-
-    default_reference_posture(9) = 0.14;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_1_joint"))) = 1.7;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_2_joint"))) = -0.5;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_3_joint"))) = -3.4;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_3_joint"))) = 0.5;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("torso_lift_joint"))) = 0.14;
 
 
     // 1. Joint and velocity limits
@@ -156,22 +150,28 @@ class tiago_diffdrive_stack: public StackConfigurationKinematic{
                                                            stack->getJointNames(),
                                                            1.0, false, nh));
 
-    stack->pushTask(joint_position_limit_task);
+    stack->pushTask("joint_limit", joint_position_limit_task);
 
-    std::vector<TaskAbstractPtr> diff_drive_tasks;
+    task_container_vector diff_drive_tasks;
     DifferentialDriveKinematicMetaTaskPtr diff_drive_task(new DifferentialDriveKinematicMetaTask(*stack.get(), nh));
     diff_drive_task->setDamping(0.02);
-    diff_drive_tasks.push_back(diff_drive_task);
+    diff_drive_tasks.push_back({"diff_drive", diff_drive_task});
 
-    double baseLenght = 0.4044;
-    double wheelRadius = 0.0985;
-    double maxWheelSpeed = 0.02;
+    double baseLenght;
+    if(!nh.getParam("wheel_separation", baseLenght)){
+      return false;
+    }
+    double wheelRadius;
+    if(!nh.getParam("wheel_radius", wheelRadius)){
+      return false;
+    }
+    double maxWheelSpeed = 0.1;
     DifferentialDriveWheelVelocityLimitKinematicMetaTaskPtr diff_drive_vel_limit_task(
           new DifferentialDriveWheelVelocityLimitKinematicMetaTask(*stack.get(), nh, baseLenght, wheelRadius, maxWheelSpeed));
     diff_drive_vel_limit_task->setWeight(0.02);
-    diff_drive_tasks.push_back(diff_drive_vel_limit_task);
+    diff_drive_tasks.push_back({"wheel_vel_limit", diff_drive_vel_limit_task});
     GenericMetaTaskPtr diff_drive_metatask(new GenericMetaTask(diff_drive_tasks, stack->getStateSize()));
-    stack->pushTask(diff_drive_metatask);
+    stack->pushTask("diff_drive_contraints", diff_drive_metatask);
     diff_drive_metatask->setWeight(0.02);
 
     // Self collision
@@ -185,8 +185,7 @@ class tiago_diffdrive_stack: public StackConfigurationKinematic{
     self_collision->setUpTask(sc_params, *stack.get(), nh);
     self_collision->setDamping(0.1);
 
-    stack->pushTask(self_collision);
-
+    stack->pushTask("self_collision", self_collision);
 
     std::string sourceData; //either "topic" or "interactive_marker"
     nh.param<std::string>("source_data", sourceData, "interactive_marker");
@@ -195,12 +194,12 @@ class tiago_diffdrive_stack: public StackConfigurationKinematic{
     GoToPositionMetaTaskPtr go_to_position_arm(new GoToPositionMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
     //GoToSplinePositionMetaTaskPtr go_to_position_arm(new GoToSplinePositionMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
     go_to_position_arm->setDamping(0.1);
-    stack->pushTask(TaskAbstractPtr(go_to_position_arm));
+    stack->pushTask("go_to_position", go_to_position_arm);
 
     GoToOrientationMetaTaskPtr go_to_orientation_arm(new GoToOrientationMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
     //    GoToSplineOrientationMetaTaskPtr go_to_orientation_arm(new GoToSplineOrientationMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
     go_to_orientation_arm->setDamping(0.1);
-    stack->pushTask(TaskAbstractPtr(go_to_orientation_arm));
+    stack->pushTask("go_to_orientation", go_to_orientation_arm);
 
     //      4. Position Target Reference for right and left arm
     //    GoToPoseMetaTaskPtr go_to_pose_arm(new GoToPoseMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
@@ -212,6 +211,13 @@ class tiago_diffdrive_stack: public StackConfigurationKinematic{
 //    GazePointKinematicMetaTaskPtr gaze_task(new GazePointKinematicMetaTask(*stack.get(), "xtion_optical_frame", sourceData, nh));
 //    gaze_task->setDamping(0.1);
 //    stack->pushTask(gaze_task);
+
+    ReferenceKinematicTaskAllJointsMetaTaskPtr default_reference(
+          new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
+                                                      default_reference_joints,
+                                                      default_reference_posture,
+                                                      nh, 2.));
+    stack->pushTask("rest_joint_configuration", default_reference);
 
     return true;
   }
