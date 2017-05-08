@@ -135,10 +135,14 @@ class tiago_diffdrive_stack: public StackConfigurationKinematic{
 
     Eigen::VectorXd default_reference_posture(default_reference_joints.size());
     default_reference_posture.setZero();
-    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_1_joint"))) = 1.7;
-    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_2_joint"))) = -0.5;
-    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_3_joint"))) = -3.4;
-    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_3_joint"))) = 0.5;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_1_joint"))) = 0.11;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_2_joint"))) = -0.51;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_3_joint"))) = -3.22;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_4_joint"))) = 2.0;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_5_joint"))) = 1.91;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_6_joint"))) = 0.36;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_7_joint"))) = 0.3;
+
     default_reference_posture(indexVectorThrow(default_reference_joints, std::string("torso_lift_joint"))) = 0.14;
 
 

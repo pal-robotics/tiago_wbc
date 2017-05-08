@@ -21,20 +21,20 @@ whole_body_kinematic_controler:
   mobile_base_controller_topic: /mobile_base_controller/cmd_vel
 
   robot_model_chains:
-    [arm_7_link,
+    [arm_tool_link,
      xtion_optical_frame]
 
   default_configuration:
-    arm_1_joint: 1.7
-    arm_2_joint: -0.5
-    arm_3_joint: -3.4
-    arm_4_joint: 0.5
-    arm_5_joint: 0.0
-    arm_6_joint: 0.0
-    arm_7_joint: 0.0
+    arm_1_joint: 0.11
+    arm_2_joint: -0.51
+    arm_3_joint: -3.22
+    arm_4_joint: 2.0
+    arm_5_joint: 1.91
+    arm_6_joint: 0.36
+    arm_7_joint: 1.08
     head_1_joint: 0.0
     head_2_joint: 0.0
-    torso_lift_joint: 0.14
+    torso_lift_joint: 0.3
 
   go_to_arm_7_link_RollPitchYaw:
     proportional_orientation_e_gain: 3.0

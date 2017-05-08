@@ -27,33 +27,6 @@ class tiago_rcp_stack: public StackConfigurationKinematic{
     std::vector< double > joint_pos_min_override = stack->getJointPositionLimitMin();
     joint_pos_min_override[stack->getJointIndex("arm_4_joint")] = 0.2;
 
-//    std::vector<std::string> default_reference_joints;
-//    default_reference_joints.push_back("arm_1_joint");
-//    default_reference_joints.push_back("arm_2_joint");
-//    default_reference_joints.push_back("arm_3_joint");
-//    default_reference_joints.push_back("arm_4_joint");
-//    default_reference_joints.push_back("arm_5_joint");
-//    default_reference_joints.push_back("arm_6_joint");
-//    default_reference_joints.push_back("arm_7_joint");
-//    default_reference_joints.push_back("head_1_joint");
-//    default_reference_joints.push_back("head_2_joint");
-//    default_reference_joints.push_back("torso_lift_joint");
-
-//    Eigen::VectorXd default_reference_posture(default_reference_joints.size());
-//    default_reference_posture.setZero();
-//    default_reference_posture(0) = 0.11;//1.7;
-//    default_reference_posture(1) = -0.51;//-0.5;
-//    default_reference_posture(2) = -3.22;//-3.4;
-//    default_reference_posture(3) = 2.0;//0.5;
-//    default_reference_posture(4) = 1.91;//3.4;
-//    default_reference_posture(5) = 0.36;//0.0;
-//    default_reference_posture(6) = 1.08;//0.0;
-
-//    default_reference_posture(7) = 0.0;
-//    default_reference_posture(8) = 0.0;
-
-//    default_reference_posture(9) = 0.3;//0.14;
-
     std::vector<std::string> default_reference_joints;
     default_reference_joints.push_back("arm_1_joint");
     default_reference_joints.push_back("arm_2_joint");
@@ -68,11 +41,13 @@ class tiago_rcp_stack: public StackConfigurationKinematic{
 
     Eigen::VectorXd default_reference_posture(default_reference_joints.size());
     default_reference_posture.setZero();
-    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_1_joint"))) = 1.7;
-    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_2_joint"))) = -0.5;
-    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_3_joint"))) = -3.4;
-    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_3_joint"))) = 0.5;
-    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("torso_lift_joint"))) = 0.14;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_1_joint"))) = 0.11;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_2_joint"))) = -0.51;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_3_joint"))) = -3.22;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_4_joint"))) = 2.0;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_5_joint"))) = 1.91;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_6_joint"))) = 0.36;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_7_joint"))) = 0.3;
 
     // 1. Joint and velocity limits
     JointPositionLimitKinematicAllJointsMetaTaskPtr joint_position_limit_task(

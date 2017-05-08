@@ -1,5 +1,6 @@
 #include <iostream>
 #include <ros/ros.h>
+#include <pal_wbc_msgs/TaskDescription.h>
 #include <pal_wbc_msgs/GetStackDescription.h>
 #include <pal_wbc_msgs/GetTaskError.h>
 #include <pal_wbc_msgs/PopTask.h>
@@ -10,15 +11,12 @@
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
 
-pal_wbc_msgs::TaskDescription generateTaskDescription(const property_bag::PropertyBag properties){
+std::string generateTaskDescription(const property_bag::PropertyBag properties){
 
-  pal_wbc_msgs::TaskDescription newTask;
   std::stringstream ss;
   boost::archive::text_oarchive oa(ss);
   oa << properties;
-  newTask.description = ss.str();
-
-  return newTask;
+  return ss.str();
 }
 
 int main(int argc, char** argv){
@@ -46,17 +44,15 @@ int main(int argc, char** argv){
     //Push the goto position right arm task
     ROS_INFO_STREAM("Pushing new gotoPosition task");
     property_bag::PropertyBag taskProperties("taskType", std::string("pal_wbc/GoToPositionMetaTask"));
-    Eigen::Vector3d positionGoal(0.24374, -0.3, 1.0);
-    //Eigen::Vector3d positionGoal(0.34955, 0.28446, 0.2325);
+    Eigen::Vector3d positionGoal(0.54637, -0.13707, 0.95628);
 
-    taskProperties.addProperty("taskId", std::string("go_to_position"));
+    taskProperties.addProperty("task_id", std::string("go_to_position"));
     taskProperties.addProperty("target_position", positionGoal);
     taskProperties.addProperty("tip_name", std::string("arm_tool_link"));
     taskProperties.addProperty("damping", 0.2);
 
-    pal_wbc_msgs::TaskDescription newTask = generateTaskDescription(taskProperties);
     pal_wbc_msgs::PushTask srv;
-    srv.request.push_task_params.task = newTask;
+    srv.request.push_task_params.params = generateTaskDescription(taskProperties);
     srv.request.push_task_params.respect_task_id = "self_collision";
     srv.request.push_task_params.order.order = pal_wbc_msgs::Order::After;
     if (pushTaskServ.call(srv)){
@@ -73,7 +69,7 @@ int main(int argc, char** argv){
   {
     ros::Duration(0.1).sleep();
     pal_wbc_msgs::GetTaskError srv;
-    srv.request.id = 1;
+    srv.request.id = "go_to_position";
     getTaskErrorServ.call(srv);
     ROS_INFO_STREAM("Task: "<<srv.request.id<<" error norm is: "<<srv.response.taskError.error_norm);
     int cont = 0;
@@ -105,14 +101,13 @@ int main(int argc, char** argv){
     target_orientation.y() =  0.0;
     target_orientation.z() = 0.0;
 
-    taskProperties.addProperty("taskId", std::string("go_to_orientation"));
+    taskProperties.addProperty("task_id", std::string("go_to_orientation"));
     taskProperties.addProperty("target_orientation", target_orientation);
     taskProperties.addProperty("tip_name", std::string("arm_tool_link"));
     taskProperties.addProperty("damping", 0.2);
 
-    pal_wbc_msgs::TaskDescription newTask = generateTaskDescription(taskProperties);
     pal_wbc_msgs::PushTask srv;
-    srv.request.push_task_params.task = newTask;
+    srv.request.push_task_params.params = generateTaskDescription(taskProperties);;
     srv.request.push_task_params.respect_task_id = "go_to_position";
     srv.request.push_task_params.order.order = pal_wbc_msgs::Order::After;
     if (pushTaskServ.call(srv)){
@@ -129,7 +124,7 @@ int main(int argc, char** argv){
   {
     ros::Duration(0.2).sleep();
     pal_wbc_msgs::GetTaskError srv;
-    srv.request.id = 2;
+    srv.request.id = "go_to_orientation";
     getTaskErrorServ.call(srv);
     ROS_INFO_STREAM("Task: "<<srv.request.id<<" error norm is: "<<srv.response.taskError.error_norm);
     int cont = 0;
@@ -148,22 +143,22 @@ int main(int argc, char** argv){
 
     }
   }
-   /*
 
   {
     //Push gaze
     ROS_INFO_STREAM("Pushing new gaze task");
     property_bag::PropertyBag taskProperties("taskType", std::string("pal_wbc/GazePointKinematicMetaTask"));
-    Eigen::Vector3d positionGoal(0.24374, -0.3, 1.0);
+    Eigen::Vector3d positionGoal(2, 0, 1.0);
 
+    taskProperties.addProperty("task_id", std::string("gaze"));
     taskProperties.addProperty("target_position", positionGoal);
-    taskProperties.addProperty("tip_name", std::string("xtion_optical_frame"));
+    taskProperties.addProperty("camera_frame", std::string("xtion_optical_frame"));
     taskProperties.addProperty("damping", 0.2);
 
-    pal_wbc_controller::TaskDescription newTask = generateTaskDescription(taskProperties);
-    pal_wbc_controller::PushTask srv;
-    srv.request.task = newTask;
-    srv.request.orderInStack = 3;
+    pal_wbc_msgs::PushTask srv;
+    srv.request.push_task_params.params = generateTaskDescription(taskProperties);
+    srv.request.push_task_params.respect_task_id = "go_to_orientation";
+    srv.request.push_task_params.order.order = pal_wbc_msgs::Order::After;
     if (pushTaskServ.call(srv)){
       ROS_INFO_STREAM("Succesfully pushed task:");
       ROS_INFO_STREAM(srv.response);
@@ -177,8 +172,8 @@ int main(int argc, char** argv){
 
   {
     ros::Duration(0.1).sleep();
-    pal_wbc_controller::GetTaskError srv;
-    srv.request.id = 3;
+    pal_wbc_msgs::GetTaskError srv;
+    srv.request.id = "gaze";
     getTaskErrorServ.call(srv);
     ROS_INFO_STREAM("Task: "<<srv.request.id<<" error norm is: "<<srv.response.taskError.error_norm);
     int cont = 0;
@@ -201,8 +196,8 @@ int main(int argc, char** argv){
   //Pop the gaze task right arm
   {
     ROS_INFO_STREAM("Poping orientation Task");
-    pal_wbc_controller::PopTask srv;
-    srv.request.orderInStack = 3;
+    pal_wbc_msgs::PopTask srv;
+    srv.request.name = "gaze";
     if (popTaskServ.call(srv)){
       ROS_INFO_STREAM(statusSrv.response);
     }
@@ -215,8 +210,8 @@ int main(int argc, char** argv){
   //Pop the goto orientation task right arm
   {
     ROS_INFO_STREAM("Poping orientation Task");
-    pal_wbc_controller::PopTask srv;
-    srv.request.orderInStack = 2;
+    pal_wbc_msgs::PopTask srv;
+    srv.request.name = "go_to_orientation";
     if (popTaskServ.call(srv)){
       ROS_INFO_STREAM(statusSrv.response);
     }
@@ -231,8 +226,8 @@ int main(int argc, char** argv){
   //Pop the go to position task right arm
   {
     ROS_INFO_STREAM("Poping position Task");
-    pal_wbc_controller::PopTask srv;
-    srv.request.orderInStack = 1;
+    pal_wbc_msgs::PopTask srv;
+    srv.request.name = "go_to_position";
     if (popTaskServ.call(srv)){
       ROS_INFO_STREAM(statusSrv.response);
     }
@@ -250,15 +245,16 @@ int main(int argc, char** argv){
     property_bag::PropertyBag taskProperties("taskType", std::string("pal_wbc/GoToPositionMetaTask"));
 
     ///////////////
-    taskProperties.addProperty("reference_type", std::string("topic"));
+    taskProperties.addProperty("task_id", std::string("go_to_position"));
+    taskProperties.addProperty("signal_reference", std::string("interactive_marker"));
     taskProperties.addProperty("topic_name", std::string("go_to_position_topic"));
     taskProperties.addProperty("tip_name", std::string("arm_tool_link"));
     taskProperties.addProperty("damping", 0.2);
 
-    pal_wbc_controller::TaskDescription newTask = generateTaskDescription(taskProperties);
-    pal_wbc_controller::PushTask srv;
-    srv.request.task = newTask;
-    srv.request.orderInStack = 1;
+    pal_wbc_msgs::PushTask srv;
+    srv.request.push_task_params.params = generateTaskDescription(taskProperties);;
+    srv.request.push_task_params.respect_task_id = "self_collision";
+    srv.request.push_task_params.order.order = pal_wbc_msgs::Order::After;
     if (pushTaskServ.call(srv)){
       ROS_INFO_STREAM("Succesfully pushed task:");
       ROS_INFO_STREAM(srv.response);
@@ -268,7 +264,6 @@ int main(int argc, char** argv){
       return 1;
     }
   }
-*/
 
   return 0;
 
