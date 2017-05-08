@@ -5,6 +5,7 @@
 #include <pal_wbc_msgs/GetTaskError.h>
 #include <pal_wbc_msgs/PopTask.h>
 #include <pal_wbc_msgs/PushTask.h>
+#include <pal_wbc_msgs/PushPopTask.h>
 #include <Eigen/Dense>
 #include <property_bag/property_bag.h>
 #include <property_bag/serialization/property_bag_boost_serialization.h>
@@ -27,17 +28,21 @@ int main(int argc, char** argv){
   ros::ServiceClient stackDescriptionServ = nh.serviceClient<pal_wbc_msgs::GetStackDescription>("/whole_body_kinematic_controler/get_stack_description");
   ros::ServiceClient popTaskServ = nh.serviceClient<pal_wbc_msgs::PopTask>("/whole_body_kinematic_controler/pop_task");
   ros::ServiceClient pushTaskServ = nh.serviceClient<pal_wbc_msgs::PushTask>("/whole_body_kinematic_controler/push_task");
+  ros::ServiceClient pushPopTaskServ = nh.serviceClient<pal_wbc_msgs::PushPopTask>("/whole_body_kinematic_controler/push_pop_task");
   ros::ServiceClient getTaskErrorServ = nh.serviceClient<pal_wbc_msgs::GetTaskError>("/whole_body_kinematic_controler/get_task_error");
 
-  //Get current stack description
-  pal_wbc_msgs::GetStackDescription statusSrv;
-  if (stackDescriptionServ.call(statusSrv)){
-    ROS_INFO_STREAM("Stack description:");
-    ROS_INFO_STREAM(statusSrv.response);
-  }
-  else{
-    ROS_ERROR("Failed to call service ");
-    return 1;
+  {
+    //Get current stack description
+    pal_wbc_msgs::GetStackDescription statusSrv;
+    if (stackDescriptionServ.call(statusSrv)){
+      ROS_INFO_STREAM("Stack description:");
+      ROS_INFO_STREAM(statusSrv.response);
+    }
+    else{
+      ROS_ERROR("Failed to call service ");
+      return 1;
+    }
+
   }
 
   {
@@ -65,6 +70,20 @@ int main(int argc, char** argv){
     }
   }
 
+  {
+    //Get current stack description
+    pal_wbc_msgs::GetStackDescription statusSrv;
+    if (stackDescriptionServ.call(statusSrv)){
+      ROS_INFO_STREAM("Stack description:");
+      ROS_INFO_STREAM(statusSrv.response);
+    }
+    else{
+      ROS_ERROR("Failed to call service ");
+      return 1;
+    }
+
+  }
+
 
   {
     ros::Duration(0.1).sleep();
@@ -89,6 +108,175 @@ int main(int argc, char** argv){
 
   }
 
+  {
+    //Get current stack description
+    pal_wbc_msgs::GetStackDescription statusSrv;
+    if (stackDescriptionServ.call(statusSrv)){
+      ROS_INFO_STREAM("Stack description:");
+      ROS_INFO_STREAM(statusSrv.response);
+    }
+    else{
+      ROS_ERROR("Failed to call service ");
+      return 1;
+    }
+
+  }
+
+  {
+    //Push the goto position right arm task
+    ROS_INFO_STREAM("Pushing new gotoPosition task");
+    property_bag::PropertyBag taskProperties("taskType", std::string("pal_wbc/GoToPositionMetaTask"));
+    Eigen::Vector3d positionGoal(0.74637, -0.13707, 0.95628);
+
+    taskProperties.addProperty("task_id", std::string("go_to_position"));
+    taskProperties.addProperty("target_position", positionGoal);
+    taskProperties.addProperty("tip_name", std::string("arm_tool_link"));
+    taskProperties.addProperty("damping", 0.2);
+
+    pal_wbc_msgs::PushPopTask srv;
+    pal_wbc_msgs::PushTaskParams push_params;
+    push_params.params = generateTaskDescription(taskProperties);
+    push_params.respect_task_id = "go_to_position";
+    push_params.order.order = pal_wbc_msgs::Order::Replace;
+    srv.request.push_tasks.push_back(push_params);
+    if (pushPopTaskServ.call(srv)){
+      ROS_INFO_STREAM("Succesfully pushed task:");
+      ROS_INFO_STREAM(srv.response);
+    }
+    else{
+      ROS_ERROR("Failed to call service ");
+      return 1;
+    }
+  }
+
+  {
+    //Get current stack description
+    pal_wbc_msgs::GetStackDescription statusSrv;
+    if (stackDescriptionServ.call(statusSrv)){
+      ROS_INFO_STREAM("Stack description:");
+      ROS_INFO_STREAM(statusSrv.response);
+    }
+    else{
+      ROS_ERROR("Failed to call service ");
+      return 1;
+    }
+
+  }
+
+  {
+    ros::Duration(0.1).sleep();
+    pal_wbc_msgs::GetTaskError srv;
+    srv.request.id = "go_to_position";
+    getTaskErrorServ.call(srv);
+    ROS_INFO_STREAM("Task: "<<srv.request.id<<" error norm is: "<<srv.response.taskError.error_norm);
+    int cont = 0;
+    while(srv.response.taskError.error_norm > 1e-2){
+      ROS_INFO_STREAM("Task: "<<srv.request.id<<" error norm is: "<<srv.response.taskError.error_norm);
+      ros::Duration(0.1).sleep();
+      getTaskErrorServ.call(srv);
+
+      if(cont > 100){
+        ROS_ERROR_STREAM("Task did not converge");
+        break;
+      }
+      else{
+        ++cont;
+      }
+    }
+
+  }
+
+  {
+    //Get current stack description
+    pal_wbc_msgs::GetStackDescription statusSrv;
+    if (stackDescriptionServ.call(statusSrv)){
+      ROS_INFO_STREAM("Stack description:");
+      ROS_INFO_STREAM(statusSrv.response);
+    }
+    else{
+      ROS_ERROR("Failed to call service ");
+      return 1;
+    }
+
+  }
+
+  {
+    //Push the goto position right arm task
+    ROS_INFO_STREAM("Pushing new gotoPosition task");
+    property_bag::PropertyBag taskProperties("taskType", std::string("pal_wbc/GoToPositionMetaTask"));
+    Eigen::Vector3d positionGoal(0.54637, -0.13707, 0.95628);
+
+    taskProperties.addProperty("task_id", std::string("go_to_position"));
+    taskProperties.addProperty("target_position", positionGoal);
+    taskProperties.addProperty("tip_name", std::string("arm_tool_link"));
+    taskProperties.addProperty("damping", 0.2);
+
+    pal_wbc_msgs::PushPopTask srv;
+    pal_wbc_msgs::PushTaskParams push_params;
+    push_params.params = generateTaskDescription(taskProperties);
+    push_params.respect_task_id = "go_to_position";
+    push_params.order.order = pal_wbc_msgs::Order::Replace;
+    srv.request.push_tasks.push_back(push_params);
+    if (pushPopTaskServ.call(srv)){
+      ROS_INFO_STREAM("Succesfully pushed task:");
+      ROS_INFO_STREAM(srv.response);
+    }
+    else{
+      ROS_ERROR("Failed to call service ");
+      return 1;
+    }
+  }
+
+  {
+    //Get current stack description
+    pal_wbc_msgs::GetStackDescription statusSrv;
+    if (stackDescriptionServ.call(statusSrv)){
+      ROS_INFO_STREAM("Stack description:");
+      ROS_INFO_STREAM(statusSrv.response);
+    }
+    else{
+      ROS_ERROR("Failed to call service ");
+      return 1;
+    }
+
+  }
+
+  {
+    ros::Duration(0.1).sleep();
+    pal_wbc_msgs::GetTaskError srv;
+    srv.request.id = "go_to_position";
+    getTaskErrorServ.call(srv);
+    ROS_INFO_STREAM("Task: "<<srv.request.id<<" error norm is: "<<srv.response.taskError.error_norm);
+    int cont = 0;
+    while(srv.response.taskError.error_norm > 1e-2){
+      ROS_INFO_STREAM("Task: "<<srv.request.id<<" error norm is: "<<srv.response.taskError.error_norm);
+      ros::Duration(0.1).sleep();
+      getTaskErrorServ.call(srv);
+
+      if(cont > 100){
+        ROS_ERROR_STREAM("Task did not converge");
+        break;
+      }
+      else{
+        ++cont;
+      }
+    }
+
+  }
+
+  {
+    //Get current stack description
+    pal_wbc_msgs::GetStackDescription statusSrv;
+    if (stackDescriptionServ.call(statusSrv)){
+      ROS_INFO_STREAM("Stack description:");
+      ROS_INFO_STREAM(statusSrv.response);
+    }
+    else{
+      ROS_ERROR("Failed to call service ");
+      return 1;
+    }
+
+  }
 
   {
     //Push the goto orientation task right arm task
@@ -113,6 +301,20 @@ int main(int argc, char** argv){
     if (pushTaskServ.call(srv)){
       ROS_INFO_STREAM("Succesfully pushed task:");
       ROS_INFO_STREAM(srv.response);
+    }
+    else{
+      ROS_ERROR("Failed to call service ");
+      return 1;
+    }
+
+  }
+
+  {
+    //Get current stack description
+    pal_wbc_msgs::GetStackDescription statusSrv;
+    if (stackDescriptionServ.call(statusSrv)){
+      ROS_INFO_STREAM("Stack description:");
+      ROS_INFO_STREAM(statusSrv.response);
     }
     else{
       ROS_ERROR("Failed to call service ");
@@ -199,7 +401,7 @@ int main(int argc, char** argv){
     pal_wbc_msgs::PopTask srv;
     srv.request.name = "gaze";
     if (popTaskServ.call(srv)){
-      ROS_INFO_STREAM(statusSrv.response);
+      ROS_INFO_STREAM(srv.response);
     }
     else{
       ROS_ERROR("Failed to call service ");
@@ -213,7 +415,7 @@ int main(int argc, char** argv){
     pal_wbc_msgs::PopTask srv;
     srv.request.name = "go_to_orientation";
     if (popTaskServ.call(srv)){
-      ROS_INFO_STREAM(statusSrv.response);
+      ROS_INFO_STREAM(srv.response);
     }
     else{
       ROS_ERROR("Failed to call service ");
@@ -229,7 +431,7 @@ int main(int argc, char** argv){
     pal_wbc_msgs::PopTask srv;
     srv.request.name = "go_to_position";
     if (popTaskServ.call(srv)){
-      ROS_INFO_STREAM(statusSrv.response);
+      ROS_INFO_STREAM(srv.response);
     }
     else{
       ROS_ERROR("Failed to call service ");
