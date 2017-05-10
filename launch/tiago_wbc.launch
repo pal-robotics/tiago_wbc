@@ -15,6 +15,6 @@
   <!-- Spawn controller -->
   <node name="wbc_controllers_spawner"
         pkg="controller_manager" type="spawner" output="screen"
-        args="whole_body_kinematic_controler" />
+        args="whole_body_kinematic_controller" />
         
 </launch>

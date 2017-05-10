@@ -1,4 +1,4 @@
-whole_body_kinematic_controler:
+whole_body_kinematic_controller:
   type: pal_wbc/WholeBodyControlKinematicDiffDriveController
   
   useFT: False
