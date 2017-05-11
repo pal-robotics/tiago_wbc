@@ -24,10 +24,6 @@ using namespace pal_wbc;
 class tiago_stack: public StackConfigurationKinematic{
   bool setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh){
 
-//    if(ros::console::set_logger_level(ROSCONSOLE_DEFAULT_NAME, ros::console::levels::Debug)){
-//      ros::console::notifyLoggerLevelsChanged();
-//    }
-
     std::vector< double > joint_pos_min_override = stack->getJointPositionLimitMin();
     joint_pos_min_override[stack->getJointIndex("arm_4_joint")] = 0.2;
 
