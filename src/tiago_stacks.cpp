@@ -283,13 +283,13 @@ class tiago_admitance_stack: public StackConfigurationKinematic{
     // 4. Position Target Reference for right and left arm
     ROS_INFO_STREAM("Number of ft: "<<fts_.size());
     GoToAdmitancePositionMetaTaskPtr go_to_position_arm(
-          new GoToAdmitancePositionMetaTask(*stack.get(), "arm_tool_link",
+          new GoToAdmitancePositionMetaTask(*stack.get(), "wrist_ft_link",
                                             fts_[0],
           sourceData, nh));
     go_to_position_arm->setDamping(0.1);
     stack->pushTask("go_to_position", go_to_position_arm);
     GoToAdmitanceOrientationMetaTaskPtr go_to_orientation_arm(
-          new GoToAdmitanceOrientationMetaTask(*stack.get(), "arm_tool_link",
+          new GoToAdmitanceOrientationMetaTask(*stack.get(), "wrist_ft_link",
                                                fts_[0],
           sourceData, nh));
     go_to_orientation_arm->setDamping(0.1);
