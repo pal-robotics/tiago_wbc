@@ -26,6 +26,12 @@
     </description>
   </class>
 
+  <class name="tiago_dynamic_ref_torso_head_stack" type="tiago_dynamic_ref_torso_head_stack" base_class_type="StackConfigurationKinematic">
+    <description>
+      WBC stack plugin for tiago
+    </description>
+  </class>
+
 <!--
   <class name="tiago_environment_collision_stack" type="tiago_environment_collision_stack" base_class_type="StackConfigurationKinematic">
     <description>
