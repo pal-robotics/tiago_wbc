@@ -6,7 +6,6 @@
 #include <wbc_tasks/joint_pos_limit_kinematic_task.h>
 #include <wbc_tasks/constraint_kinematic_task.h>
 #include <wbc_tasks/go_to_kinematic_task.h>
-#include <wbc_tasks/go_to_spline_kinematic_task.h>
 #include <wbc_tasks/com_kinematic_task.h>
 #include <wbc_tasks/reference_kinematic_task.h>
 #include <wbc_tasks/go_to_admitance_kinematic_task.h>
@@ -81,13 +80,11 @@ class tiago_stack: public StackConfigurationKinematic{
     nh.param<std::string>("source_data", sourceData, "interactive_marker");
 
     // 4. Position Target Reference for right and left arm
-    GoToPositionMetaTaskPtr go_to_position_arm(new GoToPositionMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
-    //GoToSplinePositionMetaTaskPtr go_to_position_arm(new GoToSplinePositionMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
+    GoToPositionMetaTaskPtr go_to_position_arm(new GoToPositionMetaTask(*stack.get(), "arm_7_link", "interactive_marker_reflexx_typeII", nh));
     go_to_position_arm->setDamping(0.1);
     stack->pushTask("go_to_position", go_to_position_arm);
 
-    GoToOrientationMetaTaskPtr go_to_orientation_arm(new GoToOrientationMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
-    //    GoToSplineOrientationMetaTaskPtr go_to_orientation_arm(new GoToSplineOrientationMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
+    GoToOrientationMetaTaskPtr go_to_orientation_arm(new GoToOrientationMetaTask(*stack.get(), "arm_7_link", "interactive_marker_reflexx_typeII", nh));
     go_to_orientation_arm->setDamping(0.1);
     stack->pushTask("go_to_orientation", go_to_orientation_arm);
 
@@ -189,12 +186,10 @@ class tiago_diffdrive_stack: public StackConfigurationKinematic{
 
     // 4. Position Target Reference for right and left arm
     GoToPositionMetaTaskPtr go_to_position_arm(new GoToPositionMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
-    //GoToSplinePositionMetaTaskPtr go_to_position_arm(new GoToSplinePositionMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
     go_to_position_arm->setDamping(0.1);
     stack->pushTask("go_to_position", go_to_position_arm);
 
     GoToOrientationMetaTaskPtr go_to_orientation_arm(new GoToOrientationMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
-    //    GoToSplineOrientationMetaTaskPtr go_to_orientation_arm(new GoToSplineOrientationMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
     go_to_orientation_arm->setDamping(0.1);
     stack->pushTask("go_to_orientation", go_to_orientation_arm);
 
@@ -205,9 +200,9 @@ class tiago_diffdrive_stack: public StackConfigurationKinematic{
 
 
     //    Gaze task
-//    GazePointKinematicMetaTaskPtr gaze_task(new GazePointKinematicMetaTask(*stack.get(), "xtion_optical_frame", sourceData, nh));
-//    gaze_task->setDamping(0.1);
-//    stack->pushTask(gaze_task);
+    //    GazePointKinematicMetaTaskPtr gaze_task(new GazePointKinematicMetaTask(*stack.get(), "xtion_optical_frame", sourceData, nh));
+    //    gaze_task->setDamping(0.1);
+    //    stack->pushTask(gaze_task);
 
     ReferenceKinematicTaskAllJointsMetaTaskPtr default_reference(
           new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
@@ -291,11 +286,20 @@ class tiago_admitance_stack: public StackConfigurationKinematic{
     go_to_orientation_arm->setDamping(0.1);
     stack->pushTask("go_to_orientation", go_to_orientation_arm);
 
-    //Gaze task
-    GazePointKinematicMetaTaskPtr gaze_task(new GazePointKinematicMetaTask(*stack.get(), "xtion_optical_frame", sourceData, nh));
-    gaze_task->setDamping(0.1);
-    stack->pushTask("gaze", gaze_task);
+    //    //Gaze task
+    //    GazePointKinematicMetaTaskPtr gaze_task(new GazePointKinematicMetaTask(*stack.get(), "xtion_optical_frame", sourceData, nh));
+    //    gaze_task->setDamping(0.1);
+    //    stack->pushTask("gaze", gaze_task);
+
+    ReferenceKinematicTaskAllJointsMetaTaskPtr default_reference(
+          new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
+                                                      default_reference_joints,
+                                                      default_reference_posture,
+                                                      nh, 2.));
+    stack->pushTask("rest_joint_configuration", default_reference);
+
     return true;
+
   }
 };
 

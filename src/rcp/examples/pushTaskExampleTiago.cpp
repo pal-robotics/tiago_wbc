@@ -25,11 +25,14 @@ int main(int argc, char** argv){
   ros::init(argc, argv, "wbc_reemc_hardware_test");
   ros::NodeHandle nh("~");
 
-  ros::ServiceClient stackDescriptionServ = nh.serviceClient<pal_wbc_msgs::GetStackDescription>("/whole_body_kinematic_controler/get_stack_description");
-  ros::ServiceClient popTaskServ = nh.serviceClient<pal_wbc_msgs::PopTask>("/whole_body_kinematic_controler/pop_task");
-  ros::ServiceClient pushTaskServ = nh.serviceClient<pal_wbc_msgs::PushTask>("/whole_body_kinematic_controler/push_task");
-  ros::ServiceClient pushPopTaskServ = nh.serviceClient<pal_wbc_msgs::PushPopTask>("/whole_body_kinematic_controler/push_pop_task");
-  ros::ServiceClient getTaskErrorServ = nh.serviceClient<pal_wbc_msgs::GetTaskError>("/whole_body_kinematic_controler/get_task_error");
+  ros::ServiceClient stackDescriptionServ = nh.serviceClient<pal_wbc_msgs::GetStackDescription>("/whole_body_kinematic_controller/get_stack_description");
+  ros::ServiceClient popTaskServ = nh.serviceClient<pal_wbc_msgs::PopTask>("/whole_body_kinematic_controller/pop_task");
+  ros::ServiceClient pushTaskServ = nh.serviceClient<pal_wbc_msgs::PushTask>("/whole_body_kinematic_controller/push_task");
+  ros::ServiceClient pushPopTaskServ = nh.serviceClient<pal_wbc_msgs::PushPopTask>("/whole_body_kinematic_controller/push_pop_task");
+  ros::ServiceClient getTaskErrorServ = nh.serviceClient<pal_wbc_msgs::GetTaskError>("/whole_body_kinematic_controller/get_task_error");
+
+  std::string signal_type = "pointer_reflexx_typeII";
+  //  std::string signal_type = "pointer";
 
   {
     //Get current stack description
@@ -55,6 +58,7 @@ int main(int argc, char** argv){
     taskProperties.addProperty("target_position", positionGoal);
     taskProperties.addProperty("tip_name", std::string("arm_tool_link"));
     taskProperties.addProperty("damping", 0.2);
+    taskProperties.addProperty("signal_reference", signal_type);
 
     pal_wbc_msgs::PushTask srv;
     srv.request.push_task_params.params = generateTaskDescription(taskProperties);
@@ -132,6 +136,7 @@ int main(int argc, char** argv){
     taskProperties.addProperty("target_position", positionGoal);
     taskProperties.addProperty("tip_name", std::string("arm_tool_link"));
     taskProperties.addProperty("damping", 0.2);
+    taskProperties.addProperty("signal_reference", signal_type);
 
     pal_wbc_msgs::PushPopTask srv;
     pal_wbc_msgs::PushTaskParams push_params;
@@ -210,6 +215,7 @@ int main(int argc, char** argv){
     taskProperties.addProperty("target_position", positionGoal);
     taskProperties.addProperty("tip_name", std::string("arm_tool_link"));
     taskProperties.addProperty("damping", 0.2);
+    taskProperties.addProperty("signal_reference", signal_type);
 
     pal_wbc_msgs::PushPopTask srv;
     pal_wbc_msgs::PushTaskParams push_params;
@@ -293,6 +299,7 @@ int main(int argc, char** argv){
     taskProperties.addProperty("target_orientation", target_orientation);
     taskProperties.addProperty("tip_name", std::string("arm_tool_link"));
     taskProperties.addProperty("damping", 0.2);
+    taskProperties.addProperty("signal_reference", signal_type);
 
     pal_wbc_msgs::PushTask srv;
     srv.request.push_task_params.params = generateTaskDescription(taskProperties);;
@@ -356,6 +363,7 @@ int main(int argc, char** argv){
     taskProperties.addProperty("target_position", positionGoal);
     taskProperties.addProperty("camera_frame", std::string("xtion_optical_frame"));
     taskProperties.addProperty("damping", 0.2);
+    taskProperties.addProperty("signal_reference", signal_type);
 
     pal_wbc_msgs::PushTask srv;
     srv.request.push_task_params.params = generateTaskDescription(taskProperties);
@@ -439,6 +447,7 @@ int main(int argc, char** argv){
     }
   }
 
+  /*
   //Pushing a go to position topic reference type
   //Pop the go to position task right arm
   {
@@ -466,6 +475,7 @@ int main(int argc, char** argv){
       return 1;
     }
   }
+  */
 
   return 0;
 
