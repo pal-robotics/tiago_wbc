@@ -3,15 +3,24 @@
   <arg name="source_data" default="interactive_marker"/>  <!-- interactive_marker or topic -->
   <arg name="stack" default="tiago_wbc"/>
     
-  <param name="whole_body_kinematic_controler/source_data" value="$(arg source_data)" />
+  <param name="whole_body_kinematic_controller/source_data" value="$(arg source_data)" />
   
   <!-- Upload capsule collision operations  & description-->
   <include file="$(find tiago_wbc)/launch/tiago_capsule_description.launch" />
+
+  <!-- Configure local joint control -->
+  <rosparam command="load"
+    file="$(find tiago_wbc)/config/tiago_position_joints.yaml" 
+    ns="whole_body_kinematic_controller"/>
 
   <!-- Configure wbc -->
   <rosparam command="load"
     file="$(find tiago_wbc)/config/$(arg stack).yaml" />
   
+  <!-- Configure wbc -->
+  <rosparam command="load"
+    file="$(find tiago_wbc)/config/$(arg stack).yaml" />
+
   <!-- Spawn controller -->
   <node name="wbc_controllers_spawner"
         pkg="controller_manager" type="spawner" output="screen"

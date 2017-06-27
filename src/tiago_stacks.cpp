@@ -81,11 +81,11 @@ class tiago_stack: public StackConfigurationKinematic{
     nh.param<std::string>("source_data", sourceData, "interactive_marker");
 
     // 4. Position Target Reference for right and left arm
-    GoToPositionMetaTaskPtr go_to_position_arm(new GoToPositionMetaTask(*stack.get(), "arm_7_link", "interactive_marker_reflexx_typeII", nh));
+    GoToPositionMetaTaskPtr go_to_position_arm(new GoToPositionMetaTask(*stack.get(), "hand_palm_link", "end_effector_interactive_marker", nh));
     go_to_position_arm->setDamping(0.1);
     stack->pushTask("go_to_position", go_to_position_arm);
 
-    GoToOrientationMetaTaskPtr go_to_orientation_arm(new GoToOrientationMetaTask(*stack.get(), "arm_7_link", "interactive_marker_reflexx_typeII", nh));
+    GoToOrientationMetaTaskPtr go_to_orientation_arm(new GoToOrientationMetaTask(*stack.get(), "hand_palm_link", "end_effector_interactive_marker", nh));
     go_to_orientation_arm->setDamping(0.1);
     stack->pushTask("go_to_orientation", go_to_orientation_arm);
 
@@ -98,6 +98,13 @@ class tiago_stack: public StackConfigurationKinematic{
     GazePointKinematicMetaTaskPtr gaze_task(new GazePointKinematicMetaTask(*stack.get(), "xtion_optical_frame", sourceData, nh));
     gaze_task->setDamping(0.1);
     stack->pushTask("gaze", gaze_task);
+
+    ReferenceKinematicTaskAllJointsMetaTaskPtr default_reference(
+          new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
+                                                      default_reference_joints,
+                                                      default_reference_posture,
+                                                      nh, 2.));
+    stack->pushTask("rest_joint_configuration", default_reference);
 
     return true;
   }
@@ -348,19 +355,21 @@ class tiago_dynamic_ref_torso_head_stack: public StackConfigurationKinematic{
 
     stack->pushTask("selft_collision", self_collision);
 
-    std::vector<std::string> dynamic_torso;
-    dynamic_torso.push_back("torso_lift_joint");
+    std::vector<std::string> dynamic_torso_joint_names;
+    dynamic_torso_joint_names.push_back("torso_lift_joint");
 
-    Eigen::VectorXd default_pos_torso(dynamic_torso.size());
+    Eigen::VectorXd default_pos_torso(dynamic_torso_joint_names.size());
     default_pos_torso[0] = 0.3;
 
 //    Eigen::VectorXd default_vel_torso(dynamic_torso.size());
 //    default_vel_torso[0] = 0;
 
-    pal_robot_tools::VectorTopicReferencePtr torso_topic_dyn(new pal_robot_tools::VectorTopicReference(nh, "/lift_controller", dynamic_torso.size()));
+    pal_robot_tools::VectorTopicReferencePtr torso_topic_dyn(
+          new pal_robot_tools::VectorTopicReference(nh, "/lift_controller",
+                                                    dynamic_torso_joint_names, default_pos_torso));
 
     ReferenceKinematicTaskAllJointsMetaTaskPtr torso_control(
-          new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(), dynamic_torso, default_pos_torso, torso_topic_dyn, 1.5, nh));
+          new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(), torso_topic_dyn, 1.5, nh));
 
 //    ReferenceKinematicTaskAllJointsMetaTaskDynPtr torso_control(
 //          new ReferenceKinematicTaskAllJointsMetaTaskDyn(*stack.get(), torso_topic_dyn, dynamic_torso,
@@ -368,23 +377,19 @@ class tiago_dynamic_ref_torso_head_stack: public StackConfigurationKinematic{
 
     stack->pushTask("torso_control", torso_control);
 
-    std::vector<std::string> dynamic_head;
-    dynamic_head.push_back("head_1_joint");
-    dynamic_head.push_back("head_2_joint");
+    std::vector<std::string> dynamic_head_joint_names;
+    dynamic_head_joint_names.push_back("head_1_joint");
+    dynamic_head_joint_names.push_back("head_2_joint");
 
-    Eigen::VectorXd default_pos_head(dynamic_head.size());
+    Eigen::VectorXd default_pos_head(dynamic_head_joint_names.size());
     default_pos_head[0] = 0;
     default_pos_head[1] = 0;
 
-//    Eigen::VectorXd default_vel_head(dynamic_head.size());
-//    default_vel_head[0] = 0;
-//    default_vel_head[1] = 0;
-
     pal_robot_tools::VectorTopicReferencePtr head_topic_dyn(
-                new pal_robot_tools::VectorTopicReference(nh, "/head_controller", dynamic_head.size()));
+                new pal_robot_tools::VectorTopicReference(nh, "/head_controller", dynamic_head_joint_names, default_pos_head));
 
     ReferenceKinematicTaskAllJointsMetaTaskPtr head_control(
-          new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(), dynamic_head, default_pos_head, head_topic_dyn, 1.5, nh));
+          new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(), head_topic_dyn, 1.5, nh));
 
 //    ReferenceKinematicTaskAllJointsMetaTaskDynPtr head_control(
 //          new ReferenceKinematicTaskAllJointsMetaTaskDyn(*stack.get(), head_topic_dyn, dynamic_head,
@@ -422,10 +427,11 @@ class tiago_dynamic_ref_torso_head_stack: public StackConfigurationKinematic{
     default_ref_pos[5] = -0.69;
     default_ref_pos[6] = 0.2;
 
-    pal_robot_tools::VectorTopicReferencePtr abs_vec_ref(new pal_robot_tools::VectorTopicReference(nh, "/dynamic_ref", default_ref_joints.size()));
+    pal_robot_tools::VectorTopicReferencePtr abs_vec_ref(
+          new pal_robot_tools::VectorTopicReference(nh, "/dynamic_ref", default_ref_joints, default_ref_pos));
 
     ReferenceKinematicTaskAllJointsMetaTaskPtr dyn_pos(
-          new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(), default_ref_joints, default_ref_pos, abs_vec_ref, 1.5, nh));
+          new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(), abs_vec_ref, 1.5, nh));
 
     stack->pushTask("joint_rest_reference", dyn_pos);
 
