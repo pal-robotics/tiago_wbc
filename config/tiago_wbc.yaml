@@ -8,7 +8,6 @@ whole_body_kinematic_controller:
   formulation: velocity
   stack_configuration: tiago_stack
   solver_type: QpReductionuEqualitiesQuadprogHeapAllocation
-  real_hardware: False
   
   robot_model_chains:
     [hand_palm_link,
