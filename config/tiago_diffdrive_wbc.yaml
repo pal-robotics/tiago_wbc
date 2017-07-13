@@ -3,7 +3,7 @@ whole_body_kinematic_controller:
   
   useFT: False
   useIMU: False
-  dt: 0.001
+  dt: 0.01
   floating_base: XY_Yaw
   formulation: velocity
   stack_configuration: tiago_diffdrive_stack

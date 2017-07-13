@@ -369,7 +369,7 @@ class tiago_dynamic_ref_torso_head_stack: public StackConfigurationKinematic{
                                                     dynamic_torso_joint_names, default_pos_torso));
 
     ReferenceKinematicTaskAllJointsMetaTaskPtr torso_control(
-          new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(), torso_topic_dyn, 1.5, nh));
+          new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(), dynamic_torso_joint_names, torso_topic_dyn, 1.5, nh));
 
 //    ReferenceKinematicTaskAllJointsMetaTaskDynPtr torso_control(
 //          new ReferenceKinematicTaskAllJointsMetaTaskDyn(*stack.get(), torso_topic_dyn, dynamic_torso,
@@ -389,7 +389,7 @@ class tiago_dynamic_ref_torso_head_stack: public StackConfigurationKinematic{
                 new pal_robot_tools::VectorTopicReference(nh, "/head_controller", dynamic_head_joint_names, default_pos_head));
 
     ReferenceKinematicTaskAllJointsMetaTaskPtr head_control(
-          new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(), head_topic_dyn, 1.5, nh));
+          new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(), dynamic_head_joint_names, head_topic_dyn, 1.5, nh));
 
 //    ReferenceKinematicTaskAllJointsMetaTaskDynPtr head_control(
 //          new ReferenceKinematicTaskAllJointsMetaTaskDyn(*stack.get(), head_topic_dyn, dynamic_head,
@@ -431,7 +431,7 @@ class tiago_dynamic_ref_torso_head_stack: public StackConfigurationKinematic{
           new pal_robot_tools::VectorTopicReference(nh, "/dynamic_ref", default_ref_joints, default_ref_pos));
 
     ReferenceKinematicTaskAllJointsMetaTaskPtr dyn_pos(
-          new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(), abs_vec_ref, 1.5, nh));
+          new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(), default_ref_joints, abs_vec_ref, 1.5, nh));
 
     stack->pushTask("joint_rest_reference", dyn_pos);
 
