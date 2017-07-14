@@ -75,7 +75,7 @@ class tiago_stack: public StackConfigurationKinematic{
     self_collision->setUpTask(sc_params, *stack.get(), nh);
     self_collision->setDamping(0.1);
 
-    stack->pushTask("sellf_collision", self_collision);
+    stack->pushTask("self_collision", self_collision);
 
     std::string sourceData; //either "topic" or "interactive_marker"
     nh.param<std::string>("source_data", sourceData, "interactive_marker");
@@ -353,7 +353,7 @@ class tiago_dynamic_ref_torso_head_stack: public StackConfigurationKinematic{
     self_collision->setUpTask(self_col_params, *stack.get(), nh);
     self_collision->setDamping(0.1);
 
-    stack->pushTask("selft_collision", self_collision);
+    stack->pushTask("self_collision", self_collision);
 
     std::vector<std::string> dynamic_torso_joint_names;
     dynamic_torso_joint_names.push_back("torso_lift_joint");
