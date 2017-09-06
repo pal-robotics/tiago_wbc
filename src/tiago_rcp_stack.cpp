@@ -75,7 +75,7 @@ class tiago_rcp_stack: public StackConfigurationKinematic{
           new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
                                                       default_reference_joints,
                                                       default_reference_posture,
-                                                      nh, 2.));
+                                                      nh, 0.5));
     stack->pushTask("rest_joint_configuration", default_reference);
 
 

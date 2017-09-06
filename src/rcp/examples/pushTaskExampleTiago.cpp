@@ -31,8 +31,9 @@ int main(int argc, char** argv){
   ros::ServiceClient pushPopTaskServ = nh.serviceClient<pal_wbc_msgs::PushPopTask>("/whole_body_kinematic_controller/push_pop_task");
   ros::ServiceClient getTaskErrorServ = nh.serviceClient<pal_wbc_msgs::GetTaskError>("/whole_body_kinematic_controller/get_task_error");
 
-  std::string signal_type = "pointer_reflexx_typeII";
-  //  std::string signal_type = "pointer";
+  //  std::string signal_type = "pointer_reflexx_typeII";
+  std::string signal_type = "pointer";
+  bool blend = true;
 
   {
     //Get current stack description
@@ -64,6 +65,7 @@ int main(int argc, char** argv){
     srv.request.push_task_params.params = generateTaskDescription(taskProperties);
     srv.request.push_task_params.respect_task_id = "self_collision";
     srv.request.push_task_params.order.order = pal_wbc_msgs::Order::After;
+    srv.request.push_task_params.blend = blend;
     if (pushTaskServ.call(srv)){
       ROS_INFO_STREAM("Succesfully pushed task:");
       ROS_INFO_STREAM(srv.response);
@@ -143,6 +145,7 @@ int main(int argc, char** argv){
     push_params.params = generateTaskDescription(taskProperties);
     push_params.respect_task_id = "go_to_position";
     push_params.order.order = pal_wbc_msgs::Order::Replace;
+    push_params.blend = blend;
     srv.request.push_tasks.push_back(push_params);
     if (pushPopTaskServ.call(srv)){
       ROS_INFO_STREAM("Succesfully pushed task:");
@@ -222,6 +225,7 @@ int main(int argc, char** argv){
     push_params.params = generateTaskDescription(taskProperties);
     push_params.respect_task_id = "go_to_position";
     push_params.order.order = pal_wbc_msgs::Order::Replace;
+    push_params.blend = blend;
     srv.request.push_tasks.push_back(push_params);
     if (pushPopTaskServ.call(srv)){
       ROS_INFO_STREAM("Succesfully pushed task:");
@@ -305,6 +309,8 @@ int main(int argc, char** argv){
     srv.request.push_task_params.params = generateTaskDescription(taskProperties);;
     srv.request.push_task_params.respect_task_id = "go_to_position";
     srv.request.push_task_params.order.order = pal_wbc_msgs::Order::After;
+    srv.request.push_task_params.blend = blend;
+
     if (pushTaskServ.call(srv)){
       ROS_INFO_STREAM("Succesfully pushed task:");
       ROS_INFO_STREAM(srv.response);
@@ -369,6 +375,8 @@ int main(int argc, char** argv){
     srv.request.push_task_params.params = generateTaskDescription(taskProperties);
     srv.request.push_task_params.respect_task_id = "go_to_orientation";
     srv.request.push_task_params.order.order = pal_wbc_msgs::Order::After;
+    srv.request.push_task_params.blend = blend;
+
     if (pushTaskServ.call(srv)){
       ROS_INFO_STREAM("Succesfully pushed task:");
       ROS_INFO_STREAM(srv.response);
@@ -408,6 +416,7 @@ int main(int argc, char** argv){
     ROS_INFO_STREAM("Poping orientation Task");
     pal_wbc_msgs::PopTask srv;
     srv.request.name = "gaze";
+    srv.request.blend = blend;
     if (popTaskServ.call(srv)){
       ROS_INFO_STREAM(srv.response);
     }
@@ -416,12 +425,17 @@ int main(int argc, char** argv){
       return 1;
     }
   }
+
+  /// @bug
+  ros::Duration(5.).sleep();
 
   //Pop the goto orientation task right arm
   {
     ROS_INFO_STREAM("Poping orientation Task");
     pal_wbc_msgs::PopTask srv;
     srv.request.name = "go_to_orientation";
+    srv.request.blend = blend;
+
     if (popTaskServ.call(srv)){
       ROS_INFO_STREAM(srv.response);
     }
@@ -431,6 +445,7 @@ int main(int argc, char** argv){
     }
   }
 
+  /// @bug
   ros::Duration(5.0).sleep();
 
   //Pop the go to position task right arm
@@ -438,6 +453,8 @@ int main(int argc, char** argv){
     ROS_INFO_STREAM("Poping position Task");
     pal_wbc_msgs::PopTask srv;
     srv.request.name = "go_to_position";
+    srv.request.blend = blend;
+
     if (popTaskServ.call(srv)){
       ROS_INFO_STREAM(srv.response);
     }

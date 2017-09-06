@@ -20,8 +20,8 @@ include_directories(
 )
 
 add_library(tiago_wbc src/tiago_stacks.cpp
-                      src/tiago_rcp_stack.cpp)
-                     # src/tiago_environment_collision_stack.cpp)
+                      src/tiago_rcp_stack.cpp
+                      src/tiago_environment_collision_stack.cpp)
 target_link_libraries(tiago_wbc ${catkin_LIBRARIES})
 
 add_subdirectory(src/rcp)

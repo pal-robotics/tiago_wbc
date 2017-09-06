@@ -8,7 +8,10 @@ Panels:
         - /Status1
         - /Grid1
         - /RobotModel1/Links1
+        - /RobotModel1/Links1/xtion_optical_frame1
+        - /RobotModel1/Links1/xtion_rgb_optical_frame1
         - /InteractiveMarkers1
+        - /MarkerArray1
       Splitter Ratio: 0.5
     Tree Height: 698
   - Class: rviz/Selection
@@ -441,7 +444,7 @@ Visualization Manager:
           Show Trail: false
         xtion_optical_frame:
           Alpha: 1
-          Show Axes: false
+          Show Axes: true
           Show Trail: false
         xtion_rgb_frame:
           Alpha: 1
@@ -468,17 +471,25 @@ Visualization Manager:
       Value: true
     - Class: rviz/InteractiveMarkers
       Enable Transparency: true
-      Enabled: true
+      Enabled: false
       Name: InteractiveMarkers
       Show Axes: false
       Show Descriptions: true
       Show Visual Aids: false
       Update Topic: /marker_gaze_objective_xtion_optical_frame/update
+      Value: false
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /whole_body_kinematic_controller/gaze_markers
+      Name: MarkerArray
+      Namespaces:
+        {}
+      Queue Size: 100
       Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: base_footprint
+    Fixed Frame: odom
     Frame Rate: 30
   Name: root
   Tools:
@@ -499,22 +510,22 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 3.33889
+      Distance: 3.47796
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -1.07636
-        Y: 1.76877
-        Z: -5.96046e-08
+        X: 0.532637
+        Y: -0.202435
+        Z: -1.60933e-06
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.480398
+      Pitch: 0.605397
       Target Frame: world
       Value: XYOrbit (rviz)
-      Yaw: 2.6454
+      Yaw: 0.0454046
     Saved: ~
 Window Geometry:
   Displays:

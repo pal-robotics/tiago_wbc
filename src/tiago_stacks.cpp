@@ -18,6 +18,7 @@
 #include <wbc_tasks/kinematic/differntial_drive_wheel_velocity_limit_kinematic_task.h>
 #include <pal_robot_tools/permutation.h>
 #include <pal_robot_tools/reference/vector_topic_reference.h>
+#include <wbc_tasks/kinematic/go_to_point_ray_angle_constraint.h>
 
 using namespace pal_wbc;
 
@@ -41,18 +42,18 @@ class tiago_stack: public StackConfigurationKinematic{
 
     Eigen::VectorXd default_reference_posture(default_reference_joints.size());
     default_reference_posture.setZero();
-    default_reference_posture(0) = 1.7;
-    default_reference_posture(1) = -0.5;
-    default_reference_posture(2) = -3.4;
-    default_reference_posture(3) = 0.5;
-    default_reference_posture(4) = 0.0;
-    default_reference_posture(5) = 0.0;
-    default_reference_posture(6) = 0.0;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_1_joint"))) = 1.7;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_2_joint"))) = -0.5;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_3_joint"))) = -3.4;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_4_joint"))) = 0.5;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_5_joint"))) = 0.0;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_6_joint"))) = 0.0;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("arm_7_joint"))) = 0.0;
 
-    default_reference_posture(7) = 0.0;
-    default_reference_posture(8) = 0.0;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("head_1_joint"))) = 0.0;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("head_2_joint"))) = 0.0;
 
-    default_reference_posture(9) = 0.14;
+    default_reference_posture(indexVectorThrow(default_reference_joints, std::string("torso_lift_joint"))) = 0.14;
 
     // 1. Joint and velocity limits
     JointPositionLimitKinematicAllJointsMetaTaskPtr joint_position_limit_task(
@@ -80,7 +81,6 @@ class tiago_stack: public StackConfigurationKinematic{
     std::string sourceData; //either "topic" or "interactive_marker"
     nh.param<std::string>("source_data", sourceData, "interactive_marker");
 
-    // 4. Position Target Reference for right and left arm
     GoToPositionMetaTaskPtr go_to_position_arm(new GoToPositionMetaTask(*stack.get(), "hand_palm_link", "end_effector_interactive_marker", nh));
     go_to_position_arm->setDamping(0.1);
     stack->pushTask("go_to_position", go_to_position_arm);
@@ -89,13 +89,14 @@ class tiago_stack: public StackConfigurationKinematic{
     go_to_orientation_arm->setDamping(0.1);
     stack->pushTask("go_to_orientation", go_to_orientation_arm);
 
-    //      4. Position Target Reference for right and left arm
-    //    GoToPoseMetaTaskPtr go_to_pose_arm(new GoToPoseMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
-    //    go_to_pose_arm->setDamping(0.1);
-    //    stack->pushTask(TaskAbstractPtr(go_to_pose_arm));
 
     //    Gaze task
-    GazePointKinematicMetaTaskPtr gaze_task(new GazePointKinematicMetaTask(*stack.get(), "xtion_optical_frame", sourceData, nh));
+    //    GazePointKinematicMetaTaskPtr gaze_task(new GazePointKinematicMetaTask(*stack.get(), "xtion_optical_frame", sourceData, nh));
+    //    gaze_task->setDamping(0.1);
+    //    stack->pushTask("gaze", gaze_task);
+
+    GoToPointRayAngleGazeKinematicMetataskPtr gaze_task(
+          new GoToPointRayAngleGazeKinematicMetatask(*stack.get(), "xtion_optical_frame", sourceData, nh));
     gaze_task->setDamping(0.1);
     stack->pushTask("gaze", gaze_task);
 
@@ -172,7 +173,7 @@ class tiago_diffdrive_stack: public StackConfigurationKinematic{
           new DifferentialDriveWheelVelocityLimitKinematicMetaTask(*stack.get(), nh, baseLenght, wheelRadius, maxWheelSpeed));
     diff_drive_vel_limit_task->setWeight(0.02);
     diff_drive_tasks.push_back({"wheel_vel_limit", diff_drive_vel_limit_task});
-    GenericMetaTaskPtr diff_drive_metatask(new GenericMetaTask(diff_drive_tasks, stack->getStateSize()));
+    GenericMetaTaskPtr diff_drive_metatask(new GenericMetaTask(nh, stack.get(), diff_drive_tasks, stack->getStateSize()));
     stack->pushTask("diff_drive_contraints", diff_drive_metatask);
     diff_drive_metatask->setWeight(0.02);
 
@@ -192,7 +193,6 @@ class tiago_diffdrive_stack: public StackConfigurationKinematic{
     std::string sourceData; //either "topic" or "interactive_marker"
     nh.param<std::string>("source_data", sourceData, "interactive_marker");
 
-    // 4. Position Target Reference for right and left arm
     GoToPositionMetaTaskPtr go_to_position_arm(new GoToPositionMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
     go_to_position_arm->setDamping(0.1);
     stack->pushTask("go_to_position", go_to_position_arm);
@@ -201,22 +201,22 @@ class tiago_diffdrive_stack: public StackConfigurationKinematic{
     go_to_orientation_arm->setDamping(0.1);
     stack->pushTask("go_to_orientation", go_to_orientation_arm);
 
-    //      4. Position Target Reference for right and left arm
+    //
     //    GoToPoseMetaTaskPtr go_to_pose_arm(new GoToPoseMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
     //    go_to_pose_arm->setDamping(0.1);
     //    stack->pushTask(TaskAbstractPtr(go_to_pose_arm));
 
-
-    //    Gaze task
-    //    GazePointKinematicMetaTaskPtr gaze_task(new GazePointKinematicMetaTask(*stack.get(), "xtion_optical_frame", sourceData, nh));
-    //    gaze_task->setDamping(0.1);
-    //    stack->pushTask(gaze_task);
+    //  Gaze task
+    GoToPointRayAngleGazeKinematicMetataskPtr gaze_task(new GoToPointRayAngleGazeKinematicMetatask(*stack.get(), "xtion_optical_frame", sourceData, nh));
+    gaze_task->setDamping(0.1);
+    stack->pushTask("gaze", gaze_task);
 
     ReferenceKinematicTaskAllJointsMetaTaskPtr default_reference(
           new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
                                                       default_reference_joints,
                                                       default_reference_posture,
                                                       nh, 2.));
+    default_reference->setDamping(0.1);
     stack->pushTask("rest_joint_configuration", default_reference);
 
     return true;
@@ -361,8 +361,8 @@ class tiago_dynamic_ref_torso_head_stack: public StackConfigurationKinematic{
     Eigen::VectorXd default_pos_torso(dynamic_torso_joint_names.size());
     default_pos_torso[0] = 0.3;
 
-//    Eigen::VectorXd default_vel_torso(dynamic_torso.size());
-//    default_vel_torso[0] = 0;
+    //    Eigen::VectorXd default_vel_torso(dynamic_torso.size());
+    //    default_vel_torso[0] = 0;
 
     pal_robot_tools::VectorTopicReferencePtr torso_topic_dyn(
           new pal_robot_tools::VectorTopicReference(nh, "/lift_controller",
@@ -371,9 +371,9 @@ class tiago_dynamic_ref_torso_head_stack: public StackConfigurationKinematic{
     ReferenceKinematicTaskAllJointsMetaTaskPtr torso_control(
           new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(), dynamic_torso_joint_names, torso_topic_dyn, 1.5, nh));
 
-//    ReferenceKinematicTaskAllJointsMetaTaskDynPtr torso_control(
-//          new ReferenceKinematicTaskAllJointsMetaTaskDyn(*stack.get(), torso_topic_dyn, dynamic_torso,
-//                                                         default_pos_torso, default_vel_torso, nh));
+    //    ReferenceKinematicTaskAllJointsMetaTaskDynPtr torso_control(
+    //          new ReferenceKinematicTaskAllJointsMetaTaskDyn(*stack.get(), torso_topic_dyn, dynamic_torso,
+    //                                                         default_pos_torso, default_vel_torso, nh));
 
     stack->pushTask("torso_control", torso_control);
 
@@ -386,14 +386,14 @@ class tiago_dynamic_ref_torso_head_stack: public StackConfigurationKinematic{
     default_pos_head[1] = 0;
 
     pal_robot_tools::VectorTopicReferencePtr head_topic_dyn(
-                new pal_robot_tools::VectorTopicReference(nh, "/head_controller", dynamic_head_joint_names, default_pos_head));
+          new pal_robot_tools::VectorTopicReference(nh, "/head_controller", dynamic_head_joint_names, default_pos_head));
 
     ReferenceKinematicTaskAllJointsMetaTaskPtr head_control(
           new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(), dynamic_head_joint_names, head_topic_dyn, 1.5, nh));
 
-//    ReferenceKinematicTaskAllJointsMetaTaskDynPtr head_control(
-//          new ReferenceKinematicTaskAllJointsMetaTaskDyn(*stack.get(), head_topic_dyn, dynamic_head,
-//                                                         default_pos_head, default_vel_head, nh));
+    //    ReferenceKinematicTaskAllJointsMetaTaskDynPtr head_control(
+    //          new ReferenceKinematicTaskAllJointsMetaTaskDyn(*stack.get(), head_topic_dyn, dynamic_head,
+    //                                                         default_pos_head, default_vel_head, nh));
 
     stack->pushTask("head_control", head_control);
 
