@@ -8,7 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
   pal_wbc_controller
   roscpp
   wbc_tasks
-  tiago_description
+#  tiago_description
 )
 
 catkin_package(
