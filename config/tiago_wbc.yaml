@@ -10,7 +10,7 @@ whole_body_kinematic_controller:
   solver_type: QpReductionuEqualitiesQuadprogHeapAllocation
   
   robot_model_chains:
-    [hand_palm_link,
+    [wrist_ft_link,
      xtion_optical_frame]
 
   default_configuration:

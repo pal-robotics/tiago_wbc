@@ -20,6 +20,7 @@
 #include <pal_robot_tools/reference/vector_topic_reference.h>
 #include <wbc_tasks/kinematic/go_to_point_ray_angle_constraint.h>
 #include <wbc_tasks/kinematic/go_to_virtual_admitance_kinematic_task.h>
+#include <wbc_tasks/kinematic/go_to_local_virtual_admitance_kinematic_task.h>
 
 using namespace pal_wbc;
 
@@ -82,11 +83,11 @@ class tiago_stack: public StackConfigurationKinematic{
     std::string sourceData; //either "topic" or "interactive_marker"
     nh.param<std::string>("source_data", sourceData, "interactive_marker");
 
-    GoToPositionMetaTaskPtr go_to_position_arm(new GoToPositionMetaTask(*stack.get(), "hand_palm_link", "end_effector_interactive_marker", nh));
+    GoToPositionMetaTaskPtr go_to_position_arm(new GoToPositionMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
     go_to_position_arm->setDamping(0.1);
     stack->pushTask("go_to_position", go_to_position_arm);
 
-    GoToOrientationMetaTaskPtr go_to_orientation_arm(new GoToOrientationMetaTask(*stack.get(), "hand_palm_link", "end_effector_interactive_marker", nh));
+    GoToOrientationMetaTaskPtr go_to_orientation_arm(new GoToOrientationMetaTask(*stack.get(), "arm_7_link", sourceData, nh));
     go_to_orientation_arm->setDamping(0.1);
     stack->pushTask("go_to_orientation", go_to_orientation_arm);
 
@@ -370,20 +371,101 @@ class tiago_virtual_admitance_stack: public StackConfigurationKinematic{
     nh.param<std::string>("source_data", sourceData, "interactive_marker");
     // 4. Position Target Reference for right and left arm
     ROS_INFO_STREAM("Number of ft: "<<fts_.size());
-    GoToVirtualAdmitancePositionMetaTaskPtr go_to_position_arm(
-          new GoToVirtualAdmitancePositionMetaTask(*stack.get(), "wrist_ft_link",
-                                            fts_[0],
-          sourceData, nh));
-    go_to_position_arm->setDamping(0.1);
-    stack->pushTask("go_to_position", go_to_position_arm);
-//    GoToVirtualAdmitanceOrientationMetaTaskPtr go_to_orientation_arm(
-//          new GoToVirtualAdmitanceOrientationMetaTask(*stack.get(), "wrist_ft_link",
-//                                               fts_[0],
-//          sourceData, nh));
-    GoToOrientationMetaTaskPtr go_to_orientation_arm(
-          new GoToOrientationMetaTask(*stack.get(), "wrist_ft_link", sourceData, nh));
-    go_to_orientation_arm->setDamping(0.1);
-    stack->pushTask("go_to_orientation", go_to_orientation_arm);
+
+    task_container_vector pose_tasks;
+
+    {
+
+      task_container_vector position_tasks;
+
+      double linear_mass = 1.;
+      double linear_spring = 80.;
+      double force_filter_gain = 0.1;
+      double linear_damping = 60.;
+
+      /*
+      //          GoToVirtualAdmitancePositionMetaTaskPtr go_to_position_arm(
+      //                new GoToVirtualAdmitancePositionMetaTask(*stack.get(), "wrist_ft_link",
+      //                                                  fts_[0], sourceData, nh,
+      //                                                  linear_mass, linear_spring, force_filter_gain, false, linear_damping));
+
+      //      GoToPositionMetaTaskPtr go_to_position_arm(
+      //            new GoToPositionMetaTask(*stack.get(), "wrist_ft_link",
+      //                                     sourceData, nh));
+      {
+        GoToKinematicTaskPtr go_to_position_arm(new GoToKinematicTask());
+        GoToKinematicParameters kinematic_params;
+        kinematic_params.tip_name = "wrist_ft_link";
+        kinematic_params.signal_reference_type = sourceData;
+
+        kinematic_params.coordinates = {TaskAbstract::X, TaskAbstract::Y, TaskAbstract::Z};
+        for(unsigned int i=0; i<kinematic_params.coordinates.size(); ++i){
+          kinematic_params.lower_bound.push_back(0.0);
+          kinematic_params.upper_bound.push_back(0.0);
+          kinematic_params.bound_type.push_back(Bound::BOUND_TWIN);
+        }
+
+        go_to_position_arm->setUpTask(kinematic_params, *stack.get(), nh);
+        go_to_position_arm->setDamping(0.1);
+        position_tasks.push_back({"go_to_position", go_to_position_arm});
+      }
+      */
+
+      {
+
+        GoToLocalVirtualAdmitanceKinematicTaskPtr go_to_admitance_position_arm(
+              new GoToLocalVirtualAdmitanceKinematicTask());
+
+        GoToLocalVirtualAdmitanceKinematicParameters kinematic_params;
+
+        kinematic_params.mass_ = linear_mass;
+        kinematic_params.spring_ = linear_spring;
+        kinematic_params.filter_gain_ = force_filter_gain;
+        kinematic_params.critically_damped_ = false;
+        kinematic_params.damping = linear_damping;
+
+        kinematic_params.tip_name = "wrist_ft_link";
+        kinematic_params.ft = fts_[0];
+        kinematic_params.signal_reference_type = sourceData;
+
+        kinematic_params.coordinates = {TaskAbstract::X, TaskAbstract::Y, TaskAbstract::Z};
+        for(unsigned int i=0; i<kinematic_params.coordinates.size(); ++i){
+          kinematic_params.lower_bound.push_back(0.0);
+          kinematic_params.upper_bound.push_back(0.0);
+          kinematic_params.bound_type.push_back(Bound::BOUND_TWIN);
+        }
+
+        go_to_admitance_position_arm->setUpTask(kinematic_params, *stack.get(), nh);
+        go_to_admitance_position_arm->setDamping(0.1);
+        position_tasks.push_back({"go_to_admitance_position", go_to_admitance_position_arm});
+      }
+
+      GenericMetaTaskPtr generic_position_metatask(new GenericMetaTask(nh, stack.get(), position_tasks, stack->getStateSize()) );
+
+      pose_tasks.push_back({"go_to_position_metatask", generic_position_metatask});
+    }
+
+    {
+      double torsional_mass = 0.05;
+      double torsional_spring = 2.;
+      double torque_filter_gain = 0.1;
+      double torsional_damping = 2.;
+
+      GoToVirtualAdmitanceOrientationMetaTaskPtr go_to_orientation_arm(
+            new GoToVirtualAdmitanceOrientationMetaTask(*stack.get(), "wrist_ft_link",
+                                                        fts_[0], sourceData, nh,
+            torsional_mass, torsional_spring, torque_filter_gain, false, torsional_damping));
+
+
+      //      go_to_orientation_arm->setWeight(1e-2);
+      //          GoToOrientationMetaTaskPtr go_to_orientation_arm(
+      //                new GoToOrientationMetaTask(*stack.get(), "wrist_ft_link", sourceData, nh));
+      //          go_to_orientation_arm->setDamping(0.1);
+      pose_tasks.push_back({"go_to_orientation", go_to_orientation_arm});
+    }
+
+    GenericMetaTaskPtr generic_pose_metatask(new GenericMetaTask(nh, stack.get(), pose_tasks, stack->getStateSize()) );
+    stack->pushTask("pose_tasks", generic_pose_metatask);
 
     //    //Gaze task
     //    GazePointKinematicMetaTaskPtr gaze_task(new GazePointKinematicMetaTask(*stack.get(), "xtion_optical_frame", sourceData, nh));
