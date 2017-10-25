@@ -20,6 +20,8 @@ whole_body_kinematic_controller:
   max_wheel_velocity_limit:  0.2
   mobile_base_controller_topic: /mobile_base_controller/cmd_vel
 
+  use_home_posture: True
+
   robot_model_chains:
     [arm_tool_link,
      xtion_optical_frame]

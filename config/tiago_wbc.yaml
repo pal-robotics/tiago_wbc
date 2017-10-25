@@ -8,6 +8,8 @@ whole_body_kinematic_controller:
   formulation: velocity
   stack_configuration: tiago_stack
   solver_type: QpReductionuEqualitiesQuadprogHeapAllocation
+
+  use_home_posture: True
   
   robot_model_chains:
     [wrist_ft_link,
