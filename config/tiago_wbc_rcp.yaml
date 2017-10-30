@@ -10,6 +10,8 @@ whole_body_kinematic_controller:
   solver_type: QpReductionuEqualitiesQuadprogHeapAllocation
   real_hardware: False
 
+  use_home_posture: True
+
   robot_model_chains:
     [arm_tool_link,
      xtion_optical_frame,

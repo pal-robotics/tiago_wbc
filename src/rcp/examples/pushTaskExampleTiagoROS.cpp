@@ -11,6 +11,8 @@
 #include <property_bag/serialization/property_bag_boost_serialization.h>
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
+#include <geometry_msgs/Pose.h>
+#include <pal_robot_tools/conversions.h>
 
 std::string generateTaskDescription(const property_bag::PropertyBag properties){
 
@@ -31,8 +33,8 @@ int main(int argc, char** argv){
   ros::ServiceClient pushPopTaskServ = nh.serviceClient<pal_wbc_msgs::PushPopTask>("/whole_body_kinematic_controller/push_pop_task");
   ros::ServiceClient getTaskErrorServ = nh.serviceClient<pal_wbc_msgs::GetTaskError>("/whole_body_kinematic_controller/get_task_error");
 
-  //  std::string signal_type = "pointer_reflexx_typeII";
-  std::string signal_type = "pointer";
+    std::string signal_type = "pointer_reflexx_typeII";
+//  std::string signal_type = "pointer";
   bool blend = false;
 
   {
@@ -53,9 +55,12 @@ int main(int argc, char** argv){
     ROS_INFO_STREAM("Pushing new gotoPosition task");
     property_bag::PropertyBag taskProperties("taskType", std::string("pal_wbc/GoToPositionMetaTask"));
     Eigen::Vector3d positionGoal(0.54637, -0.13707, 0.95628);
+    geometry_msgs::PointStamped position_goal_msg;
+    pal::convert(positionGoal, position_goal_msg.point);
+    position_goal_msg.header.frame_id = "base_footprint";
 
     taskProperties.addProperty("task_id", std::string("go_to_position"));
-    taskProperties.addProperty("target_position", positionGoal);
+    taskProperties.addProperty("target_position", position_goal_msg);
     taskProperties.addProperty("tip_name", std::string("arm_tool_link"));
     taskProperties.addProperty("damping", 0.2);
     taskProperties.addProperty("signal_reference", signal_type);
