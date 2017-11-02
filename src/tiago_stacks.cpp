@@ -282,17 +282,18 @@ class tiago_admitance_stack: public StackConfigurationKinematic{
     std::string sourceData; //either "topic" or "interactive_marker"
     nh.param<std::string>("source_data", sourceData, "interactive_marker");
     // 4. Position Target Reference for right and left arm
-    ROS_INFO_STREAM("Number of ft: "<<fts_.size());
+
+    pal_base_ros_controller::FTSensorDefinitionPtr wrist_ft;
+    if(!getFT("wrist_ft_link", wrist_ft)){
+      return false;
+    }
+
     GoToAdmitancePositionMetaTaskPtr go_to_position_arm(
-          new GoToAdmitancePositionMetaTask(*stack.get(), "wrist_ft_link",
-                                            fts_[0],
-          sourceData, nh));
+          new GoToAdmitancePositionMetaTask(*stack.get(), "wrist_ft_link", wrist_ft, sourceData, nh));
     go_to_position_arm->setDamping(0.1);
     stack->pushTask("go_to_position", go_to_position_arm);
     GoToAdmitanceOrientationMetaTaskPtr go_to_orientation_arm(
-          new GoToAdmitanceOrientationMetaTask(*stack.get(), "wrist_ft_link",
-                                               fts_[0],
-          sourceData, nh));
+          new GoToAdmitanceOrientationMetaTask(*stack.get(), "wrist_ft_link", wrist_ft, sourceData, nh));
     go_to_orientation_arm->setDamping(0.1);
     stack->pushTask("go_to_orientation", go_to_orientation_arm);
 
@@ -370,12 +371,15 @@ class tiago_virtual_admitance_stack: public StackConfigurationKinematic{
     std::string sourceData; //either "topic" or "interactive_marker"
     nh.param<std::string>("source_data", sourceData, "interactive_marker");
     // 4. Position Target Reference for right and left arm
-    ROS_INFO_STREAM("Number of ft: "<<fts_.size());
+
+    pal_base_ros_controller::FTSensorDefinitionPtr wrist_ft;
+    if(!getFT("wrist_ft_link", wrist_ft)){
+      return false;
+    }
 
     task_container_vector pose_tasks;
 
     {
-
       task_container_vector position_tasks;
 
       double linear_mass = 1.;
@@ -425,7 +429,7 @@ class tiago_virtual_admitance_stack: public StackConfigurationKinematic{
         kinematic_params.damping = linear_damping;
 
         kinematic_params.tip_name = "wrist_ft_link";
-        kinematic_params.ft = fts_[0];
+        kinematic_params.ft = wrist_ft;
         kinematic_params.signal_reference_type = sourceData;
 
         kinematic_params.coordinates = {TaskAbstract::X, TaskAbstract::Y, TaskAbstract::Z};
@@ -453,7 +457,7 @@ class tiago_virtual_admitance_stack: public StackConfigurationKinematic{
 
       GoToVirtualAdmitanceOrientationMetaTaskPtr go_to_orientation_arm(
             new GoToVirtualAdmitanceOrientationMetaTask(*stack.get(), "wrist_ft_link",
-                                                        fts_[0], sourceData, nh,
+                                                        wrist_ft, sourceData, nh,
             torsional_mass, torsional_spring, torque_filter_gain, false, torsional_damping));
 
 
