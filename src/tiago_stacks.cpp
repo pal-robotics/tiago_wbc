@@ -17,7 +17,7 @@
 #include <wbc_tasks/kinematic/differntial_drive_kinematic_task.h>
 #include <wbc_tasks/kinematic/differntial_drive_wheel_velocity_limit_kinematic_task.h>
 #include <pal_robot_tools/permutation.h>
-#include <pal_robot_tools/reference/vector_topic_reference.h>
+#include <pal_robot_tools/reference/vector/vector_topic_reference.h>
 #include <wbc_tasks/kinematic/go_to_point_ray_angle_constraint.h>
 #include <wbc_tasks/kinematic/go_to_virtual_admitance_kinematic_task.h>
 #include <wbc_tasks/kinematic/go_to_local_virtual_admitance_kinematic_task.h>
