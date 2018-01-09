@@ -12,7 +12,7 @@
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
 #include <geometry_msgs/Pose.h>
-#include <pal_robot_tools/conversions.h>
+#include <pal_ros_utils/conversions.h>
 
 std::string generateTaskDescription(const property_bag::PropertyBag properties)
 {
