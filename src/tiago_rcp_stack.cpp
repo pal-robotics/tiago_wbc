@@ -14,7 +14,7 @@
 #include <wbc_tasks/gaze_kinematic_task.h>
 #include <pal_wbc_controller/generic_meta_task.h>
 #include <pluginlib/class_list_macros.h>
-#include <pal_robot_tools/permutation.h>
+#include <pal_utils/permutation.h>
 
 using namespace pal_wbc;
 

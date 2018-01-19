@@ -16,7 +16,7 @@
 #include <pluginlib/class_list_macros.h>
 //#include <pal_collision_tools/fcl/FCLCollisionEnvironment.h>
 //#include <pal_collision_tools/fcl/FCLsyntheticCollisionObjects.h>
-#include <pal_robot_tools/permutation.h>
+#include <pal_utils/permutation.h>
 #include <wbc_tasks/kinematic/go_to_point_ray_angle_constraint.h>
 
 using namespace pal_wbc;
