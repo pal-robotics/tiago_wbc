@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <launch>
 
   <arg name="debug" default="false"/>
@@ -8,7 +9,7 @@
 
   <include file="$(find tiago_description)/robots/upload_tiago.launch" />
 
-  <include file="$(find pal_physics_simulator)/launch/kinematic_simulator_ros_control.launch">
+  <include file="$(find pal_kinematic_simulator)/launch/kinematic_simulator_ros_control.launch">
     <arg name="debug" value="$(arg debug)"/>
     <arg name="parameters" value="--cycle_time 0.005"/> 
   </include>

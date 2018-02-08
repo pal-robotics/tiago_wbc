@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <launch>
 
   <arg name="source_data" default="interactive_marker"/>  <!-- interactive_marker or topic -->

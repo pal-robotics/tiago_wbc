@@ -1,5 +1,4 @@
-<?xml version="1.0"?>
-<package>
+<package format="2">
   <name>tiago_wbc</name>
   <version>1.0.20</version>
   <description>The tiago_wbc package</description>
@@ -10,19 +9,14 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
-  <build_depend>pal_wbc_controller</build_depend>
-  <build_depend>roscpp</build_depend>
-  <build_depend>wbc_tasks</build_depend>
-  <build_depend>pluginlib</build_depend>
-  <build_depend>cmake_modules</build_depend>
-  <!--<build_depend>tiago_description</build_depend> -->
-  
-  <run_depend>cmake_modules</run_depend>
-  <run_depend>pal_wbc_controller</run_depend>
-  <run_depend>roscpp</run_depend>
-  <run_depend>wbc_tasks</run_depend>
-  <run_depend>pluginlib</run_depend>
-  <!-- <run_depend>tiago_description</run_depend> -->
+  <depend>pal_wbc_controller</depend>
+  <depend>roscpp</depend>
+  <depend>wbc_tasks</depend>
+  <depend>pluginlib</depend>
+  <depend>cmake_modules</depend>
+
+  <exec_depend>pal_kinematic_simulator</exec_depend>
+  <exec_depend>tiago_description</exec_depend>
 
   <export>
     <pal_wbc_controller plugin="${prefix}/tiago_wbc_plugins.xml" />
