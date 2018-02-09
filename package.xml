@@ -17,6 +17,7 @@
 
   <exec_depend>pal_kinematic_simulator</exec_depend>
   <exec_depend>tiago_description</exec_depend>
+  <exec_depend>contoller_manager_msgs</exec_depend>
 
   <export>
     <pal_wbc_controller plugin="${prefix}/tiago_wbc_plugins.xml" />
