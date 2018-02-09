@@ -25,49 +25,49 @@
 using namespace pal_wbc;
 
 bool get_default_reference_from_param_server(const std::vector<std::string> &default_reference_joints,
-											 Eigen::VectorXd &default_reference_posture)
+                                             Eigen::VectorXd &default_reference_posture)
 {
-	ros::NodeHandle nh;
+    ros::NodeHandle nh;
 
-	if(nh.hasParam("/whole_body_kinematic_controller/reference"))
-	{
-		ROS_INFO("Getting reference from param server");
-		double pos = 0.0;
-		nh.getParam("/whole_body_kinematic_controller/reference/arm_1_joint", pos);
-		default_reference_posture(
-	        indexVectorThrow(default_reference_joints, std::string("arm_1_joint"))) = pos;
-	    nh.getParam("/whole_body_kinematic_controller/reference/arm_2_joint", pos);
-	    default_reference_posture(
-	        indexVectorThrow(default_reference_joints, std::string("arm_2_joint"))) = pos;
-	    nh.getParam("/whole_body_kinematic_controller/reference/arm_3_joint", pos);
-	    default_reference_posture(
-	        indexVectorThrow(default_reference_joints, std::string("arm_3_joint"))) = pos;
-	    nh.getParam("/whole_body_kinematic_controller/reference/arm_4_joint", pos);
-	    default_reference_posture(
-	        indexVectorThrow(default_reference_joints, std::string("arm_4_joint"))) = pos;
-	    nh.getParam("/whole_body_kinematic_controller/reference/arm_5_joint", pos);
-	    default_reference_posture(
-	        indexVectorThrow(default_reference_joints, std::string("arm_5_joint"))) = pos;
-	    nh.getParam("/whole_body_kinematic_controller/reference/arm_6_joint", pos);
-	    default_reference_posture(
-	        indexVectorThrow(default_reference_joints, std::string("arm_6_joint"))) = pos;
-	    nh.getParam("/whole_body_kinematic_controller/reference/arm_7_joint", pos);
-	    default_reference_posture(
-	        indexVectorThrow(default_reference_joints, std::string("arm_7_joint"))) = pos;
+    if(nh.hasParam("/whole_body_kinematic_controller/reference"))
+    {
+        ROS_INFO("Getting reference from param server");
+        double pos = 0.0;
+        nh.getParam("/whole_body_kinematic_controller/reference/arm_1_joint", pos);
+        default_reference_posture(
+            indexVectorThrow(default_reference_joints, std::string("arm_1_joint"))) = pos;
+        nh.getParam("/whole_body_kinematic_controller/reference/arm_2_joint", pos);
+        default_reference_posture(
+            indexVectorThrow(default_reference_joints, std::string("arm_2_joint"))) = pos;
+        nh.getParam("/whole_body_kinematic_controller/reference/arm_3_joint", pos);
+        default_reference_posture(
+            indexVectorThrow(default_reference_joints, std::string("arm_3_joint"))) = pos;
+        nh.getParam("/whole_body_kinematic_controller/reference/arm_4_joint", pos);
+        default_reference_posture(
+            indexVectorThrow(default_reference_joints, std::string("arm_4_joint"))) = pos;
+        nh.getParam("/whole_body_kinematic_controller/reference/arm_5_joint", pos);
+        default_reference_posture(
+            indexVectorThrow(default_reference_joints, std::string("arm_5_joint"))) = pos;
+        nh.getParam("/whole_body_kinematic_controller/reference/arm_6_joint", pos);
+        default_reference_posture(
+            indexVectorThrow(default_reference_joints, std::string("arm_6_joint"))) = pos;
+        nh.getParam("/whole_body_kinematic_controller/reference/arm_7_joint", pos);
+        default_reference_posture(
+            indexVectorThrow(default_reference_joints, std::string("arm_7_joint"))) = pos;
 
-	    nh.getParam("/whole_body_kinematic_controller/reference/head_1_joint", pos);
-	    default_reference_posture(
-	        indexVectorThrow(default_reference_joints, std::string("head_1_joint"))) = pos;
-	    nh.getParam("/whole_body_kinematic_controller/reference/head_2_joint", pos);
-	    default_reference_posture(
-	        indexVectorThrow(default_reference_joints, std::string("head_2_joint"))) = pos;
+        nh.getParam("/whole_body_kinematic_controller/reference/head_1_joint", pos);
+        default_reference_posture(
+            indexVectorThrow(default_reference_joints, std::string("head_1_joint"))) = pos;
+        nh.getParam("/whole_body_kinematic_controller/reference/head_2_joint", pos);
+        default_reference_posture(
+            indexVectorThrow(default_reference_joints, std::string("head_2_joint"))) = pos;
 
-	    nh.getParam("/whole_body_kinematic_controller/reference/torso_lift_joint", pos);
-	    default_reference_posture(indexVectorThrow(default_reference_joints,
-	                                               std::string("torso_lift_joint"))) = pos;
-	    return true;
-	}
-	return false;
+        nh.getParam("/whole_body_kinematic_controller/reference/torso_lift_joint", pos);
+        default_reference_posture(indexVectorThrow(default_reference_joints,
+                                                   std::string("torso_lift_joint"))) = pos;
+        return true;
+    }
+    return false;
 }
 
 // Default stack for fixed base
@@ -119,29 +119,29 @@ class tiago_fixed_base_stack : public StackConfigurationKinematic
 
     if(!get_default_reference_from_param_server(default_reference_joints, default_reference_posture))
     {
-	    default_reference_posture(
-	        indexVectorThrow(default_reference_joints, std::string("arm_1_joint"))) = 1.7;
-	    default_reference_posture(
-	        indexVectorThrow(default_reference_joints, std::string("arm_2_joint"))) = -0.5;
-	    default_reference_posture(
-	        indexVectorThrow(default_reference_joints, std::string("arm_3_joint"))) = -3.4;
-	    default_reference_posture(
-	        indexVectorThrow(default_reference_joints, std::string("arm_4_joint"))) = 0.5;
-	    default_reference_posture(
-	        indexVectorThrow(default_reference_joints, std::string("arm_5_joint"))) = 0.0;
-	    default_reference_posture(
-	        indexVectorThrow(default_reference_joints, std::string("arm_6_joint"))) = 0.0;
-	    default_reference_posture(
-	        indexVectorThrow(default_reference_joints, std::string("arm_7_joint"))) = 0.0;
+        default_reference_posture(
+            indexVectorThrow(default_reference_joints, std::string("arm_1_joint"))) = 1.7;
+        default_reference_posture(
+            indexVectorThrow(default_reference_joints, std::string("arm_2_joint"))) = -0.5;
+        default_reference_posture(
+            indexVectorThrow(default_reference_joints, std::string("arm_3_joint"))) = -3.4;
+        default_reference_posture(
+            indexVectorThrow(default_reference_joints, std::string("arm_4_joint"))) = 0.5;
+        default_reference_posture(
+            indexVectorThrow(default_reference_joints, std::string("arm_5_joint"))) = 0.0;
+        default_reference_posture(
+            indexVectorThrow(default_reference_joints, std::string("arm_6_joint"))) = 0.0;
+        default_reference_posture(
+            indexVectorThrow(default_reference_joints, std::string("arm_7_joint"))) = 0.0;
 
-	    default_reference_posture(
-	        indexVectorThrow(default_reference_joints, std::string("head_1_joint"))) = 0.0;
-	    default_reference_posture(
-	        indexVectorThrow(default_reference_joints, std::string("head_2_joint"))) = 0.0;
+        default_reference_posture(
+            indexVectorThrow(default_reference_joints, std::string("head_1_joint"))) = 0.0;
+        default_reference_posture(
+            indexVectorThrow(default_reference_joints, std::string("head_2_joint"))) = 0.0;
 
-	    default_reference_posture(indexVectorThrow(default_reference_joints,
-	                                               std::string("torso_lift_joint"))) = 0.14;
-	}
+        default_reference_posture(indexVectorThrow(default_reference_joints,
+                                                   std::string("torso_lift_joint"))) = 0.14;
+    }
 
     ReferenceKinematicTaskAllJointsMetaTaskPtr default_reference(
         new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(), default_reference_joints,
@@ -234,24 +234,24 @@ class tiago_mobile_base_stack : public StackConfigurationKinematic
 
     if(!get_default_reference_from_param_server(default_reference_joints, default_reference_posture))
     {
-		default_reference_posture(
-	        indexVectorThrow(default_reference_joints, std::string("arm_1_joint"))) = 0.11;
-	    default_reference_posture(
-	        indexVectorThrow(default_reference_joints, std::string("arm_2_joint"))) = -0.51;
-	    default_reference_posture(
-	        indexVectorThrow(default_reference_joints, std::string("arm_3_joint"))) = -3.22;
-	    default_reference_posture(
-	        indexVectorThrow(default_reference_joints, std::string("arm_4_joint"))) = 2.0;
-	    default_reference_posture(
-	        indexVectorThrow(default_reference_joints, std::string("arm_5_joint"))) = 1.91;
-	    default_reference_posture(
-	        indexVectorThrow(default_reference_joints, std::string("arm_6_joint"))) = 0.36;
-	    default_reference_posture(
-	        indexVectorThrow(default_reference_joints, std::string("arm_7_joint"))) = 0.3;
+        default_reference_posture(
+            indexVectorThrow(default_reference_joints, std::string("arm_1_joint"))) = 0.11;
+        default_reference_posture(
+            indexVectorThrow(default_reference_joints, std::string("arm_2_joint"))) = -0.51;
+        default_reference_posture(
+            indexVectorThrow(default_reference_joints, std::string("arm_3_joint"))) = -3.22;
+        default_reference_posture(
+            indexVectorThrow(default_reference_joints, std::string("arm_4_joint"))) = 2.0;
+        default_reference_posture(
+            indexVectorThrow(default_reference_joints, std::string("arm_5_joint"))) = 1.91;
+        default_reference_posture(
+            indexVectorThrow(default_reference_joints, std::string("arm_6_joint"))) = 0.36;
+        default_reference_posture(
+            indexVectorThrow(default_reference_joints, std::string("arm_7_joint"))) = 0.3;
 
-	    default_reference_posture(indexVectorThrow(default_reference_joints,
-	                                               std::string("torso_lift_joint"))) = 0.14;
-	}
+        default_reference_posture(indexVectorThrow(default_reference_joints,
+                                                   std::string("torso_lift_joint"))) = 0.14;
+    }
 
     ReferenceKinematicTaskAllJointsMetaTaskPtr default_reference(
         new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(), default_reference_joints,
@@ -450,7 +450,7 @@ class tiago_virtual_admitance_stack : public StackConfigurationKinematic
       double force_filter_gain = 0.1;
       double linear_damping = 60.;
 
-    //  
+    //
     //  //          GoToVirtualAdmitancePositionMetaTaskPtr go_to_position_arm(
     //  //                new GoToVirtualAdmitancePositionMetaTask(*stack.get(),
     //  "wrist_ft_link",
@@ -479,7 +479,7 @@ class tiago_virtual_admitance_stack : public StackConfigurationKinematic
     //    go_to_position_arm->setDamping(0.1);
     //    position_tasks.push_back({"go_to_position", go_to_position_arm});
     //  }
-      
+
 
       {
         GoToLocalVirtualAdmitanceKinematicTaskPtr go_to_admitance_position_arm(

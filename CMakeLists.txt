@@ -8,6 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
     pal_wbc_controller
     roscpp
     wbc_tasks
+    pal_wbc_utils
     )
 
 catkin_package(
@@ -19,12 +20,14 @@ include_directories(
     )
 
 add_library(${PROJECT_NAME} src/tiago_stacks.cpp
-
 							src/tiago_environment_collision_stack.cpp)
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
 
+add_executable(push_interactive_marker_task src/push_interactive_marker_task.cpp)
+target_link_libraries(push_interactive_marker_task ${PROJECT_NAME} ${catkin_LIBRARIES})
+
 ### Install ###
-install(TARGETS ${PROJECT_NAME}
+install(TARGETS ${PROJECT_NAME} push_interactive_marker_task
     ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
     LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
     RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}

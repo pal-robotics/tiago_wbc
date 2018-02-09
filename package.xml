@@ -13,6 +13,7 @@
   <depend>roscpp</depend>
   <depend>wbc_tasks</depend>
   <depend>pluginlib</depend>
+  <depend>pal_wbc_utils</depend>
   <depend>cmake_modules</depend>
 
   <exec_depend>pal_kinematic_simulator</exec_depend>
