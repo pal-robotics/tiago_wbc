@@ -18,12 +18,10 @@ include_directories(
     ${catkin_INCLUDE_DIRS}
     )
 
-add_library(${PROJECT_NAME} src/tiago_stacks.cpp)
-target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
+add_library(${PROJECT_NAME} src/tiago_stacks.cpp
 
-add_library(test_wbc_stacks src/test_stacks.cpp
 							src/tiago_environment_collision_stack.cpp)
-target_link_libraries(test_wbc_stacks ${catkin_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
 
 ### Install ###
 install(TARGETS ${PROJECT_NAME}

@@ -2,7 +2,7 @@
 <launch>
 
   <arg name="source_data" default="interactive_marker"/>  <!-- interactive_marker or topic -->
-  <arg name="stack" default="tiago_wbc"/>
+  <arg name="stack" default="tiago_fixed_base_wbc"/>
     
   <param name="whole_body_kinematic_controller/source_data" value="$(arg source_data)" />
   

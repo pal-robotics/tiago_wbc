@@ -2,15 +2,45 @@
 
   <class name="tiago_fixed_base_stack" type="tiago_fixed_base_stack" base_class_type="StackConfigurationKinematic">
     <description>
-      Default stack for fixed base tiago 
+      Default stack for tiago as a fixed base
     </description>
   </class>
 
   <class name="tiago_mobile_base_stack" type="tiago_mobile_base_stack" base_class_type="StackConfigurationKinematic">
     <description>
-      Default stack for mobile base tiago
+      Default stack for tiago as a mobile base 
     </description>
   </class>
+
+  <class name="tiago_environment_collision_stack" type="tiago_environment_collision_stack" base_class_type="StackConfigurationKinematic">
+    <description>
+      Test stack for wbc avoiding environment obstacles
+    </description>
+  </class>
+  
+  <!--<class name="tiago_rcp_stack" type="tiago_rcp_stack" base_class_type="StackConfigurationKinematic">
+    <description>
+      WBC stack plugin for tiago
+    </description>
+  </class>
+
+  <class name="tiago_admitance_stack" type="tiago_admitance_stack" base_class_type="StackConfigurationKinematic">
+    <description>
+      WBC stack plugin for tiago
+    </description>
+  </class>
+
+  <class name="tiago_virtual_admitance_stack" type="tiago_virtual_admitance_stack" base_class_type="StackConfigurationKinematic">
+    <description>
+      WBC stack plugin for tiago
+    </description>
+  </class>
+
+  <class name="tiago_dynamic_ref_torso_head_stack" type="tiago_dynamic_ref_torso_head_stack" base_class_type="StackConfigurationKinematic">
+    <description>
+      WBC stack plugin for tiago
+    </description>
+  </class>-->
 
 </library>
 

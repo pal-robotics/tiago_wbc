@@ -3,10 +3,10 @@ whole_body_kinematic_controller:
   
   useFT: False
   useIMU: False
-  dt: 0.01
+  dt: 0.005
   floating_base: XY_Yaw
   formulation: velocity
-  stack_configuration: tiago_diffdrive_stack
+  stack_configuration: tiago_mobile_base_stack
   solver_type: QpReductionuEqualitiesQuadprogHeapAllocation
   real_hardware: False
   
@@ -23,27 +23,9 @@ whole_body_kinematic_controller:
   use_home_posture: True
 
   robot_model_chains:
-    [arm_tool_link,
+    [wrist_ft_link,
      xtion_optical_frame]
 
-  default_configuration:
-    arm_1_joint: 0.11
-    arm_2_joint: -0.51
-    arm_3_joint: -3.22
-    arm_4_joint: 2.0
-    arm_5_joint: 1.91
-    arm_6_joint: 0.36
-    arm_7_joint: 1.08
-    head_1_joint: 0.0
-    head_2_joint: 0.0
-    torso_lift_joint: 0.3
-
-  go_to_arm_7_link_RollPitchYaw:
-    proportional_orientation_e_gain: 3.0
-
-  go_to_arm_7_link_XYZ:
-    proportional_position_e_gain: 4.0
-    
   position_joints:        
     - arm_1_joint
     - arm_2_joint
@@ -55,5 +37,15 @@ whole_body_kinematic_controller:
     - head_1_joint
     - head_2_joint
     - torso_lift_joint
-    
-  estimator_type: none
+
+  reference:
+    arm_1_joint: 0.11
+    arm_2_joint: -0.51
+    arm_3_joint: -3.22
+    arm_4_joint: 2.0
+    arm_5_joint: 1.91
+    arm_6_joint: 0.36
+    arm_7_joint: 0.3
+    head_1_joint: 0.0 
+    head_2_joint: 0.0
+    torso_lift_joint: 0.14
