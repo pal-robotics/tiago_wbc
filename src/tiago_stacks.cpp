@@ -29,40 +29,40 @@ bool get_default_reference_from_param_server(const std::vector<std::string> &def
 {
     ros::NodeHandle nh;
 
-    if(nh.hasParam("/whole_body_kinematic_controller/reference"))
+    if(nh.hasParam("/whole_body_kinematic_controller/default_configuration"))
     {
         ROS_INFO("Getting reference from param server");
         double pos = 0.0;
-        nh.getParam("/whole_body_kinematic_controller/reference/arm_1_joint", pos);
+        nh.getParam("/whole_body_kinematic_controller/default_configuration/arm_1_joint", pos);
         default_reference_posture(
             indexVectorThrow(default_reference_joints, std::string("arm_1_joint"))) = pos;
-        nh.getParam("/whole_body_kinematic_controller/reference/arm_2_joint", pos);
+        nh.getParam("/whole_body_kinematic_controller/default_configuration/arm_2_joint", pos);
         default_reference_posture(
             indexVectorThrow(default_reference_joints, std::string("arm_2_joint"))) = pos;
-        nh.getParam("/whole_body_kinematic_controller/reference/arm_3_joint", pos);
+        nh.getParam("/whole_body_kinematic_controller/default_configuration/arm_3_joint", pos);
         default_reference_posture(
             indexVectorThrow(default_reference_joints, std::string("arm_3_joint"))) = pos;
-        nh.getParam("/whole_body_kinematic_controller/reference/arm_4_joint", pos);
+        nh.getParam("/whole_body_kinematic_controller/default_configuration/arm_4_joint", pos);
         default_reference_posture(
             indexVectorThrow(default_reference_joints, std::string("arm_4_joint"))) = pos;
-        nh.getParam("/whole_body_kinematic_controller/reference/arm_5_joint", pos);
+        nh.getParam("/whole_body_kinematic_controller/default_configuration/arm_5_joint", pos);
         default_reference_posture(
             indexVectorThrow(default_reference_joints, std::string("arm_5_joint"))) = pos;
-        nh.getParam("/whole_body_kinematic_controller/reference/arm_6_joint", pos);
+        nh.getParam("/whole_body_kinematic_controller/default_configuration/arm_6_joint", pos);
         default_reference_posture(
             indexVectorThrow(default_reference_joints, std::string("arm_6_joint"))) = pos;
-        nh.getParam("/whole_body_kinematic_controller/reference/arm_7_joint", pos);
+        nh.getParam("/whole_body_kinematic_controller/default_configuration/arm_7_joint", pos);
         default_reference_posture(
             indexVectorThrow(default_reference_joints, std::string("arm_7_joint"))) = pos;
 
-        nh.getParam("/whole_body_kinematic_controller/reference/head_1_joint", pos);
+        nh.getParam("/whole_body_kinematic_controller/default_configuration/head_1_joint", pos);
         default_reference_posture(
             indexVectorThrow(default_reference_joints, std::string("head_1_joint"))) = pos;
-        nh.getParam("/whole_body_kinematic_controller/reference/head_2_joint", pos);
+        nh.getParam("/whole_body_kinematic_controller/default_configuration/head_2_joint", pos);
         default_reference_posture(
             indexVectorThrow(default_reference_joints, std::string("head_2_joint"))) = pos;
 
-        nh.getParam("/whole_body_kinematic_controller/reference/torso_lift_joint", pos);
+        nh.getParam("/whole_body_kinematic_controller/default_configuration/torso_lift_joint", pos);
         default_reference_posture(indexVectorThrow(default_reference_joints,
                                                    std::string("torso_lift_joint"))) = pos;
         return true;

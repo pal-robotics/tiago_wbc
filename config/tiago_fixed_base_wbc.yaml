@@ -15,7 +15,7 @@ whole_body_kinematic_controller:
     [wrist_ft_link,
      xtion_optical_frame]
 
-  reference:
+  default_configuration:
     arm_1_joint: 1.7
     arm_2_joint: -0.5
     arm_3_joint: -3.4
