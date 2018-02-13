@@ -2,6 +2,7 @@
 <launch>
 
   <arg name="stack" default="tiago_fixed_base_wbc"/>
+  <arg name="spawn" default="true"/>
   
   <!-- Upload capsule collision operations  & description-->
   <include file="$(find tiago_wbc)/launch/tiago_capsule_description.launch" />
@@ -15,9 +16,12 @@
   <rosparam command="load"
     file="$(find tiago_wbc)/config/$(arg stack).yaml" />
 
+    <rosparam command="load"
+    file="$(find tiago_wbc)/config/position_joints.yaml" ns="whole_body_kinematic_controller"/>
+
   <!-- Spawn controller -->
-  <node name="wbc_controllers_spawner"
-        pkg="controller_manager" type="spawner" output="screen"
-        args="whole_body_kinematic_controller" />
+  <group if="$(arg spawn)">
+    <node name="wbc_controllers_spawner" pkg="controller_manager" type="spawner" output="screen" args="whole_body_kinematic_controller" />
+  </group>
         
 </launch>
