@@ -12,8 +12,8 @@ whole_body_kinematic_controller:
   use_home_posture: True
   
   robot_model_chains:
-    [wrist_ft_link,
-     xtion_optical_frame]
+    [arm_tool_link,
+     xtion_rgb_optical_frame]
 
   default_configuration:
     arm_1_joint: 1.7
