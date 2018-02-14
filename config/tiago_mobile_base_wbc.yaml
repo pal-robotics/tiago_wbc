@@ -24,7 +24,8 @@ whole_body_kinematic_controller:
 
   robot_model_chains:
     [arm_tool_link,
-     xtion_rgb_optical_frame]
+     xtion_rgb_optical_frame,
+     xtion_optical_frame]
 
   position_joints:        
     - arm_1_joint
