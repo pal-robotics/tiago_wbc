@@ -2,8 +2,8 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.21 (2018-02-15)
+-------------------
 * deleted chagelog
 * Merge branch 'refactoring_erbium' into 'erbium-devel'
   Refactoring erbium
