@@ -13,10 +13,12 @@
   <depend>roscpp</depend>
   <depend>wbc_tasks</depend>
   <depend>pluginlib</depend>
+  <depend>pal_wbc_utils</depend>
   <depend>cmake_modules</depend>
 
   <exec_depend>pal_kinematic_simulator</exec_depend>
   <exec_depend>tiago_description</exec_depend>
+  <exec_depend>controller_manager_msgs</exec_depend>
 
   <export>
     <pal_wbc_controller plugin="${prefix}/tiago_wbc_plugins.xml" />
