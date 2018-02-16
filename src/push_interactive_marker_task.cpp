@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
   nh.param<std::string>("source_data", reference_type, "end_effector_interactive_marker_reflexx_typeII");
 
   std::string tip_name;
-  nh.param<std::string>("tip_name", tip_name, "arm_7_link");
+  nh.param<std::string>("tip_name", tip_name, "arm_tool_link");
 
   std::string camera_frame;
   nh.param<std::string>("camera_frame", camera_frame, "xtion_optical_frame");
