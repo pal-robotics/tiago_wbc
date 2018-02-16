@@ -7,7 +7,7 @@ int main(int argc, char **argv) {
   pal::WBCServiceHelper srv_helper(nh);
 
   std::string reference_type;
-  nh.param<std::string>("source_data", reference_type, "interactive_marker");
+  nh.param<std::string>("source_data", reference_type, "end_effector_interactive_marker_reflexx_typeII");
 
   std::string tip_name;
   nh.param<std::string>("tip_name", tip_name, "arm_7_link");
@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
       "taskType",
       std::string("pal_wbc/GoToPointRayAngleGazeKinematicMetatask"));
   gaze_task.addProperty("task_id", std::string("gaze_task"));
-  gaze_task.addProperty("reference_type", reference_type);
+  gaze_task.addProperty("reference_type", std::string("interactive_marker"));
   gaze_task.addProperty("camera_frame", camera_frame);
 
   srv_helper.pushTask(gaze_task, "gaze_task", order,
