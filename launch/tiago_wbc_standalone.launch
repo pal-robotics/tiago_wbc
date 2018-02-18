@@ -5,13 +5,14 @@
   <arg name="valgrind" default="false"/>
   <arg name="stack" default="tiago_fixed_base_wbc"/>
 
-  <arg name="source_data" default="interactive_marker"/>  <!-- interactive_marker or topic -->
+  <arg name="source_data" default="end_effector_interactive_marker_reflexx_typeII"/>  <!-- interactive_marker or topic -->
   <param name="whole_body_kinematic_controller/source_data" value="$(arg source_data)" />
 
   <include file="$(find tiago_description)/robots/upload_tiago.launch" />
 
   <include file="$(find pal_kinematic_simulator)/launch/kinematic_simulator_ros_control.launch">
     <arg name="debug" value="$(arg debug)"/>
+    <arg name="valgrind" value="$(arg valgrind)"/>
     <arg name="parameters" value="--cycle_time 0.005"/> 
   </include>
 
