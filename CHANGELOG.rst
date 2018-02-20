@@ -2,6 +2,17 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* fixed bugs
+* Merge branch 'refactoring_erbium' into 'erbium-devel'
+  Refactoring erbium
+  See merge request control/tiago_wbc!3
+* Modfiy rviz file
+* Changed defualt link
+* Add interactive marker with reflexxes
+* Contributors: Adrià Roig, Hilario Tome
+
 1.0.21 (2018-02-15)
 -------------------
 * deleted chagelog
