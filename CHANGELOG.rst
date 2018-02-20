@@ -2,8 +2,8 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.22 (2018-02-20)
+-------------------
 * fixed bugs
 * Merge branch 'refactoring_erbium' into 'erbium-devel'
   Refactoring erbium
