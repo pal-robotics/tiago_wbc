@@ -7,7 +7,7 @@ int main(int argc, char **argv) {
   pal::WBCServiceHelper srv_helper(nh);
 
   std::string reference_type;
-  nh.param<std::string>("source_data", reference_type, "end_effector_interactive_marker_reflexx_typeII");
+  nh.param<std::string>("source_data", reference_type, "interactive_marker_reflexx_typeII");
 
   std::string tip_name;
   nh.param<std::string>("tip_name", tip_name, "arm_tool_link");

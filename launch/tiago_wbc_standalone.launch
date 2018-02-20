@@ -13,7 +13,7 @@
   <include file="$(find pal_kinematic_simulator)/launch/kinematic_simulator_ros_control.launch">
     <arg name="debug" value="$(arg debug)"/>
     <arg name="valgrind" value="$(arg valgrind)"/>
-    <arg name="parameters" value="--cycle_time 0.005"/> 
+    <arg name="parameters" value="--cycle_time 0.001"/> 
   </include>
 
   <include file="$(find tiago_wbc)/launch/tiago_wbc.launch">

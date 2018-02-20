@@ -7,17 +7,14 @@
   <!-- Upload capsule collision operations  & description-->
   <include file="$(find tiago_wbc)/launch/tiago_capsule_description.launch" />
 
-  <!-- Configure local joint control -->
-  <rosparam command="load"
-    file="$(find tiago_wbc)/config/tiago_position_joints.yaml" 
-    ns="whole_body_kinematic_controller"/>
-
   <!-- Configure wbc -->
   <rosparam command="load"
     file="$(find tiago_wbc)/config/$(arg stack).yaml" />
 
-    <rosparam command="load"
-    file="$(find tiago_wbc)/config/position_joints.yaml" ns="whole_body_kinematic_controller"/>
+  <include file="$(find tiago_controller_configuration)/launch/local_joint_control/direct_control.launch">
+      <arg name="local_joint_control_type" value="direct_position_control"/>
+      <arg name="ns" value="whole_body_kinematic_controller"/>
+  </include>
 
   <!-- Spawn controller -->
   <group if="$(arg spawn)">
