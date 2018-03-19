@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="source_data_arm" default="end_effector_interactive_marker_reflexx_typeII"/>
+  <arg name="source_data_gaze" default="interactive_marker"/>   <!-- interactive_marker or topic -->
+
+  <node name="push_gaze_task" pkg="pal_wbc_utils" type="push_interactive_marker_gaze_task">
+  	<param name="source_data" value="$(arg source_data_gaze)" />
+    <param name="camera_frame" value="xtion_optical_frame" />
+  </node>
+
+  <node name="push_arm_task" pkg="pal_wbc_utils" type="push_interactive_marker_pose_task">
+  	<param name="source_data" value="$(arg source_data_arm)" />
+    <param name="tip_name" value="arm_tool_link" />
+  </node>
+
+</launch>

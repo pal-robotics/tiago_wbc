@@ -5,8 +5,8 @@
   <arg name="valgrind" default="false"/>
   <arg name="stack" default="tiago_fixed_base_wbc"/>
 
-  <arg name="source_data" default="end_effector_interactive_marker_reflexx_typeII"/>  <!-- interactive_marker or topic -->
-  <param name="whole_body_kinematic_controller/source_data" value="$(arg source_data)" />
+  <arg name="source_data_arm" default="end_effector_interactive_marker_reflexx_typeII"/>  <!-- interactive_marker or topic -->
+  <arg name="source_data_gaze" default="interactive_marker"/>
 
   <include file="$(find tiago_description)/robots/upload_tiago.launch" />
 
@@ -22,7 +22,10 @@
 
   <include file="$(find tiago_controller_configuration)/launch/joint_state_controller.launch"/>
 
-  <node name="push_interactive_marker_task" pkg="tiago_wbc" type="push_interactive_marker_task"/>
+  <include file="$(find tiago_wbc)/launch/push_reference_tasks.launch">
+  	<arg name="source_data_arm" value="$(arg source_data_arm)"/>
+    <arg name="source_data_gaze" value="$(arg source_data_gaze)"/>
+  </include>
 
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tiago_wbc)/config/rviz/tiago_wbc.rviz" />
 
