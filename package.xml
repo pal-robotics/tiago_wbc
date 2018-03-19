@@ -1,6 +1,6 @@
 <package format="2">
   <name>tiago_wbc</name>
-  <version>1.0.22</version>
+  <version>1.0.23</version>
   <description>The tiago_wbc package</description>
 
   <maintainer email="hilario.tome@pal-robotics.com">Hilario Tomé</maintainer>
