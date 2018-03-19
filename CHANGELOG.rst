@@ -2,6 +2,14 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'wbc-documentation' into 'erbium-devel'
+  Tiago WBC utilities to pal_wbc_utils
+  See merge request control/tiago_wbc!4
+* Move push task utilities to pal_wbc_utils
+* Contributors: Adria Roig, Victor Lopez
+
 1.0.22 (2018-02-20)
 -------------------
 * fixed bugs
