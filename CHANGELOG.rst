@@ -2,6 +2,14 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'wbc_rpc_ref' into 'erbium-devel'
+  Modify default reference
+  See merge request control/tiago_wbc!5
+* Modify default reference
+* Contributors: Adria Roig, Hilario Tome
+
 1.0.23 (2018-03-19)
 -------------------
 * Merge branch 'wbc-documentation' into 'erbium-devel'
