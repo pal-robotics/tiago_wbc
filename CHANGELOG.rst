@@ -2,6 +2,15 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'admitance' into 'erbium-devel'
+  Admitance + Tests
+  See merge request control/tiago_wbc!6
+* Add wbc tests
+* Remove admitance deprecated headers
+* Contributors: Adria Roig, Hilario Tome
+
 1.0.24 (2018-03-23)
 -------------------
 * Merge branch 'wbc_rpc_ref' into 'erbium-devel'
