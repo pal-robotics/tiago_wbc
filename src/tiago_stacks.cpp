@@ -8,7 +8,6 @@
 #include <wbc_tasks/go_to_kinematic_task.h>
 #include <wbc_tasks/com_kinematic_task.h>
 #include <wbc_tasks/reference_kinematic_task.h>
-#include <wbc_tasks/go_to_admitance_kinematic_task.h>
 #include <wbc_tasks/self_collision_kinematic_task.h>
 #include <wbc_tasks/self_collision_safety_kinematic_task.h>
 #include <wbc_tasks/gaze_kinematic_task.h>
@@ -19,7 +18,6 @@
 #include <pal_utils/permutation.h>
 #include <pal_ros_utils/reference/vector/vector_topic_reference.h>
 #include <wbc_tasks/kinematic/go_to_point_ray_angle_constraint.h>
-#include <wbc_tasks/kinematic/go_to_virtual_admitance_kinematic_task.h>
 #include <wbc_tasks/kinematic/go_to_local_virtual_admitance_kinematic_task.h>
 
 using namespace pal_wbc;
