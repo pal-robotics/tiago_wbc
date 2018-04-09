@@ -39,3 +39,13 @@ install(DIRECTORY launch/
 
 install(DIRECTORY config/
     DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/config)
+
+### Tests ###
+if (CATKIN_ENABLE_TESTING)
+    find_package(rostest REQUIRED)
+    find_package(pal_kinematic_simulator REQUIRED)
+    find_package(tiago_controller_configuration REQUIRED)
+    add_rostest_gtest(push_tasks_test test/push_tasks_test.test test/push_tasks_test.cpp)
+    target_link_libraries(push_tasks_test ${catkin_LIBRARIES} ${PROJECT_NAME})
+    add_dependencies(push_tasks_test ${catkin_EXPORTED_TARGETS})
+endif(CATKIN_ENABLE_TESTING)
