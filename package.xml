@@ -21,6 +21,10 @@
   <exec_depend>controller_manager_msgs</exec_depend>
   <exec_depend>reflexxes_adapter</exec_depend>
 
+  <test_depend>rostest</test_depend>
+  <test_depend>pal_kinematic_simulator</test_depend>
+  <test_depend>tiago_controller_configuration</test_depend>
+
   <export>
     <pal_wbc_controller plugin="${prefix}/tiago_wbc_plugins.xml" />
   </export>
