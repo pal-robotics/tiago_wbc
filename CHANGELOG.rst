@@ -2,8 +2,8 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.25 (2018-04-09)
+-------------------
 * Merge branch 'admitance' into 'erbium-devel'
   Admitance + Tests
   See merge request control/tiago_wbc!6
