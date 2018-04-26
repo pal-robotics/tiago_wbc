@@ -60,6 +60,22 @@ protected:
     orientationGoal2_.z() = 0.0;
   }
 
+  bool stack_description_contains(const std::string &task)
+  {
+    pal_wbc_msgs::GetStackDescription statusSrv;
+    if (!stackDescriptionServ_.call(statusSrv))
+      throw std::runtime_error("Error in stack_description_contains");
+
+    for (auto t : statusSrv.response.tasks)
+    {
+      if (t.name == task)
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
   ros::NodeHandle nh_;
   ros::ServiceClient stackDescriptionServ_;
   ros::ServiceClient popTaskServ_;

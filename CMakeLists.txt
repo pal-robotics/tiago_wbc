@@ -69,4 +69,8 @@ if (CATKIN_ENABLE_TESTING)
     target_link_libraries(move_tip_smach_c_test ${catkin_LIBRARIES} ${PROJECT_NAME} )
     add_dependencies(move_tip_smach_c_test ${catkin_EXPORTED_TARGETS})
 
+    add_rostest_gtest(pop_bookkept_test test/pop_bookkept_test.test test/pop_bookkept_test.cpp)
+    target_link_libraries(pop_bookkept_test ${catkin_LIBRARIES} ${PROJECT_NAME} )
+    add_dependencies(pop_bookkept_test ${catkin_EXPORTED_TARGETS})
+
 endif(CATKIN_ENABLE_TESTING)
