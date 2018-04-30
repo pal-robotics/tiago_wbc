@@ -22,8 +22,11 @@
   <exec_depend>reflexxes_adapter</exec_depend>
 
   <test_depend>rostest</test_depend>
-  <test_depend>pal_kinematic_simulator</test_depend>
   <test_depend>tiago_controller_configuration</test_depend>
+  <test_depend>eigen_checks</test_depend>
+  <test_depend>pal_ros_utils</test_depend>
+  <test_depend>smach_c_wbc_states</test_depend>
+  <test_depend>smach_c</test_depend>
 
   <export>
     <pal_wbc_controller plugin="${prefix}/tiago_wbc_plugins.xml" />

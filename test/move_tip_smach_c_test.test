@@ -1,0 +1,13 @@
+<launch>
+  <include file="$(find tiago_description)/robots/upload_tiago.launch" />
+
+  <include file="$(find pal_kinematic_simulator)/launch/kinematic_simulator_ros_control.launch">
+    <arg name="parameters" value="--cycle_time 0.001"/>
+  </include>
+
+  <include file="$(find tiago_wbc)/launch/tiago_wbc.launch"/>
+
+  <include file="$(find tiago_controller_configuration)/launch/joint_state_controller.launch"/>
+
+  <test test-name="move_tip_smach_c_test" pkg="tiago_wbc" type="move_tip_smach_c_test" time-limit="800.0"/>
+</launch>
