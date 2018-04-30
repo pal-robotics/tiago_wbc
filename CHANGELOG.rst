@@ -2,8 +2,8 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.26 (2018-04-30)
+-------------------
 * Merge branch 'pose_offset_test' into 'erbium-devel'
   Add wbc tests
   See merge request control/tiago_wbc!7
