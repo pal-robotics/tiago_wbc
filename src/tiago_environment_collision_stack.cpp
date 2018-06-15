@@ -21,10 +21,11 @@
 
 using namespace pal_wbc;
 
-class tiago_environment_collision_stack : public StackConfigurationKinematic {
-  bool setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh) {
-    std::vector<double> joint_pos_min_override =
-        stack->getJointPositionLimitMin();
+class tiago_environment_collision_stack : public StackConfigurationKinematic
+{
+  bool setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh)
+  {
+    std::vector<double> joint_pos_min_override = stack->getJointPositionLimitMin();
     joint_pos_min_override[stack->getJointIndex("arm_4_joint")] = 0.2;
 
     std::vector<std::string> default_reference_joints;
@@ -41,39 +42,37 @@ class tiago_environment_collision_stack : public StackConfigurationKinematic {
 
     Eigen::VectorXd default_reference_posture(default_reference_joints.size());
     default_reference_posture.setZero();
-    default_reference_posture(indexVectorThrow(
-        default_reference_joints, std::string("arm_1_joint"))) = 1.7;
-    default_reference_posture(indexVectorThrow(
-        default_reference_joints, std::string("arm_2_joint"))) = -0.5;
-    default_reference_posture(indexVectorThrow(
-        default_reference_joints, std::string("arm_3_joint"))) = -3.4;
-    default_reference_posture(indexVectorThrow(
-        default_reference_joints, std::string("arm_4_joint"))) = 0.5;
-    default_reference_posture(indexVectorThrow(
-        default_reference_joints, std::string("arm_5_joint"))) = 0.0;
-    default_reference_posture(indexVectorThrow(
-        default_reference_joints, std::string("arm_6_joint"))) = 0.0;
-    default_reference_posture(indexVectorThrow(
-        default_reference_joints, std::string("arm_7_joint"))) = 0.0;
+    default_reference_posture(
+        indexVectorThrow(default_reference_joints, std::string("arm_1_joint"))) = 1.7;
+    default_reference_posture(
+        indexVectorThrow(default_reference_joints, std::string("arm_2_joint"))) = -0.5;
+    default_reference_posture(
+        indexVectorThrow(default_reference_joints, std::string("arm_3_joint"))) = -3.4;
+    default_reference_posture(
+        indexVectorThrow(default_reference_joints, std::string("arm_4_joint"))) = 0.5;
+    default_reference_posture(
+        indexVectorThrow(default_reference_joints, std::string("arm_5_joint"))) = 0.0;
+    default_reference_posture(
+        indexVectorThrow(default_reference_joints, std::string("arm_6_joint"))) = 0.0;
+    default_reference_posture(
+        indexVectorThrow(default_reference_joints, std::string("arm_7_joint"))) = 0.0;
 
-    default_reference_posture(indexVectorThrow(
-        default_reference_joints, std::string("head_1_joint"))) = 0.0;
-    default_reference_posture(indexVectorThrow(
-        default_reference_joints, std::string("head_2_joint"))) = 0.0;
+    default_reference_posture(
+        indexVectorThrow(default_reference_joints, std::string("head_1_joint"))) = 0.0;
+    default_reference_posture(
+        indexVectorThrow(default_reference_joints, std::string("head_2_joint"))) = 0.0;
 
-    default_reference_posture(indexVectorThrow(
-        default_reference_joints, std::string("torso_lift_joint"))) = 0.14;
+    default_reference_posture(indexVectorThrow(default_reference_joints,
+                                               std::string("torso_lift_joint"))) = 0.14;
 
     // 1. Joint and velocity limits
     JointPositionLimitKinematicAllJointsMetaTaskPtr joint_position_limit_task(
         new JointPositionLimitKinematicAllJointsMetaTask(
-            *stack.get(), joint_pos_min_override,
-            stack->getJointPositionLimitMax(),
-            stack->getJointVelocityLimitMin(),
-            stack->getJointVelocityLimitMax(), stack->getJointNames(), 1.0,
-            false, nh));
+            "joint_limits", stack.get(), joint_pos_min_override,
+            stack->getJointPositionLimitMax(), stack->getJointVelocityLimitMin(),
+            stack->getJointVelocityLimitMax(), stack->getJointNames(), 1.0, false, nh));
 
-    stack->pushTask("joint_limits", joint_position_limit_task);
+    stack->pushTask(joint_position_limit_task);
 
     // Self collision
     SelfCollisionSafetyParameters sc_params;
@@ -82,26 +81,25 @@ class tiago_environment_collision_stack : public StackConfigurationKinematic {
     sc_params.epsison = 0.02;
     sc_params.safety_distance = 0;
     sc_params.number_collisions = 10;
-    SelfCollisionSafetyKinematicTaskPtr self_collision(
-        new SelfCollisionSafetyKinematicTask);
-    self_collision->setUpTask(sc_params, *stack.get(), nh);
+    SelfCollisionSafetyKinematicTaskPtr self_collision(new SelfCollisionSafetyKinematicTask);
+    self_collision->setUp("self_collision", sc_params, stack.get(), nh);
     self_collision->setDamping(0.1);
 
-    stack->pushTask("self_collision", self_collision);
+    stack->pushTask(self_collision);
 
-    std::string sourceData; // either "topic" or "interactive_marker"
+    std::string sourceData;  // either "topic" or "interactive_marker"
     nh.param<std::string>("source_data", sourceData, "interactive_marker");
 
     GoToPositionMetaTaskPtr go_to_position_arm(new GoToPositionMetaTask(
-        *stack.get(), "hand_palm_link", "end_effector_interactive_marker", nh));
+        "go_to_position", stack.get(), "hand_palm_link", "end_effector_interactive_marker", nh));
     go_to_position_arm->setDamping(0.1);
-    stack->pushTask("go_to_position", go_to_position_arm);
+    stack->pushTask(go_to_position_arm);
 
     GoToOrientationMetaTaskPtr go_to_orientation_arm(
-        new GoToOrientationMetaTask(*stack.get(), "hand_palm_link",
+        new GoToOrientationMetaTask("go_to_orientation", stack.get(), "hand_palm_link",
                                     "end_effector_interactive_marker", nh));
     go_to_orientation_arm->setDamping(0.1);
-    stack->pushTask("go_to_orientation", go_to_orientation_arm);
+    stack->pushTask(go_to_orientation_arm);
 
     //    Gaze task
     //    GazePointKinematicMetaTaskPtr gaze_task(new
@@ -111,17 +109,16 @@ class tiago_environment_collision_stack : public StackConfigurationKinematic {
     //    gaze_task->setDamping(0.1);
     //    stack->pushTask("gaze", gaze_task);
 
-    GoToPointRayAngleGazeKinematicMetataskPtr gaze_task(
-        new GoToPointRayAngleGazeKinematicMetatask(
-            *stack.get(), "xtion_optical_frame", sourceData, nh));
+    GoToPointRayAngleGazeKinematicMetataskPtr gaze_task(new GoToPointRayAngleGazeKinematicMetatask(
+        "gaze", *stack.get(), "xtion_optical_frame", sourceData, nh));
     gaze_task->setDamping(0.1);
-    stack->pushTask("gaze", gaze_task);
+    stack->pushTask(gaze_task);
 
     ReferenceKinematicTaskAllJointsMetaTaskPtr default_reference(
-        new ReferenceKinematicTaskAllJointsMetaTask(
-            *stack.get(), default_reference_joints, default_reference_posture,
-            nh, 2.));
-    stack->pushTask("rest_joint_configuration", default_reference);
+        new ReferenceKinematicTaskAllJointsMetaTask("rest_joint_configuration",
+                                                    stack.get(), default_reference_joints,
+                                                    default_reference_posture, nh, 2.));
+    stack->pushTask(default_reference);
 
     return true;
 
@@ -273,5 +270,4 @@ class tiago_environment_collision_stack : public StackConfigurationKinematic {
   }
 };
 
-PLUGINLIB_EXPORT_CLASS(tiago_environment_collision_stack,
-                       StackConfigurationKinematic);
+PLUGINLIB_EXPORT_CLASS(tiago_environment_collision_stack, StackConfigurationKinematic);
