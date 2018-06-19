@@ -195,7 +195,7 @@ sm.reset(new smach_c::StateMachineWithIntrospection(
   move_tip_pose.reset(
       new MoveTiptoDesiredPose(target_pose, {}, std::string("test_pose_offset"),
                                tip_offset, tip_name_, pal_wbc_msgs::Order::Replace,
-                               std::string("test_pose"), double(1.e-4), ros::Duration(20.0)));
+                               std::string("test_pose"), double(1.e-4), ros::Duration(30.0)));
 
   sm->add("Move tip pose", move_tip_pose,
           { { smach_c::SUCCESS, smach_c::SUCCESS },
