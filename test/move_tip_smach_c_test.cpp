@@ -117,11 +117,11 @@ TEST_F(WBCTests, GazeTask)
       nh, { smach_c::SUCCESS, smach_c::FAILURE, smach_c::PREEMPTED }));
 
   geometry_msgs::PointStamped target_position;
-  target_position.header.frame_id = "xtion_optical_frame";
+  target_position.header.frame_id = base_frame_;
 
   target_position.point.x = 2.0;
-  target_position.point.y = 0.0;
-  target_position.point.z = 1.0;
+  target_position.point.y = -2.0;
+  target_position.point.z = 2.0;
 
   pal::GazePointWBCStatePtr gaze_task(new pal::GazePointWBCState(
       target_position, std::string("xtion_optical_frame"), std::string("gaze_task"),
