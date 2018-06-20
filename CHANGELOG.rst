@@ -2,6 +2,15 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'fix_tests' into 'erbium-devel'
+  Fix tests
+  Closes #2
+  See merge request control/tiago_wbc!9
+* Fix tests
+* Contributors: Adrià Roig, Hilario Tome
+
 1.0.26 (2018-04-30)
 -------------------
 * Merge branch 'pose_offset_test' into 'erbium-devel'
