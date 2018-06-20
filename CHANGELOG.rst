@@ -2,8 +2,8 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.27 (2018-06-20)
+-------------------
 * Merge branch 'fix_tests' into 'erbium-devel'
   Fix tests
   Closes #2
