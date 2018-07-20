@@ -2,6 +2,16 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'blending_rebased' into 'erbium-devel'
+  Blending rebased
+  See merge request control/tiago_wbc!10
+* Modify rviz
+* Removed push_pop service + increased timeout in smach_c_move_tip_test
+* fixed compilation with new api
+* Contributors: Adrià Roig, Hilario Tome
+
 1.0.27 (2018-06-20)
 -------------------
 * Merge branch 'fix_tests' into 'erbium-devel'
