@@ -2,8 +2,8 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.28 (2018-07-20)
+-------------------
 * Merge branch 'blending_rebased' into 'erbium-devel'
   Blending rebased
   See merge request control/tiago_wbc!10
