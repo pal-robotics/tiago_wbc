@@ -24,21 +24,21 @@ protected:
         nh_.serviceClient<pal_wbc_msgs::PushTask>("whole_body_kinematic_controller/push_task");
     getTaskErrorServ_ = nh_.serviceClient<pal_wbc_msgs::GetTaskError>(
         "whole_body_kinematic_controller/get_task_error");
-    pushPopTaskServ_ = nh_.serviceClient<pal_wbc_msgs::PushPopTask>(
-        "whole_body_kinematic_controller/push_pop_task");
+//    pushPopTaskServ_ = nh_.serviceClient<pal_wbc_msgs::PushPopTask>(
+//        "whole_body_kinematic_controller/push_pop_task");
 
     ros::Duration timeout = ros::Duration(10.0);
 
     if (!stackDescriptionServ_.waitForExistence(timeout))
-      FAIL() << "Service not ready.";
+      FAIL() << "Service get stack not ready.";
     if (!popTaskServ_.waitForExistence(timeout))
-      FAIL() << "Service not ready.";
+      FAIL() << "Service pop task not ready.";
     if (!pushTaskServ_.waitForExistence(timeout))
-      FAIL() << "Service not ready.";
+      FAIL() << "Service push task not ready.";
     if (!getTaskErrorServ_.waitForExistence(timeout))
-      FAIL() << "Service not ready.";
-    if (!pushPopTaskServ_.waitForExistence(timeout))
-      FAIL() << "Service not ready.";
+      FAIL() << "Service get task error not ready.";
+//    if (!pushPopTaskServ_.waitForExistence(timeout))
+//      FAIL() << "Service not ready.";
 
     blend_ = false;
     reference_ = "pointer_reflexx_typeII";
@@ -81,7 +81,7 @@ protected:
   ros::ServiceClient popTaskServ_;
   ros::ServiceClient pushTaskServ_;
   ros::ServiceClient getTaskErrorServ_;
-  ros::ServiceClient pushPopTaskServ_;
+//  ros::ServiceClient pushPopTaskServ_;
   bool blend_;
   std::string reference_;
   std::string tip_name_;

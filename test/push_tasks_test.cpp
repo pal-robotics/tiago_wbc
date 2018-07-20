@@ -49,14 +49,14 @@ TEST_F(WBCTests, PushTasksTest)
   taskProperties.updateProperty("task_id", std::string("new_go_to_position"));
   taskProperties.updateProperty("target_position", positionGoal3_);
 
-  pal_wbc_msgs::PushPopTask replace_srv;
+  pal_wbc_msgs::PushTask replace_srv;
   pal_wbc_msgs::PushTaskParams push_params;
   push_params.params = generateTaskDescription(taskProperties);
   push_params.respect_task_id = "go_to_position";
   push_params.order.order = pal_wbc_msgs::Order::Replace;
   push_params.blend = blend_;
-  replace_srv.request.push_tasks.push_back(push_params);
-  EXPECT_TRUE(pushPopTaskServ_.call(replace_srv));
+  replace_srv.request.push_task_params = push_params;
+  EXPECT_TRUE(pushTaskServ_.call(replace_srv));
 
   // Check that this new go to position task replaces the previous one in the stack
   ros::Duration(1.0).sleep();
