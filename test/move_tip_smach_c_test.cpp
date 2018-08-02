@@ -5,6 +5,8 @@
 #include <smach_c_wbc_states/move_tip_to_pose_wbc_state.h>
 #include <smach_c_wbc_states/pop_tasks_state.h>
 #include <smach_c_wbc_states/gaze_point_wbc_state.h>
+#include <sensor_msgs/JointState.h>
+#include <pal_utils/exception_utils.h>
 
 using namespace pal;
 
@@ -102,8 +104,8 @@ TEST_F(WBCTests, MoveTiptoDesiredPositionTask)
   EXPECT_TRUE(stackDescriptionServ_.call(statusSrv));
   EXPECT_FALSE(stack_description_contains("test_position_offset"));
 
-// Use PopTasksState to pop again the given move tip to desired position
-// @todo this state should return failure
+  // Use PopTasksState to pop again the given move tip to desired position
+  // @todo this state should return failure
   EXPECT_EQ(smach_c::SUCCESS, sm->execute(user_data));
 }
 
@@ -178,9 +180,9 @@ TEST_F(WBCTests, MoveTiptoDesiredPoseTask)
   EXPECT_TRUE(EIGEN_MATRIX_NEAR(orientationGoal_.toRotationMatrix(),
                                 received_tf.rotation(), 1.e-2));
 
-// Replace the move tip to desired pose state with a new target pose with a given offset
-// in position and orientation and checks that it converges to the expected pose.
-sm.reset(new smach_c::StateMachineWithIntrospection(
+  // Replace the move tip to desired pose state with a new target pose with a given offset
+  // in position and orientation and checks that it converges to the expected pose.
+  sm.reset(new smach_c::StateMachineWithIntrospection(
       nh, { smach_c::SUCCESS, smach_c::FAILURE, smach_c::PREEMPTED }));
 
   pal::convert(positionGoal_, target_pose.pose.position);
@@ -225,6 +227,15 @@ int main(int argc, char **argv)
 
   ros::NodeHandle nh;
   ros::Time::waitForValid();
+
+  {
+    boost::shared_ptr<const sensor_msgs::JointState> joint_state_msg;
+    // AS: Wait for the whole body controller to come up. It would be nice to
+    // find a way to avoid hardcoding controller name
+    joint_state_msg = ros::topic::waitForMessage<sensor_msgs::JointState>(
+        "/whole_body_kinematic_controller/joint_states", nh, ros::Duration(300.0));
+    PAL_ASSERT_PERSIST(NULL != joint_state_msg, "Controller is not running.");
+  }
 
   return RUN_ALL_TESTS();
 }
