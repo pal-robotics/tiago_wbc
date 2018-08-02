@@ -1,4 +1,4 @@
-#include <tiago_wbc/wbc_tests_fixture.h>
+#include "wbc_tests_fixture.h"
 #include <pal_ros_utils/tf_utils.h>
 #include <eigen_checks/gtest.h>
 #include <algorithm>

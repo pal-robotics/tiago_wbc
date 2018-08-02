@@ -15,12 +15,11 @@ find_package(catkin REQUIRED COMPONENTS
     )
 
 catkin_package(
-    INCLUDE_DIRS include
+    # INCLUDE_DIRS include
     CATKIN_DEPENDS pal_wbc_controller wbc_tasks pluginlib
     )
 
 include_directories(
-    include
     ${catkin_INCLUDE_DIRS}
     )
 

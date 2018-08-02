@@ -1,4 +1,4 @@
-#include <tiago_wbc/wbc_tests_fixture.h>
+#include "wbc_tests_fixture.h"
 #include <eigen_checks/gtest.h>
 #include <pal_ros_utils/conversions.h>
 #include <smach_c/state_machine_with_introspection.h>
