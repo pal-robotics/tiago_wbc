@@ -2,8 +2,8 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.30 (2018-08-02)
+-------------------
 * Merge branch 'as_possible_blocking_fix' into 'erbium-devel'
   tests: wait for controller to start.
   See merge request control/tiago_wbc!11
