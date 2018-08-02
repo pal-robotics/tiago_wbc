@@ -2,6 +2,14 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'fix_include_issue' into 'erbium-devel'
+  Fix include issue
+  See merge request control/tiago_wbc!12
+* Fix include issue
+* Contributors: Adrià Roig, Victor Lopez
+
 1.0.28 (2018-07-20)
 -------------------
 * Merge branch 'blending_rebased' into 'erbium-devel'
