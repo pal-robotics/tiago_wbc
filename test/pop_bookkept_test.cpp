@@ -5,6 +5,8 @@
 #include <smach_c_wbc_states/move_tip_to_pose_wbc_state.h>
 #include <smach_c_wbc_states/gaze_point_wbc_state.h>
 #include <smach_c_wbc_states/pop_bookkept_tasks_state.h>
+#include <sensor_msgs/JointState.h>
+#include <pal_utils/exception_utils.h>
 
 using namespace pal;
 
@@ -94,6 +96,15 @@ int main(int argc, char **argv)
 
   ros::NodeHandle nh;
   ros::Time::waitForValid();
+
+  {
+    boost::shared_ptr<const sensor_msgs::JointState> joint_state_msg;
+    // AS: Wait for the whole body controller to come up. It would be nice to
+    // find a way to avoid hardcoding controller name
+    joint_state_msg = ros::topic::waitForMessage<sensor_msgs::JointState>(
+        "/whole_body_kinematic_controller/joint_states", nh, ros::Duration(300.0));
+    PAL_ASSERT_PERSIST(NULL != joint_state_msg, "Controller is not running.");
+  }
 
   return RUN_ALL_TESTS();
 }
