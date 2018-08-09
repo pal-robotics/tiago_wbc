@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 <launch>
 
-  <arg name="source_data" default="end_effector_interactive_marker_reflexx_typeII"/>
+  <arg name="source_data" default="pointer_reflexx_typeII"/>
+
+  <rosparam command="load" file="$(find tiago_wbc)/config/admitance_pose.yaml" />
 
   <node name="push_admitance_task" pkg="pal_wbc_utils" type="push_interactive_marker_pose_task">
   	<param name="source_data" value="$(arg source_data)" />
