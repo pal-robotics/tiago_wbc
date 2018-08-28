@@ -1,0 +1,35 @@
+whole_body_kinematic_controller:
+  type: pal_wbc/WholeBodyControlKinematicController
+  
+  useFT: True
+  useIMU: False
+  useHead: True
+
+  force_torque:
+    wrist_ft:
+      frame: wrist_ft_link
+
+  dt: 0.005
+  floating_base: FixedBase
+  formulation: velocity
+  stack_configuration: tiago_fixed_base_stack
+  solver_type: QpReductionuEqualitiesQuadprogHeapAllocation
+
+  use_home_posture: True
+  
+  robot_model_chains:
+    [wrist_ft_link,
+     xtion_rgb_optical_frame,
+     xtion_optical_frame]
+
+  default_configuration:
+    arm_1_joint: 0.11
+    arm_2_joint: -0.51
+    arm_3_joint: -3.22
+    arm_4_joint: 2.0
+    arm_5_joint: 1.91
+    arm_6_joint: 0.36
+    arm_7_joint: 1.08
+    head_1_joint: 0.0 
+    head_2_joint: 0.0
+    torso_lift_joint: 0.3
