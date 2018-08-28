@@ -2,6 +2,15 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'tiago_admitance' into 'erbium-devel'
+  Tiago admitance
+  See merge request control/tiago_wbc!13
+* Add admitance demo for tiago
+* Add admitance launch file
+* Contributors: Adrià Roig, Victor Lopez
+
 1.0.30 (2018-08-02)
 -------------------
 * Merge branch 'as_possible_blocking_fix' into 'erbium-devel'
