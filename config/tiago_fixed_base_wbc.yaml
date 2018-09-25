@@ -1,15 +1,11 @@
 whole_body_kinematic_controller:
   type: pal_wbc/WholeBodyControlKinematicController
   
-  useFT: False
-  useIMU: False
   dt: 0.005
   floating_base: FixedBase
   formulation: velocity
   stack_configuration: tiago_fixed_base_stack
   solver_type: QpReductionuEqualitiesQuadprogHeapAllocation
-
-  use_home_posture: True
   
   robot_model_chains:
     [arm_tool_link,
@@ -27,3 +23,7 @@ whole_body_kinematic_controller:
     head_1_joint: 0.0 
     head_2_joint: 0.0
     torso_lift_joint: 0.3
+
+  initialize_bfp_tf: false
+  use_home_posture: true
+  use_odom: false

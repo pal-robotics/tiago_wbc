@@ -1,8 +1,6 @@
 whole_body_kinematic_controller:
   type: pal_wbc/WholeBodyControlKinematicController
-  
-  useFT: True
-  useIMU: False
+
   useHead: True
 
   force_torque:
@@ -15,7 +13,9 @@ whole_body_kinematic_controller:
   stack_configuration: tiago_fixed_base_stack
   solver_type: QpReductionuEqualitiesQuadprogHeapAllocation
 
-  use_home_posture: True
+  initialize_bfp_tf: false
+  use_home_posture: true
+  use_odom: false
   
   robot_model_chains:
     [wrist_ft_link,
