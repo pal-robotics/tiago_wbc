@@ -2,8 +2,8 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.32 (2018-09-25)
+-------------------
 * Merge branch 'remove_dt' into 'erbium-devel'
   added extra parameters to yaml
   See merge request control/tiago_wbc!14
