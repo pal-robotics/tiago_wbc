@@ -67,7 +67,7 @@ TEST_F(WBCTests, PushTasksTest)
   EXPECT_FALSE(stack_description_contains("go_to_position"));
 
   // Check that the new go to position task converges to the expected point
-  ros::Duration(6.0).sleep();
+  ros::Duration(10.0).sleep();
   errorSrv.request.id = "new_go_to_position";
   EXPECT_TRUE(getTaskErrorServ_.call(errorSrv));
   EXPECT_LT(errorSrv.response.taskError.error_norm, 1.e-2);
