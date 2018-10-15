@@ -26,7 +26,7 @@ TEST_F(WBCTests, MoveTiptoDesiredPositionTask)
 
   pal::MoveTiptoDesiredPositionPtr move_tip_position(new pal::MoveTiptoDesiredPosition(
       target_position, {}, std::string("test_position"), {}, tip_name_, pal_wbc_msgs::Order::After,
-      std::string("self_collision"), double(2.e-2), ros::Duration(60.0)));
+      std::string("self_collision"), double(1.e-2), ros::Duration(10.0)));
 
 
   sm->add("Move tip position", move_tip_position,
@@ -43,10 +43,10 @@ TEST_F(WBCTests, MoveTiptoDesiredPositionTask)
   pal_wbc_msgs::GetTaskError errorSrv;
   errorSrv.request.id = "test_position";
   EXPECT_TRUE(getTaskErrorServ_.call(errorSrv));
-  EXPECT_LT(errorSrv.response.taskError.error_norm, 2.e-2);
+  EXPECT_LT(errorSrv.response.taskError.error_norm, 1.e-2);
 
   eMatrixHom received_tf = getTransform(base_frame_, tip_name_, ros::Duration(2.0));
-  EXPECT_TRUE(EIGEN_MATRIX_NEAR(positionGoal_, received_tf.translation(), 2.e-2));
+  EXPECT_TRUE(EIGEN_MATRIX_NEAR(positionGoal_, received_tf.translation(), 1.e-2));
 
   // Replace the move tip to desired position task with a new one whithout any target pose
   // and with a tip offset and check that converges to the given point
@@ -62,8 +62,8 @@ TEST_F(WBCTests, MoveTiptoDesiredPositionTask)
 
   move_tip_position.reset(new pal::MoveTiptoDesiredPosition(
       {}, {}, std::string("test_position_offset"), tip_offset, tip_name_,
-      pal_wbc_msgs::Order::Replace, std::string("test_position"), double(2.e-2),
-      ros::Duration(20.0)));
+      pal_wbc_msgs::Order::Replace, std::string("test_position"), double(1.e-2),
+      ros::Duration(10.0)));
 
   sm->add("Move tip position", move_tip_position,
           { { smach_c::SUCCESS, smach_c::SUCCESS },
@@ -78,13 +78,13 @@ TEST_F(WBCTests, MoveTiptoDesiredPositionTask)
 
   errorSrv.request.id = "test_position_offset";
   EXPECT_TRUE(getTaskErrorServ_.call(errorSrv));
-  EXPECT_LT(errorSrv.response.taskError.error_norm, 2.e-2);
+  EXPECT_LT(errorSrv.response.taskError.error_norm, 1.e-2);
 
   eMatrixHom received_tf_2 = getTransform(base_frame_, tip_name_, ros::Duration(2.0));
   tip_offset_vec = received_tf_2.rotation() * tip_offset_vec;
 
   EXPECT_TRUE(EIGEN_MATRIX_NEAR(positionGoal_,
-                                received_tf_2.translation() + tip_offset_vec, 2.e-2));
+                                received_tf_2.translation() + tip_offset_vec, 1.e-2));
 
   // Use PopTasksState to pop the given move tip to desired position
   sm.reset(new smach_c::StateMachineWithIntrospection(
@@ -157,7 +157,7 @@ TEST_F(WBCTests, MoveTiptoDesiredPoseTask)
 
   MoveTiptoDesiredPosePtr move_tip_pose(new MoveTiptoDesiredPose(
       target_pose, {}, std::string("test_pose"), {}, tip_name_, pal_wbc_msgs::Order::Before,
-      std::string("default_reference"), double(2.e-2), ros::Duration(20.0)));
+      std::string("default_reference"), double(1.e-2), ros::Duration(15.0)));
 
   sm->add("Move tip pose", move_tip_pose,
           { { smach_c::SUCCESS, smach_c::SUCCESS },
@@ -173,12 +173,12 @@ TEST_F(WBCTests, MoveTiptoDesiredPoseTask)
   pal_wbc_msgs::GetTaskError errorSrv;
   errorSrv.request.id = "test_pose";
   EXPECT_TRUE(getTaskErrorServ_.call(errorSrv));
-  EXPECT_LT(errorSrv.response.taskError.error_norm, 2.e-2);
+  EXPECT_LT(errorSrv.response.taskError.error_norm, 1.e-2);
 
   eMatrixHom received_tf = getTransform(base_frame_, tip_name_, ros::Duration(2.0));
-  EXPECT_TRUE(EIGEN_MATRIX_NEAR(positionGoal2_, received_tf.translation(), 2.e-2));
+  EXPECT_TRUE(EIGEN_MATRIX_NEAR(positionGoal2_, received_tf.translation(), 1.e-2));
   EXPECT_TRUE(EIGEN_MATRIX_NEAR(orientationGoal_.toRotationMatrix(),
-                                received_tf.rotation(), 2.e-2));
+                                received_tf.rotation(), 1.e-2));
 
   // Replace the move tip to desired pose state with a new target pose with a given offset
   // in position and orientation and checks that it converges to the expected pose.
@@ -197,7 +197,7 @@ TEST_F(WBCTests, MoveTiptoDesiredPoseTask)
   move_tip_pose.reset(
       new MoveTiptoDesiredPose(target_pose, {}, std::string("test_pose_offset"),
                                tip_offset, tip_name_, pal_wbc_msgs::Order::Replace,
-                               std::string("test_pose"), double(2.e-2), ros::Duration(40.0)));
+                               std::string("test_pose"), double(1.e-2), ros::Duration(20.0)));
 
   sm->add("Move tip pose", move_tip_pose,
           { { smach_c::SUCCESS, smach_c::SUCCESS },
@@ -211,13 +211,13 @@ TEST_F(WBCTests, MoveTiptoDesiredPoseTask)
 
   errorSrv.request.id = "test_pose_offset";
   EXPECT_TRUE(getTaskErrorServ_.call(errorSrv));
-  EXPECT_LT(errorSrv.response.taskError.error_norm, 2.e-2);
+  EXPECT_LT(errorSrv.response.taskError.error_norm, 1.e-2);
 
   eMatrixHom received_tf_2 = getTransform(base_frame_, tip_name_, ros::Duration(2.0));
   received_tf_2 = received_tf_2 * createMatrix(orientationGoal2_, tip_offset_vec);
-  EXPECT_TRUE(EIGEN_MATRIX_NEAR(positionGoal_, received_tf_2.translation(), 2.e-2));
+  EXPECT_TRUE(EIGEN_MATRIX_NEAR(positionGoal_, received_tf_2.translation(), 1.e-2));
   EXPECT_TRUE(EIGEN_MATRIX_NEAR(orientationGoal_.toRotationMatrix(),
-                                received_tf_2.rotation(), 2.e-2));
+                                received_tf_2.rotation(), 1.e-2));
 }
 
 int main(int argc, char **argv)
