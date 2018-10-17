@@ -2,6 +2,16 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'fix_test' into 'erbium-devel'
+  Fix test
+  See merge request control/tiago_wbc!16
+* Fix tolerances and timeouts
+* Fix tolernaces + duration tests
+* Fix tests on megarelease
+* Contributors: Adrià Roig, Hilario Tome
+
 1.0.32 (2018-09-25)
 -------------------
 * Merge branch 'remove_dt' into 'erbium-devel'
