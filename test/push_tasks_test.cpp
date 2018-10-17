@@ -38,11 +38,11 @@ TEST_F(WBCTests, PushTasksTest)
   EXPECT_TRUE(stack_description_contains("go_to_position"));
 
   // Check that go to position task converges to the expected point
-  ros::Duration(8.0).sleep();
+  ros::Duration(5.0).sleep();
   pal_wbc_msgs::GetTaskError errorSrv;
   errorSrv.request.id = "go_to_position";
   EXPECT_TRUE(getTaskErrorServ_.call(errorSrv));
-  EXPECT_LT(errorSrv.response.taskError.error_norm, 1.e-4);
+  EXPECT_LT(errorSrv.response.taskError.error_norm, 1.e-2);
 
   eMatrixHom received_tf = getTransform(base_frame_, tip_name_, ros::Duration(2.0));
   EXPECT_TRUE(EIGEN_MATRIX_NEAR(positionGoal_, received_tf.translation(), 1.e-2));
@@ -67,10 +67,10 @@ TEST_F(WBCTests, PushTasksTest)
   EXPECT_FALSE(stack_description_contains("go_to_position"));
 
   // Check that the new go to position task converges to the expected point
-  ros::Duration(6.0).sleep();
+  ros::Duration(5.0).sleep();
   errorSrv.request.id = "new_go_to_position";
   EXPECT_TRUE(getTaskErrorServ_.call(errorSrv));
-  EXPECT_LT(errorSrv.response.taskError.error_norm, 1.e-4);
+  EXPECT_LT(errorSrv.response.taskError.error_norm, 1.e-2);
 
   eMatrixHom received_tf_2 = getTransform(base_frame_, tip_name_, ros::Duration(2.0));
   EXPECT_TRUE(EIGEN_MATRIX_NEAR(positionGoal3_, received_tf_2.translation(), 1.e-2));
@@ -100,10 +100,10 @@ TEST_F(WBCTests, PushTasksTest)
   EXPECT_TRUE(stack_description_contains("go_to_orientation"));
 
   // Check that the orientation task converges to the expected orientation
-  ros::Duration(10.0).sleep();
+  ros::Duration(5.0).sleep();
   errorSrv.request.id = "go_to_orientation";
   EXPECT_TRUE(getTaskErrorServ_.call(errorSrv));
-  EXPECT_LT(errorSrv.response.taskError.error_norm, 1.e-4);
+  EXPECT_LT(errorSrv.response.taskError.error_norm, 1.e-2);
 
   eMatrixHom received_tf_3 = getTransform(base_frame_, tip_name_, ros::Duration(2.0));
   eVector3 quat_error =

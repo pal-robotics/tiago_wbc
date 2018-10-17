@@ -28,7 +28,7 @@ TEST_F(WBCTests, PopBookkeptTasks)
 
   MoveTiptoDesiredPosePtr move_tip_pose(new MoveTiptoDesiredPose(
       target_pose, {}, std::string("test_pose_offset"), {}, tip_name_, pal_wbc_msgs::Order::After,
-      std::string("self_collision"), double(1.e-4), ros::Duration(20.0)));
+      std::string("self_collision"), double(1.e-2), ros::Duration(10.0)));
 
   sm->add("Move tip pose", move_tip_pose,
           { { smach_c::SUCCESS, "Gaze task" },
@@ -55,7 +55,7 @@ TEST_F(WBCTests, PopBookkeptTasks)
 
   MoveTiptoDesiredPosePtr second_move_tip_pose(new MoveTiptoDesiredPose(
       target_pose, {}, std::string("test_pose_offset"), {}, tip_name_, pal_wbc_msgs::Order::Replace,
-      std::string("test_pose_offset"), double(1.e-4), ros::Duration(20.0)));
+      std::string("test_pose_offset"), double(1.e-2), ros::Duration(10.0)));
 
   sm->add("Replace move tip pose", second_move_tip_pose,
           { { smach_c::SUCCESS, "Replace gaze task" },
