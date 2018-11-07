@@ -106,7 +106,7 @@ class tiago_fixed_base_stack : public StackConfigurationKinematic
     sc_params.number_collisions = 10;
     SelfCollisionSafetyKinematicTaskPtr self_collision(new SelfCollisionSafetyKinematicTask);
     self_collision->setUp("self_collision", sc_params, stack.get(), nh);
-    self_collision->setDamping(0.1);
+    self_collision->setDamping(1.e-4);
 
     stack->pushTask(self_collision);
 
@@ -221,7 +221,7 @@ class tiago_mobile_base_stack : public StackConfigurationKinematic
     sc_params.number_collisions = 10;
     SelfCollisionSafetyKinematicTaskPtr self_collision(new SelfCollisionSafetyKinematicTask);
     self_collision->setUp("self_collision", sc_params, stack.get(), nh);
-    self_collision->setDamping(0.1);
+    self_collision->setDamping(1.e-4);
 
     stack->pushTask(self_collision);
 

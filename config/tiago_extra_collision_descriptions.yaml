@@ -3,4 +3,4 @@ extra_capsule_descriptions:
      position: [0.0, 0.0, 0.1]
      orientation: [0.0, 0.0, 0.0, 1.0]
      l: 0.15
-     r: 0.1
+     r: 0.12

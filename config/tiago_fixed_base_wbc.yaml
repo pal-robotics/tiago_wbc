@@ -9,6 +9,7 @@ whole_body_kinematic_controller:
   
   robot_model_chains:
     [arm_tool_link,
+     torso_fixed_column_link,
      xtion_rgb_optical_frame,
      xtion_optical_frame]
 
