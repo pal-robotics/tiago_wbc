@@ -46,7 +46,7 @@ protected:
     base_frame_ = "base_footprint";
 
     positionGoal_ << 0.64637, -0.13707, 0.95628;
-    positionGoal2_ << 0.54637, -0.20707, 0.40628;
+    positionGoal2_ << 0.74, -0.20707, 0.40628;
     positionGoal3_ << 0.44637, -0.20707, 0.85628;
 
     orientationGoal_.w() = 1.0;
