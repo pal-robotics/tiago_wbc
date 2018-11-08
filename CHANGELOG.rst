@@ -2,6 +2,15 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'self_collision_fix' into 'erbium-devel'
+  Update capsule collision and remove damping to self collision task
+  See merge request control/tiago_wbc!17
+* Fixtest after update capsules
+* Update capsule collision and remove damping to self collision task
+* Contributors: Adrià Roig, Hilario Tome
+
 1.0.33 (2018-10-17)
 -------------------
 * Merge branch 'fix_test' into 'erbium-devel'
