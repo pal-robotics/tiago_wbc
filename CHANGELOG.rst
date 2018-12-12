@@ -2,6 +2,14 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'specifics-refactor' into 'erbium-devel'
+  Replace deprecated launch file
+  See merge request control/tiago_wbc!18
+* Replace deprecated launch file
+* Contributors: Victor Lopez
+
 1.0.34 (2018-11-08)
 -------------------
 * Merge branch 'self_collision_fix' into 'erbium-devel'
