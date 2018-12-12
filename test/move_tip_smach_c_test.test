@@ -1,5 +1,5 @@
 <launch>
-  <include file="$(find tiago_description)/robots/upload_tiago.launch" />
+  <include file="$(find tiago_description)/robots/upload.launch" />
 
   <include file="$(find pal_kinematic_simulator)/launch/kinematic_simulator_ros_control.launch">
     <arg name="parameters" value="--cycle_time 0.001"/>
