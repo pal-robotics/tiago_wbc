@@ -2,8 +2,8 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.35 (2018-12-12)
+-------------------
 * Merge branch 'specifics-refactor' into 'erbium-devel'
   Replace deprecated launch file
   See merge request control/tiago_wbc!18
