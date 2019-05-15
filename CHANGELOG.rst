@@ -2,6 +2,14 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'license-refactor' into 'erbium-devel'
+  Update pal license
+  See merge request control/tiago_wbc!19
+* Update PAL licenses
+* Contributors: Victor Lopez
+
 1.0.35 (2018-12-12)
 -------------------
 * Merge branch 'specifics-refactor' into 'erbium-devel'
