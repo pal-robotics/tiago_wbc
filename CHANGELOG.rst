@@ -2,8 +2,8 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.37 (2019-09-26)
+-------------------
 * Merge branch 'change_to_ariles' into 'erbium-devel'
   changed capsules to ariles serialization
   See merge request control/tiago_wbc!20
