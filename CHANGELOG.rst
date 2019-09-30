@@ -2,6 +2,11 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add SYSTEM include_directories
+* Contributors: Victor Lopez
+
 1.0.37 (2019-09-26)
 -------------------
 * Merge branch 'change_to_ariles' into 'erbium-devel'
