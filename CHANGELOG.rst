@@ -2,8 +2,8 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.38 (2019-09-30)
+-------------------
 * Add SYSTEM include_directories
 * Contributors: Victor Lopez
 
