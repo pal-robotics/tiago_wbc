@@ -73,8 +73,9 @@ class tiago_fixed_base_stack : public StackConfigurationKinematic
 {
   bool setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh)
   {
-    std::vector<double> joint_pos_min_override = stack->getJointPositionLimitMin();
-    joint_pos_min_override[stack->getJointIndex("arm_4_joint")] = 0.2;
+    std::vector<double> joint_pos_min_override =
+        stack->getWBCModelPtr()->getJointPositionLimitMin();
+    joint_pos_min_override[stack->getWBCModelPtr()->getJointIndex("arm_4_joint")] = 0.2;
 
     std::vector<std::string> default_reference_joints;
     default_reference_joints.push_back("arm_1_joint");
@@ -92,8 +93,10 @@ class tiago_fixed_base_stack : public StackConfigurationKinematic
     JointPositionLimitKinematicAllJointsMetaTaskPtr joint_position_limit_task(
         new JointPositionLimitKinematicAllJointsMetaTask(
             "joint_limits", stack.get(), joint_pos_min_override,
-            stack->getJointPositionLimitMax(), stack->getJointVelocityLimitMin(),
-            stack->getJointVelocityLimitMax(), stack->getJointNames(), 1.0, false, nh));
+            stack->getWBCModelPtr()->getJointPositionLimitMax(),
+            stack->getWBCModelPtr()->getJointVelocityLimitMin(),
+            stack->getWBCModelPtr()->getJointVelocityLimitMax(),
+            stack->getWBCModelPtr()->getJointNames(), 1.0, false, nh));
 
     stack->pushTask(joint_position_limit_task);
 
@@ -159,8 +162,9 @@ class tiago_mobile_base_stack : public StackConfigurationKinematic
 {
   bool setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh)
   {
-    std::vector<double> joint_pos_min_override = stack->getJointPositionLimitMin();
-    joint_pos_min_override[stack->getJointIndex("arm_4_joint")] = 0.2;
+    std::vector<double> joint_pos_min_override =
+        stack->getWBCModelPtr()->getJointPositionLimitMin();
+    joint_pos_min_override[stack->getWBCModelPtr()->getJointIndex("arm_4_joint")] = 0.2;
 
     std::vector<std::string> default_reference_joints;
     default_reference_joints.push_back("arm_1_joint");
@@ -178,8 +182,10 @@ class tiago_mobile_base_stack : public StackConfigurationKinematic
     JointPositionLimitKinematicAllJointsMetaTaskPtr joint_position_limit_task(
         new JointPositionLimitKinematicAllJointsMetaTask(
             "joint_limit", stack.get(), joint_pos_min_override,
-            stack->getJointPositionLimitMax(), stack->getJointVelocityLimitMin(),
-            stack->getJointVelocityLimitMax(), stack->getJointNames(), 1.0, false, nh));
+            stack->getWBCModelPtr()->getJointPositionLimitMax(),
+            stack->getWBCModelPtr()->getJointVelocityLimitMin(),
+            stack->getWBCModelPtr()->getJointVelocityLimitMax(),
+            stack->getWBCModelPtr()->getJointNames(), 1.0, false, nh));
 
     stack->pushTask(joint_position_limit_task);
 
@@ -282,8 +288,9 @@ class tiago_admitance_stack : public StackConfigurationKinematic
 {
   bool setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh)
   {
-    std::vector<double> joint_pos_min_override = stack->getJointPositionLimitMin();
-    joint_pos_min_override[stack->getJointIndex("arm_4_joint")] = 0.2;
+    std::vector<double> joint_pos_min_override =
+stack->getWBCModelPtr()->getJointPositionLimitMin();
+    joint_pos_min_override[stack->getWBCModelPtr()->getJointIndex("arm_4_joint")] = 0.2;
 
     std::vector<std::string> default_reference_joints;
     default_reference_joints.push_back("arm_1_joint");
@@ -320,9 +327,11 @@ class tiago_admitance_stack : public StackConfigurationKinematic
     // 1. Joint and velocity limits
     JointPositionLimitKinematicAllJointsMetaTaskPtr joint_position_limit_task(
         new JointPositionLimitKinematicAllJointsMetaTask(
-            *stack.get(), joint_pos_min_override, stack->getJointPositionLimitMax(),
-            stack->getJointVelocityLimitMin(), stack->getJointVelocityLimitMax(),
-            stack->getJointNames(), 1.0, false, nh));
+            *stack.get(), joint_pos_min_override,
+stack->getWBCModelPtr()->getJointPositionLimitMax(),
+            stack->getWBCModelPtr()->getJointVelocityLimitMin(),
+stack->getWBCModelPtr()->getJointVelocityLimitMax(),
+            stack->getWBCModelPtr()->getJointNames(), 1.0, false, nh));
     stack->pushTask("joint_limits", joint_position_limit_task);
     // Self collision
     SelfCollisionSafetyParameters sc_params;
@@ -379,8 +388,9 @@ class tiago_virtual_admitance_stack : public StackConfigurationKinematic
 {
   bool setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh)
   {
-    std::vector<double> joint_pos_min_override = stack->getJointPositionLimitMin();
-    joint_pos_min_override[stack->getJointIndex("arm_4_joint")] = 0.2;
+    std::vector<double> joint_pos_min_override =
+stack->getWBCModelPtr()->getJointPositionLimitMin();
+    joint_pos_min_override[stack->getWBCModelPtr()->getJointIndex("arm_4_joint")] = 0.2;
 
     std::vector<std::string> default_reference_joints;
     default_reference_joints.push_back("arm_1_joint");
@@ -417,9 +427,11 @@ class tiago_virtual_admitance_stack : public StackConfigurationKinematic
     // 1. Joint and velocity limits
     JointPositionLimitKinematicAllJointsMetaTaskPtr joint_position_limit_task(
         new JointPositionLimitKinematicAllJointsMetaTask(
-            *stack.get(), joint_pos_min_override, stack->getJointPositionLimitMax(),
-            stack->getJointVelocityLimitMin(), stack->getJointVelocityLimitMax(),
-            stack->getJointNames(), 1.0, false, nh));
+            *stack.get(), joint_pos_min_override,
+stack->getWBCModelPtr()->getJointPositionLimitMax(),
+            stack->getWBCModelPtr()->getJointVelocityLimitMin(),
+stack->getWBCModelPtr()->getJointVelocityLimitMax(),
+            stack->getWBCModelPtr()->getJointNames(), 1.0, false, nh));
     stack->pushTask("joint_limits", joint_position_limit_task);
     // Self collision
     SelfCollisionSafetyParameters sc_params;
@@ -516,7 +528,8 @@ go_to_admitance_position_arm });
       }
 
       GenericMetaTaskPtr generic_position_metatask(
-          new GenericMetaTask(nh, stack.get(), position_tasks, stack->getStateSize()));
+          new GenericMetaTask(nh, stack.get(), position_tasks,
+stack->getWBCModelPtr()->getStateSize()));
 
       pose_tasks.push_back({ "go_to_position_metatask", generic_position_metatask });
     }
@@ -542,7 +555,8 @@ go_to_admitance_position_arm });
     }
 
     GenericMetaTaskPtr generic_pose_metatask(
-        new GenericMetaTask(nh, stack.get(), pose_tasks, stack->getStateSize()));
+        new GenericMetaTask(nh, stack.get(), pose_tasks,
+stack->getWBCModelPtr()->getStateSize()));
     stack->pushTask("pose_tasks", generic_pose_metatask);
 
     //    //Gaze task
@@ -583,9 +597,11 @@ class tiago_dynamic_ref_torso_head_stack : public StackConfigurationKinematic
 
     JointPositionLimitKinematicAllJointsMetaTaskPtr joint_limit_task(
         new JointPositionLimitKinematicAllJointsMetaTask(
-            *stack.get(), stack->getJointPositionLimitMin(),
-            stack->getJointPositionLimitMax(), stack->getJointVelocityLimitMin(),
-            stack->getJointVelocityLimitMax(), stack->getJointNames(), 1.0, false, nh));
+            *stack.get(), stack->getWBCModelPtr()->getJointPositionLimitMin(),
+            stack->getWBCModelPtr()->getJointPositionLimitMax(),
+stack->getWBCModelPtr()->getJointVelocityLimitMin(),
+            stack->getWBCModelPtr()->getJointVelocityLimitMax(),
+stack->getWBCModelPtr()->getJointNames(), 1.0, false, nh));
 
     stack->pushTask("joint_limits", joint_limit_task);
 
