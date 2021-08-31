@@ -25,8 +25,9 @@ class tiago_environment_collision_stack : public StackConfigurationKinematic
 {
   bool setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh)
   {
-    std::vector<double> joint_pos_min_override = stack->getJointPositionLimitMin();
-    joint_pos_min_override[stack->getJointIndex("arm_4_joint")] = 0.2;
+    std::vector<double> joint_pos_min_override =
+        stack->getWBCModelPtr()->getJointPositionLimitMin();
+    joint_pos_min_override[stack->getWBCModelPtr()->getJointIndex("arm_4_joint")] = 0.2;
 
     std::vector<std::string> default_reference_joints;
     default_reference_joints.push_back("arm_1_joint");
@@ -69,8 +70,10 @@ class tiago_environment_collision_stack : public StackConfigurationKinematic
     JointPositionLimitKinematicAllJointsMetaTaskPtr joint_position_limit_task(
         new JointPositionLimitKinematicAllJointsMetaTask(
             "joint_limits", stack.get(), joint_pos_min_override,
-            stack->getJointPositionLimitMax(), stack->getJointVelocityLimitMin(),
-            stack->getJointVelocityLimitMax(), stack->getJointNames(), 1.0, false, nh));
+            stack->getWBCModelPtr()->getJointPositionLimitMax(),
+            stack->getWBCModelPtr()->getJointVelocityLimitMin(),
+            stack->getWBCModelPtr()->getJointVelocityLimitMax(),
+            stack->getWBCModelPtr()->getJointNames(), 1.0, false, nh));
 
     stack->pushTask(joint_position_limit_task);
 
@@ -123,8 +126,9 @@ class tiago_environment_collision_stack : public StackConfigurationKinematic
     return true;
 
     //    std::vector< double > joint_pos_min_override =
-    //    stack->getJointPositionLimitMin();
-    //    joint_pos_min_override[stack->getJointIndex("arm_4_joint")] = 0.2;
+    //    stack->getWBCModelPtr()->getJointPositionLimitMin();
+    //    joint_pos_min_override[stack->getWBCModelPtr()->getJointIndex("arm_4_joint")] =
+    //    0.2;
 
     //    std::vector<std::string> default_reference_joints;
     //    default_reference_joints.push_back("arm_1_joint");
@@ -159,10 +163,10 @@ class tiago_environment_collision_stack : public StackConfigurationKinematic
     //    joint_position_limit_task(
     //          new JointPositionLimitKinematicAllJointsMetaTask(*stack.get(),
     //                                                           joint_pos_min_override,
-    //                                                           stack->getJointPositionLimitMax(),
-    //                                                           stack->getJointVelocityLimitMin(),
-    //                                                           stack->getJointVelocityLimitMax(),
-    //                                                           stack->getJointNames(),
+    //                                                           stack->getWBCModelPtr()->getJointPositionLimitMax(),
+    //                                                           stack->getWBCModelPtr()->getJointVelocityLimitMin(),
+    //                                                           stack->getWBCModelPtr()->getJointVelocityLimitMax(),
+    //                                                           stack->getWBCModelPtr()->getJointNames(),
     //                                                           1.0,
     //                                                           false,
     //                                                           nh));
@@ -204,7 +208,7 @@ class tiago_environment_collision_stack : public StackConfigurationKinematic
     ////    CollisionMatrixPtr ColMatrix( new CollisionMatrix());
     ////    FCLCollisionEnvironmentPtr ce(new
     /// FCLCollisionEnvironment(RigidBodyDynamics::FloatingBaseType::FixedBase,
-    //// stack->getSubTreeTipsRobotModel(), ColMatrix));
+    //// stack->getWBCModelPtr()->getSubTreeTipsRobotModel(), ColMatrix));
 
     ////    /// @todo Add fake table to collision environment
     ////    // Add synthetic table to collision environment
