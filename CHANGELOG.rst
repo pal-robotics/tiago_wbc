@@ -2,6 +2,14 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'kangaroo_wbc' into 'erbium-devel'
+  Refactor to WBCModel
+  See merge request control/tiago_wbc!21
+* Refactor to WBCModel
+* Contributors: Adria Roig, victor
+
 1.0.38 (2019-09-30)
 -------------------
 * Add SYSTEM include_directories
