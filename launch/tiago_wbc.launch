@@ -3,6 +3,7 @@
 
   <arg name="stack" default="tiago_fixed_base_wbc"/>
   <arg name="spawn" default="true"/>
+  <arg name="control_torso" default="true"/>
   
   <!-- Upload capsule collision operations  & description-->
   <include file="$(find tiago_wbc)/launch/tiago_capsule_description.launch" />
@@ -14,6 +15,7 @@
   <include file="$(find tiago_controller_configuration)/launch/local_joint_control/direct_control.launch">
       <arg name="local_joint_control_type" value="direct_position_control"/>
       <arg name="ns" value="whole_body_kinematic_controller"/>
+      <arg name="control_torso" value="$(arg control_torso)"/>
   </include>
 
   <!-- Spawn controller -->
