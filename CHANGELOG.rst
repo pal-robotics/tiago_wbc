@@ -2,6 +2,14 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'reduced_wbc' into 'erbium-devel'
+  Add arguments in WBC to set torso to no control
+  See merge request control/tiago_wbc!22
+* Add arguments in WBC to set torso to no control
+* Contributors: Adria Roig, narcismiguel
+
 1.0.39 (2021-08-31)
 -------------------
 * Merge branch 'kangaroo_wbc' into 'erbium-devel'
