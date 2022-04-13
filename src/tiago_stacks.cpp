@@ -349,7 +349,7 @@ SelfCollisionSafetyKinematicTask());
     nh.param<std::string>("source_data", sourceData, "interactive_marker");
     // 4. Position Target Reference for right and left arm
 
-    pal_base_ros_controller::FTSensorDefinitionPtr wrist_ft;
+    pal_controller_interface::FTSensorDefinitionPtr wrist_ft;
     if (!getFT("wrist_ft_link", wrist_ft))
     {
       return false;
@@ -449,7 +449,7 @@ SelfCollisionSafetyKinematicTask());
     nh.param<std::string>("source_data", sourceData, "interactive_marker");
     // 4. Position Target Reference for right and left arm
 
-    pal_base_ros_controller::FTSensorDefinitionPtr wrist_ft;
+    pal_controller_interface::FTSensorDefinitionPtr wrist_ft;
     if (!getFT("wrist_ft_link", wrist_ft))
     {
       return false;
