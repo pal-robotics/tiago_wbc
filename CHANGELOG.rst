@@ -2,6 +2,14 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'contact_estimator' into 'erbium-devel'
+  Mv imu_sensor_definition & force_torque_sensor_definition to pal_controller_interface
+  See merge request control/tiago_wbc!23
+* Mv imu_sensor_definition & force_torque_sensor_definition to pal_controller_interface
+* Contributors: Adria Roig
+
 1.0.40 (2021-12-22)
 -------------------
 * Merge branch 'reduced_wbc' into 'erbium-devel'
