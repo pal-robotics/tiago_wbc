@@ -4,8 +4,10 @@
   <arg name="stack" default="tiago_fixed_base_wbc"/>
   <arg name="spawn" default="true"/>
   <arg name="control_torso" default="true"/>
+  <arg name="velocity_interface" default="false"/>
+  <arg name="local_joint_control_type" default=""/>
   <arg name="base_type" default="pmb2"/>
-  
+
   <!-- Upload capsule collision operations  & description-->
   <include file="$(find tiago_wbc)/launch/tiago_capsule_description.launch">
     <arg name="base_type" value="$(arg base_type)"/>
@@ -15,12 +17,22 @@
   <rosparam command="load"
     file="$(find tiago_wbc)/config/$(arg stack).yaml" />
 
-  <include file="$(find tiago_controller_configuration)/launch/local_joint_control/direct_control.launch">
-      <arg name="local_joint_control_type" value="direct_position_control"/>
-      <arg name="ns" value="whole_body_kinematic_controller"/>
-      <arg name="control_torso" value="$(arg control_torso)"/>
-  </include>
+  <group unless="$(eval arg('velocity_interface'))">
+    <include file="$(find tiago_controller_configuration)/launch/local_joint_control/direct_control.launch">
+    	<arg name="local_joint_control_type" value="$(arg local_joint_control_type)"/>
+     	<arg name="ns" value="whole_body_kinematic_controller"/>
+        <arg name="control_torso" value="$(arg control_torso)"/>
+    </include>
+  </group>
 
+  <group if="$(eval arg('velocity_interface'))">
+    <include file="$(find tiago_controller_configuration)/launch/local_joint_control/direct_control.launch">
+        <arg name="local_joint_control" value="direct_velocity_control"/>
+        <arg name="local_joint_control_type" value="$(arg local_joint_control_type)"/>
+        <arg name="ns" value="whole_body_kinematic_controller"/>
+        <arg name="control_torso" value="$(arg control_torso)"/>
+    </include>
+  </group>
   <!-- Spawn controller -->
   <group if="$(arg spawn)">
     <node name="wbc_controllers_spawner" pkg="controller_manager" type="spawner" output="screen" args="whole_body_kinematic_controller" />
