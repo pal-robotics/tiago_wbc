@@ -1,7 +1,8 @@
 <launch>
+ <arg name="base_type" default="pmb2"/>
 
- <!-- Upload capsule collision decompositoin -->
-  <param name="collision_decomposition_description" textfile="$(find tiago_wbc)/config/tiago_capsule_params.txt" />
+ <!-- Upload capsule collision decomposition -->
+  <param name="collision_decomposition_description" textfile="$(find tiago_wbc)/config/tiago_capsule_$(arg base_type)_params.txt" />
 
  <!-- Upload extra collision operations -->
   <rosparam command="load" file="$(find tiago_wbc)/config/tiago_extra_collision_descriptions.yaml" />

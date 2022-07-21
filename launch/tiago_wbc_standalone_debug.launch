@@ -4,11 +4,14 @@
   <arg name="debug" default="false"/>
   <arg name="valgrind" default="false"/>
   <arg name="stack" default="tiago_fixed_base_wbc"/>
+  <arg name="base_type" default="pmb2"/>
+
 
   <include file="$(find tiago_wbc)/launch/tiago_wbc_standalone.launch">
     <arg name="stack" value="$(arg stack)" />
     <arg name="debug" value="$(arg debug)" />
     <arg name="valgrind" value="$(arg valgrind)" />
+    <arg name="base_type" value="$(arg base_type)"/>
   </include>
 
   <rosparam command="load" file="$(find tiago_controller_configuration)/config/joint_trajectory_controllers.yaml"/>

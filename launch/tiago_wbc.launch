@@ -4,9 +4,12 @@
   <arg name="stack" default="tiago_fixed_base_wbc"/>
   <arg name="spawn" default="true"/>
   <arg name="control_torso" default="true"/>
+  <arg name="base_type" default="pmb2"/>
   
   <!-- Upload capsule collision operations  & description-->
-  <include file="$(find tiago_wbc)/launch/tiago_capsule_description.launch" />
+  <include file="$(find tiago_wbc)/launch/tiago_capsule_description.launch">
+    <arg name="base_type" value="$(arg base_type)"/>
+  </include>
 
   <!-- Configure wbc -->
   <rosparam command="load"

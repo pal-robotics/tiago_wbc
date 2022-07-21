@@ -8,7 +8,11 @@
   <arg name="source_data_arm" default="end_effector_interactive_marker_reflexx_typeII"/>  <!-- interactive_marker or topic -->
   <arg name="source_data_gaze" default="interactive_marker"/>
 
-  <include file="$(find tiago_description)/robots/upload.launch" />
+  <arg name="base_type" default="pmb2"/>
+
+  <include file="$(find tiago_description)/robots/upload.launch">
+    <arg name="base_type" value="$(arg base_type)"/>
+  </include>
 
   <include file="$(find pal_kinematic_simulator)/launch/kinematic_simulator_ros_control.launch">
     <arg name="debug" value="$(arg debug)"/>
@@ -18,6 +22,7 @@
 
   <include file="$(find tiago_wbc)/launch/tiago_wbc.launch">
     <arg name="stack" value="$(arg stack)" />
+    <arg name="base_type" value="$(arg base_type)"/>
   </include>
 
   <include file="$(find tiago_controller_configuration)/launch/joint_state_controller.launch"/>
