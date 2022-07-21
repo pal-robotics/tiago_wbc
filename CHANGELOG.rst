@@ -2,8 +2,8 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.42 (2022-07-21)
+-------------------
 * Merge branch 'omnibase' into 'erbium-devel'
   Propagate base_type to wbc
   See merge request control/tiago_wbc!24
