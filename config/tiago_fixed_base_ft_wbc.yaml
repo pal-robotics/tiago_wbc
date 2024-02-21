@@ -34,3 +34,15 @@ whole_body_kinematic_controller:
     head_1_joint: 0.0 
     head_2_joint: 0.0
     torso_lift_joint: 0.3
+    
+  velocity_controller_pid:
+    arm_1_joint: {p: 0.0, i: 0.0, d: 0.0}
+    arm_2_joint: {p: 0.0, i: 0.0, d: 0.0}
+    arm_3_joint: {p: 0.0, i: 0.0, d: 0.0}
+    arm_4_joint: {p: 0.0, i: 0.0, d: 0.0}
+    arm_5_joint: {p: 0.0, i: 0.0, d: 0.0}
+    arm_6_joint: {p: 0.0, i: 0.0, d: 0.0}
+    arm_7_joint: {p: 0.0, i: 0.0, d: 0.0}
+    head_1_joint: {p: 0.0, i: 0.0, d: 0.0}
+    head_2_joint: {p: 0.0, i: 0.0, d: 0.0}
+    torso_lift_joint: {p: 0.0, i: 0.0, d: 0.0}
