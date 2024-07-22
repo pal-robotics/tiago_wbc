@@ -11,11 +11,12 @@
   <!-- Upload capsule collision operations  & description-->
   <include file="$(find tiago_wbc)/launch/tiago_capsule_description.launch">
     <arg name="base_type" value="$(arg base_type)"/>
-  </include>    
-  
-  <rosparam command="load" file="$(find tiago_wbc)/config/$(arg stack).yaml" />
+  </include>
+
 
   <group unless="$(eval arg('velocity_interface'))">
+  <!-- Configure wbc -->
+    <rosparam command="load" file="$(find tiago_wbc)/config/$(arg stack)_velocity.yaml" />	  
     <include file="$(find tiago_controller_configuration)/launch/local_joint_control/direct_control.launch">
     	<arg name="local_joint_control_type" value="$(arg local_joint_control_type)"/>
      	<arg name="ns" value="whole_body_kinematic_controller"/>
@@ -24,7 +25,7 @@
   </group>
 
   <group if="$(eval arg('velocity_interface'))">
-    <rosparam param="/whole_body_kinematic_controller/velocity_interface" subst_value="True">$(arg velocity_interface)</rosparam>
+    <rosparam command="load" file="$(find tiago_wbc)/config/$(arg stack)_velocity.yaml" />      
     <include file="$(find tiago_controller_configuration)/launch/local_joint_control/direct_control.launch">
         <arg name="local_joint_control" value="direct_velocity_control"/>
         <arg name="local_joint_control_type" value="$(arg local_joint_control_type)"/>
