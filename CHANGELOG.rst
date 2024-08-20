@@ -2,6 +2,21 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'velocity_interface' into 'erbium-devel'
+  Velocity interface
+  See merge request control/tiago_wbc!28
+* Apply 1 suggestion(s) to 1 file(s)
+* update pids ft yamupdate pids ft yaml
+* rollback to the single yaml file
+* delete velocity pids for wbc in the main yaml file
+* yaml for velocity interface
+* rosparam velocity_interface
+* add velocity_controller_pid param in the config files
+* Allow to launch tiago_wbc in velocity interface
+* Contributors: Narcis Miguel, Sai Kishor Kothakota, ileniaperrella
+
 1.0.42 (2022-07-21)
 -------------------
 * Merge branch 'omnibase' into 'erbium-devel'
