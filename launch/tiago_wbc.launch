@@ -5,7 +5,7 @@
   <arg name="spawn" default="true"/>
   <arg name="control_torso" default="true"/>
   <arg name="velocity_interface" default="false"/>
-  <arg name="local_joint_control_type" default=""/>
+  <arg name="local_joint_control_type"/>
   <arg name="base_type" default="pmb2"/>
 
   <!-- Upload capsule collision operations  & description-->
