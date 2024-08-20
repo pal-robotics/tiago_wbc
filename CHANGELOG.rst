@@ -2,8 +2,8 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.43 (2024-08-20)
+-------------------
 * Merge branch 'velocity_interface' into 'erbium-devel'
   Velocity interface
   See merge request control/tiago_wbc!28
