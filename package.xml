@@ -1,35 +1,26 @@
-<package format="2">
+<?xml version="1.0"?>
+<package format="3">
   <name>tiago_wbc</name>
   <version>1.0.43</version>
   <description>The tiago_wbc package</description>
 
-  <maintainer email="hilario.tome@pal-robotics.com">Hilario Tomé</maintainer>
+  <maintainer email="adria.roig@pal-robotics.com">Adrià Roig</maintainer>
+  <maintainer email="sai.kishor@pal-robotics.com">Sai Kishor</maintainer>
 
   <license>Proprietary</license>
 
-  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>ament_cmake_auto</buildtool_depend>
 
-  <depend>pal_wbc_controller</depend>
-  <depend>roscpp</depend>
-  <depend>wbc_tasks</depend>
-  <depend>pluginlib</depend>
-  <depend>pal_wbc_utils</depend>
-  <depend>cmake_modules</depend>
+  <exec_depend>pal_wbc_controller</exec_depend>
+  <exec_depend>wbc_tasks</exec_depend>
+  <exec_depend>pal_references</exec_depend>
+  <exec_depend>capsule_collision</exec_depend>
 
-  <exec_depend>pal_kinematic_simulator</exec_depend>
-  <exec_depend>tiago_description</exec_depend>
-  <exec_depend>controller_manager_msgs</exec_depend>
-  <exec_depend>reflexxes_adapter</exec_depend>
-
-  <test_depend>rostest</test_depend>
-  <test_depend>tiago_controller_configuration</test_depend>
-  <test_depend>eigen_checks</test_depend>
-  <test_depend>pal_ros_utils</test_depend>
-  <test_depend>smach_c_wbc_states</test_depend>
-  <test_depend>smach_c</test_depend>
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
 
   <export>
-    <pal_wbc_controller plugin="${prefix}/tiago_wbc_plugins.xml" />
+    <build_type>ament_cmake</build_type>
   </export>
-
 </package>
+

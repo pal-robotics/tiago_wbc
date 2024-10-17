@@ -1,0 +1,38 @@
+pal_wbc_controller:
+  ros__parameters:
+    type: "pal_wbc/KinematicWBCController"
+    command_joints: ["arm_1_joint", "arm_2_joint", "arm_3_joint", "arm_4_joint", "arm_5_joint", "arm_6_joint", "arm_7_joint", "torso_lift_joint"]
+    command_interface: "position"
+    robot_description: ""
+    root_link: "base_link"
+    tip_links: ["arm_tool_link"]
+    controller_dt: 0.005
+    use_home_posture: true
+    foot_names: ["left_sole_link", "right_sole_link"]
+    formulation: "velocity"
+    wbc_model_type: "rbdl"
+    floating_base_type: "FIXED"
+    solver_type: "QpReductionuEqualitiesQuadprogHeapAllocation"
+    stack_from_yaml: true
+    stack_configuration: "/home/user/exchange/ros2_gravity/src/tiago_wbc/config/default_stack.yaml"
+    use_odom: false
+    initialize_bfp_tf: false
+
+    home_posture:
+      arm_1_joint:
+        position: 0.11
+      arm_2_joint:
+        position: -0.51
+      arm_3_joint:
+        position: -3.22
+      arm_4_joint:
+        position: 2.0
+      arm_5_joint:
+        position: 1.91
+      arm_6_joint:
+        position: 0.36
+      arm_7_joint:
+        position: 1.08
+      torso_lift_joint:
+        position: 0.3
+
