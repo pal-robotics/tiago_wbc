@@ -5,7 +5,7 @@ pal_wbc_controller:
       weight: 1.0
       priority: 0
       damping: 0.0
-      joint_names: ["arm_1_joint", "arm_2_joint", "arm_3_joint", "arm_4_joint", "arm_5_joint", "arm_6_joint", "arm_7_joint", "torso_lift_joint"]
+      joint_names: ["arm_1_joint", "arm_2_joint", "arm_3_joint", "arm_4_joint", "arm_5_joint", "arm_6_joint", "arm_7_joint", "torso_lift_joint", "head_1_joint", "head_2_joint"]
       upper_bound_position: []
       lower_bound_position: []
       upper_bound_velocity: []
@@ -19,9 +19,9 @@ pal_wbc_controller:
       weight: 1.0
       priority: 1
       damping: 1.e-4
-      collision_decomposition_description: "/home/adriaroig/exchange/ros2_gravity/src/tiago_wbc/config/tiago_capsule_params.yaml"
-      extra_capsule_descriptions: "/home/adriaroig/exchange/ros2_gravity/src/tiago_wbc/config/tiago_extra_collision_descriptions.yaml"
-      collision_operations: "/home/adriaroig/exchange/ros2_gravity/src/tiago_wbc/config/tiago_collision_operations.xml"
+      collision_decomposition_description: "/home/user/exchange/ros2_gravity/src/tiago_wbc/config/tiago_capsule_params.yaml"
+      extra_capsule_descriptions: "/home/user/exchange/ros2_gravity/src/tiago_wbc/config/tiago_extra_collision_descriptions.yaml"
+      collision_operations: "/home/user/exchange/ros2_gravity/src/tiago_wbc/config/tiago_collision_operations.xml"
       number_collisions: 10
       min_distance: 0.08
       influence_distance: 0.08
@@ -67,13 +67,21 @@ pal_wbc_controller:
         z: 0.0
         w: 1.0
       coordinates: [Roll, Pitch, Yaw]
-    default_reference:
-      type: "pal_wbc/ReferenceKinematicTask"
+    gaze:
+      type: "pal_wbc/GazeKinematicTask"
       weight: 1.0
       priority: 4
       damping: 0.1
-      joint_names: ["arm_1_joint", "arm_2_joint", "arm_3_joint", "arm_4_joint", "arm_5_joint", "arm_6_joint", "arm_7_joint", "torso_lift_joint"]
-      desired_position: [1.7, -0.5, -3.4, 0.5, 0.0, 0.0, 0.0, 0.14]
+      camera_frame: "head_front_camera_link"
+      reference_type: "pal_references::InteractiveMarkerReference"
+      gain: 2.0
+    default_reference:
+      type: "pal_wbc/ReferenceKinematicTask"
+      weight: 1.0
+      priority: 5
+      damping: 0.1
+      joint_names: ["arm_1_joint", "arm_2_joint", "arm_3_joint", "arm_4_joint", "arm_5_joint", "arm_6_joint", "arm_7_joint", "torso_lift_joint", "head_1_joint", "head_2_joint"]
+      desired_position: [1.7, -0.5, -3.4, 0.5, 0.0, 0.0, 0.0, 0.14, 0.0, 0.0]
       reference_type: "pal_references::DynamicReconfigureReference"
       gain: 2.0
 
