@@ -72,9 +72,9 @@ pal_wbc_controller:
       weight: 1.0
       priority: 4
       damping: 0.1
-      camera_frame: "head_front_camera_link"
+      camera_frame: "head_front_camera_rgb_optical_frame"
       reference_type: "pal_references::InteractiveMarkerReference"
-      gain: 2.0
+      gain: 10.0
     default_reference:
       type: "pal_wbc/ReferenceKinematicTask"
       weight: 1.0
@@ -84,17 +84,3 @@ pal_wbc_controller:
       desired_position: [1.7, -0.5, -3.4, 0.5, 0.0, 0.0, 0.0, 0.14, 0.0, 0.0]
       reference_type: "pal_references::DynamicReconfigureReference"
       gain: 2.0
-
-
-
-
-    
-
-
-
-
-
-
-    
-  
-  

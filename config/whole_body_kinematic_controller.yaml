@@ -5,7 +5,7 @@ pal_wbc_controller:
     command_interface: "position"
     robot_description: ""
     root_link: "base_link"
-    tip_links: ["arm_tool_link", "head_front_camera_link"]
+    tip_links: ["arm_tool_link", "head_front_camera_rgb_optical_frame"]
     controller_dt: 0.005
     use_home_posture: true
     foot_names: ["left_sole_link", "right_sole_link"]
