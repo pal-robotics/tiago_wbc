@@ -4,6 +4,7 @@ pal_wbc_controller:
       type: "pal_wbc/JointPositionLimitTask"
       weight: 1.0
       priority: 0
+      start: true
       damping: 0.0
       joint_names: ["arm_1_joint", "arm_2_joint", "arm_3_joint", "arm_4_joint", "arm_5_joint", "arm_6_joint", "arm_7_joint", "torso_lift_joint", "head_1_joint", "head_2_joint"]
       upper_bound_position: []
@@ -18,6 +19,7 @@ pal_wbc_controller:
       type: "pal_wbc/SelfCollisionSafetyKinematicTask"
       weight: 1.0
       priority: 1
+      start: true
       damping: 1.e-4
       collision_decomposition_description: "/home/user/exchange/ros2_gravity/src/tiago_wbc/config/tiago_capsule_params.yaml"
       extra_capsule_descriptions: "/home/user/exchange/ros2_gravity/src/tiago_wbc/config/tiago_extra_collision_descriptions.yaml"
@@ -31,6 +33,7 @@ pal_wbc_controller:
       type: "pal_wbc/GoToKinematicTask"
       weight: 1.0
       priority: 2
+      start: true
       damping: 0.1
       link_name: "arm_tool_link"
       reference_type: "pal_references::InteractiveMarkerReference"
@@ -49,6 +52,7 @@ pal_wbc_controller:
       type: "pal_wbc/GoToKinematicTask"
       weight: 1.0
       priority: 3
+      start: true
       damping: 0.1
       link_name: "arm_tool_link"
       reference_type: "pal_references::InteractiveMarkerReference"
@@ -71,6 +75,7 @@ pal_wbc_controller:
       type: "pal_wbc/GazeKinematicTask"
       weight: 1.0
       priority: 4
+      start: true
       damping: 0.1
       camera_frame: "head_front_camera_rgb_optical_frame"
       reference_type: "pal_references::InteractiveMarkerReference"
@@ -79,6 +84,7 @@ pal_wbc_controller:
       type: "pal_wbc/ReferenceKinematicTask"
       weight: 1.0
       priority: 5
+      start: true
       damping: 0.1
       joint_names: ["arm_1_joint", "arm_2_joint", "arm_3_joint", "arm_4_joint", "arm_5_joint", "arm_6_joint", "arm_7_joint", "torso_lift_joint", "head_1_joint", "head_2_joint"]
       desired_position: [1.7, -0.5, -3.4, 0.5, 0.0, 0.0, 0.0, 0.14, 0.0, 0.0]
