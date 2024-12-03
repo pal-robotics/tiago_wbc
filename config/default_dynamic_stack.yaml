@@ -1,0 +1,44 @@
+pal_wbc_controller:
+  task_description:
+    cartesian_position:
+      type: "pal_wbc/GoToDynamicTask"
+      weight: 1.0
+      priority: 2
+      start: true
+      damping: 0.1
+      link_name: "arm_tool_link"
+      reference_type: "pal_references::InteractiveMarkerReference"
+      pid_position_gains:
+        k_p: 100.0
+        k_d: 0.0
+        k_i: 0.0
+        i_min: 0.0
+        i_max: 0.0
+        antiwindup: false
+        damping_ratio: 1.0
+        critically_damped: false
+      offset_position: [0.0, 0.0, 0.0]
+      coordinates: [X, Y, Z]
+    cartesian_orientation:
+      type: "pal_wbc/GoToDynamicTask"
+      weight: 1.0
+      priority: 3
+      start: true
+      damping: 0.1
+      link_name: "arm_tool_link"
+      reference_type: "pal_references::InteractiveMarkerReference"
+      pid_orientation_gains:
+        k_p: 100.0
+        k_d: 0.0
+        k_i: 0.0
+        i_min: 0.0
+        i_max: 0.0
+        antiwindup: false
+        damping_ratio: 1.0
+        critically_damped: false
+      offset_orientation:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+        w: 1.0
+      coordinates: [Roll, Pitch, Yaw]

@@ -1,0 +1,19 @@
+pal_wbc_controller:
+  ros__parameters:
+    type: "pal_wbc/WBCController"
+    command_joints: ["arm_1_joint", "arm_2_joint", "arm_3_joint", "arm_4_joint", "arm_5_joint", "arm_6_joint", "arm_7_joint", "torso_lift_joint"]
+    command_interface: "effort"
+    robot_description: ""
+    root_link: "base_link"
+    tip_links: ["arm_tool_link"]
+    controller_dt: 0.005
+    use_home_posture: false
+    formulation: "dynamics" #"dynamics_reduced_friction_cone"
+    wbc_model_type: "rbdl"
+    floating_base_type: "FIXED"
+    solver_type: "QpSimpleQuadprog" #QpSimpleQPMAD
+    stack_from_yaml: true
+    stack_configuration: "/home/user/exchange/ros2_gravity/src/tiago_wbc/config/default_dynamic_stack.yaml"
+    use_odom: false
+    initialize_bfp_tf: false
+    openloop: false
