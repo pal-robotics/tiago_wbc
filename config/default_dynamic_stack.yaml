@@ -1,16 +1,31 @@
 pal_wbc_controller:
   task_description:
+    joint_limits:
+      type: "pal_wbc/JointPosVelAccLimitsDynamicTask"
+      weight: 1.0
+      priority: 0
+      start: true
+      damping: 0.0
+      joint_names: ["arm_1_joint", "arm_2_joint", "arm_3_joint", "arm_4_joint", "arm_5_joint", "arm_6_joint", "arm_7_joint", "torso_lift_joint"]
+      upper_bound_position: []
+      lower_bound_position: []
+      upper_bound_velocity: []
+      lower_bound_velocity: []
+      acceleration_limits: []
+      vel_limit_gain: 1.0
+      disable_vel_limit: false
+      disable_acc_limit: false
     cartesian_position:
       type: "pal_wbc/GoToDynamicTask"
-      weight: 1.0
-      priority: 2
+      weight: 10.0
+      priority: 1
       start: true
-      damping: 0.1
+      damping: 0.0
       link_name: "arm_tool_link"
       reference_type: "pal_references::InteractiveMarkerReference"
       pid_position_gains:
-        k_p: 100.0
-        k_d: 0.0
+        k_p: 60.0
+        k_d: 15.0
         k_i: 0.0
         i_min: 0.0
         i_max: 0.0
@@ -21,15 +36,15 @@ pal_wbc_controller:
       coordinates: [X, Y, Z]
     cartesian_orientation:
       type: "pal_wbc/GoToDynamicTask"
-      weight: 1.0
-      priority: 3
+      weight: 8.0
+      priority: 1
       start: true
-      damping: 0.1
+      damping: 0.0
       link_name: "arm_tool_link"
       reference_type: "pal_references::InteractiveMarkerReference"
       pid_orientation_gains:
-        k_p: 100.0
-        k_d: 0.0
+        k_p: 60.0
+        k_d: 15.0
         k_i: 0.0
         i_min: 0.0
         i_max: 0.0

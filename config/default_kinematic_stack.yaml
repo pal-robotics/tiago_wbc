@@ -83,7 +83,7 @@ pal_wbc_controller:
     default_reference:
       type: "pal_wbc/ReferenceKinematicTask"
       weight: 1.0
-      priority: 5
+      priority: 4
       start: true
       damping: 0.1
       joint_names: ["arm_1_joint", "arm_2_joint", "arm_3_joint", "arm_4_joint", "arm_5_joint", "arm_6_joint", "arm_7_joint", "torso_lift_joint", "head_1_joint", "head_2_joint"]
