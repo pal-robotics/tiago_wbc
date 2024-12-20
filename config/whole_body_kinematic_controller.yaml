@@ -6,7 +6,7 @@ pal_wbc_controller:
     robot_description: ""
     root_link: "base_link"
     tip_links: ["arm_tool_link", "head_front_camera_rgb_optical_frame"]
-    controller_dt: 0.005
+    controller_dt: 0.01
     use_home_posture: true
     formulation: "velocity"
     wbc_model_type: "rbdl"
@@ -18,7 +18,7 @@ pal_wbc_controller:
     initialize_bfp_tf: false
     openloop: true
 
-    velocity_controller_pid:
+    wbc_controller_pid:
       arm_1_joint:
         p: 1.
         i: 0.

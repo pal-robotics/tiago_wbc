@@ -7,10 +7,10 @@ pal_wbc_controller:
       start: true
       damping: 0.0
       joint_names: ["arm_1_joint", "arm_2_joint", "arm_3_joint", "arm_4_joint", "arm_5_joint", "arm_6_joint", "arm_7_joint", "torso_lift_joint"]
-      upper_bound_position: [2.7, 1.0, 1.5, 2.3, 2.0, 1.4, 2.0, 0.35]
-      lower_bound_position: [-1.5, -3.5, 0.2, -2.0, -1.4, -2.0, 0.0]
-      upper_bound_velocity: [1.95, 1.95, 2.35, 2.35, 1.95, 1.76, 1.76, 0.07]
-      lower_bound_velocity: [-1.95, -1.95, -2.35, -2.35, -1.95, -1.76, -1.76, -0.07]
+      upper_bound_position: [] # [2.7, 1.0, 1.5, 2.3, 2.0, 1.4, 2.0, 0.35]
+      lower_bound_position: [] # [0, -1.5, -3.5, 0.1, -2.0, -1.4, -2.0]
+      upper_bound_velocity: [] # [1.95, 1.95, 2.35, 2.35, 1.95, 1.76, 1.76, 0.07]
+      lower_bound_velocity: [] # [-1.95, -1.95, -2.35, -2.35, -1.95, -1.76, -1.76, -0.07]
       acceleration_limits: []
       velocity_clamp: true
       position_enable_recovery: true
@@ -33,8 +33,8 @@ pal_wbc_controller:
       link_name: "arm_tool_link"
       reference_type: "pal_references::InteractiveMarkerReference"
       pid_position_gains:
-        k_p: 80.0
-        k_d: 20.0
+        k_p: 500.0
+        k_d: 100.0
         k_i: 0.0
         i_min: 0.0
         i_max: 0.0
@@ -45,15 +45,15 @@ pal_wbc_controller:
       coordinates: [X, Y, Z]
     cartesian_orientation:
       type: "pal_wbc/GoToDynamicTask"
-      weight: 8.0
+      weight: 50.0
       priority: 1
       start: true
       damping: 0.0
       link_name: "arm_tool_link"
       reference_type: "pal_references::InteractiveMarkerReference"
       pid_orientation_gains:
-        k_p: 60.0
-        k_d: 15.0
+        k_p: 500.0
+        k_d: 100.0
         k_i: 0.0
         i_min: 0.0
         i_max: 0.0
@@ -76,64 +76,64 @@ pal_wbc_controller:
       desired_position: [0.11, -0.51, -3.22, 2.0, 1.91, 0.36, 1.08, 0.3]
       reference_type: "pal_references::DynamicReconfigureReference"
       pid_reference_gains:
-        - k_p: 100.0
-          k_d: 10.0
+        - k_p: 500.0
+          k_d: 100.0
           k_i: 0.0
           i_min: 0.0
           i_max: 0.0
           antiwindup: false
           damping_ratio: 1.0
           critically_damped: false
-        - k_p: 100.0
-          k_d: 10.0
+        - k_p: 500.0
+          k_d: 100.0
           k_i: 0.0
           i_min: 0.0
           i_max: 0.0
           antiwindup: false
           damping_ratio: 1.0
           critically_damped: false
-        - k_p: 100.0
-          k_d: 10.0
+        - k_p: 500.0
+          k_d: 100.0
           k_i: 0.0
           i_min: 0.0
           i_max: 0.0
           antiwindup: false
           damping_ratio: 1.0
           critically_damped: false
-        - k_p: 100.0
-          k_d: 10.0
+        - k_p: 500.0
+          k_d: 100.0
           k_i: 0.0
           i_min: 0.0
           i_max: 0.0
           antiwindup: false
           damping_ratio: 1.0
           critically_damped: false
-        - k_p: 100.0
-          k_d: 10.0
+        - k_p: 500.0
+          k_d: 100.0
           k_i: 0.0
           i_min: 0.0
           i_max: 0.0
           antiwindup: false
           damping_ratio: 1.0
           critically_damped: false
-        - k_p: 100.0
-          k_d: 10.0
+        - k_p: 500.0
+          k_d: 100.0
           k_i: 0.0
           i_min: 0.0
           i_max: 0.0
           antiwindup: false
           damping_ratio: 1.0
           critically_damped: false
-        - k_p: 100.0
-          k_d: 10.0
+        - k_p: 500.0
+          k_d: 100.0
           k_i: 0.0
           i_min: 0.0
           i_max: 0.0
           antiwindup: false
           damping_ratio: 1.0
           critically_damped: false
-        - k_p: 100.0
-          k_d: 10.0
+        - k_p: 500.0
+          k_d: 100.0
           k_i: 0.0
           i_min: 0.0
           i_max: 0.0
