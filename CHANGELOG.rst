@@ -2,6 +2,25 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'wbc' into 'alum-devel'
+  Wbc
+  See merge request control/tiago_wbc!29
+* Add missing parameters for WBC
+* Modify parameters aftter testing in real robot
+* Add joint limits to avoid singularities
+* Add PhysicsConstraintTask in the dynamic stack
+* Add JointPosVelAccLimitsDynamicTask in the dynamic stack
+* Add config files and launch files for position, velocity and effort
+* Add start parameter in the stack
+* Modify parameters for the gaze_task
+* Include head
+* Remove head from capsule_params and collision_operations
+* Remove self collision from default stack
+* Start migration of TIAGo WBC to ROS2
+* Contributors: Adria Roig, Adrià Roig
+
 1.0.43 (2024-08-20)
 -------------------
 * Merge branch 'velocity_interface' into 'erbium-devel'
