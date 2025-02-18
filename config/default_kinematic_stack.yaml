@@ -1,0 +1,92 @@
+pal_wbc_controller:
+  task_description:
+    joint_limits:
+      type: "pal_wbc/JointPositionLimitTask"
+      weight: 1.0
+      priority: 0
+      start: true
+      damping: 0.0
+      joint_names: ["arm_1_joint", "arm_2_joint", "arm_3_joint", "arm_4_joint", "arm_5_joint", "arm_6_joint", "arm_7_joint", "torso_lift_joint", "head_1_joint", "head_2_joint"]
+      upper_bound_position: []
+      lower_bound_position: []
+      upper_bound_velocity: []
+      lower_bound_velocity: []
+      acceleration_limits: []
+      vel_limit_gain: 1.0
+      disable_vel_limit: false
+      disable_acc_limit: true
+    self_collision:
+      type: "pal_wbc/SelfCollisionSafetyKinematicTask"
+      weight: 1.0
+      priority: 1
+      start: true
+      damping: 1.e-4
+      collision_decomposition_description: "/home/user/exchange/ros2_gravity/src/tiago_wbc/config/tiago_capsule_params.yaml"
+      extra_capsule_descriptions: "/home/user/exchange/ros2_gravity/src/tiago_wbc/config/tiago_extra_collision_descriptions.yaml"
+      collision_operations: "/home/user/exchange/ros2_gravity/src/tiago_wbc/config/tiago_collision_operations.xml"
+      number_collisions: 10
+      min_distance: 0.08
+      influence_distance: 0.08
+      epsilon: 0.02
+      safety_distance: 0.0
+    cartesian_position:
+      type: "pal_wbc/GoToKinematicTask"
+      weight: 1.0
+      priority: 2
+      start: true
+      damping: 0.1
+      link_name: "arm_tool_link"
+      reference_type: "pal_references::InteractiveMarkerReference"
+      pid_position_gains:
+        k_p: 10.0
+        k_d: 0.0
+        k_i: 0.0
+        i_min: 0.0
+        i_max: 0.0
+        antiwindup: false
+        damping_ratio: 1.0
+        critically_damped: false
+      offset_position: [0.0, 0.0, 0.0]
+      coordinates: [X, Y, Z]
+    cartesian_orientation:
+      type: "pal_wbc/GoToKinematicTask"
+      weight: 1.0
+      priority: 3
+      start: true
+      damping: 0.1
+      link_name: "arm_tool_link"
+      reference_type: "pal_references::InteractiveMarkerReference"
+      pid_orientation_gains:
+        k_p: 10.0
+        k_d: 0.0
+        k_i: 0.0
+        i_min: 0.0
+        i_max: 0.0
+        antiwindup: false
+        damping_ratio: 1.0
+        critically_damped: false
+      offset_orientation:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+        w: 1.0
+      coordinates: [Roll, Pitch, Yaw]
+    gaze:
+      type: "pal_wbc/GazeKinematicTask"
+      weight: 1.0
+      priority: 4
+      start: true
+      damping: 0.1
+      camera_frame: "head_front_camera_rgb_optical_frame"
+      reference_type: "pal_references::InteractiveMarkerReference"
+      gain: 10.0
+    default_reference:
+      type: "pal_wbc/ReferenceKinematicTask"
+      weight: 1.0
+      priority: 4
+      start: true
+      damping: 0.1
+      joint_names: ["arm_1_joint", "arm_2_joint", "arm_3_joint", "arm_4_joint", "arm_5_joint", "arm_6_joint", "arm_7_joint", "torso_lift_joint", "head_1_joint", "head_2_joint"]
+      desired_position: [1.7, -0.5, -3.4, 0.5, 0.0, 0.0, 0.0, 0.14, 0.0, 0.0]
+      reference_type: "pal_references::DynamicReconfigureReference"
+      gain: 2.0

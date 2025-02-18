@@ -1,6 +1,16 @@
-extra_capsule_descriptions:
-  arm_7_link:
-     position: [0.0, 0.0, 0.1]
-     orientation: [0.0, 0.0, 0.0, 1.0]
-     l: 0.15
-     r: 0.12
+extra_capsule_description:
+    capsule_params:
+      - link_name: arm_7_link
+        position: [0.0, 0.0, 0.1]
+        orientation:
+          x: 0.0
+          y: 0.0
+          z: 0.0
+          w: 1.0
+        length: 0.15
+        cr: 0.12
+
+
+
+
+
