@@ -2,8 +2,8 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.0.0 (2025-02-18)
+------------------
 * Merge branch 'wbc' into 'alum-devel'
   Wbc
   See merge request control/tiago_wbc!29
