@@ -13,7 +13,8 @@ pal_wbc_controller:
     floating_base_type: "FIXED"
     solver_type: "QpReductionuEqualitiesQuadprogHeapAllocation"
     stack_from_yaml: true
-    stack_configuration: "/home/user/exchange/ros2_gravity/src/tiago_wbc/config/default_kinematic_stack.yaml"
+    package_name: "tiago_wbc"
+    stack_configuration: "/config/default_kinematic_stack.yaml"
     use_odom: false
     initialize_bfp_tf: false
     openloop: true

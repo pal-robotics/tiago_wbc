@@ -21,9 +21,10 @@ pal_wbc_controller:
       priority: 1
       start: true
       damping: 1.e-4
-      collision_decomposition_description: "/home/user/exchange/ros2_gravity/src/tiago_wbc/config/tiago_capsule_params.yaml"
-      extra_capsule_descriptions: "/home/user/exchange/ros2_gravity/src/tiago_wbc/config/tiago_extra_collision_descriptions.yaml"
-      collision_operations: "/home/user/exchange/ros2_gravity/src/tiago_wbc/config/tiago_collision_operations.xml"
+      package_name: "tiago_wbc"
+      collision_decomposition_description: "/config/tiago_capsule_params.yaml"
+      extra_capsule_descriptions: "/config/tiago_extra_collision_descriptions.yaml"
+      collision_operations: "/config/tiago_collision_operations.xml"
       number_collisions: 10
       min_distance: 0.08
       influence_distance: 0.08
