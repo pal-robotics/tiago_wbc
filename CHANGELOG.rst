@@ -2,8 +2,8 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.0.1 (2025-02-19)
+------------------
 * Merge branch 'local_path' into 'alum-devel'
   Change global_path parameters to local_path
   See merge request control/tiago_wbc!30
