@@ -2,6 +2,15 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'local_path' into 'alum-devel'
+  Change global_path parameters to local_path
+  See merge request control/tiago_wbc!30
+* Remove lintern tests
+* Change global_path parameters to local_path
+* Contributors: Adria Roig, Adrià Roig
+
 2.0.0 (2025-02-18)
 ------------------
 * Merge branch 'wbc' into 'alum-devel'
