@@ -2,6 +2,14 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'low_gains' into 'alum-devel'
+  Reduce gains for testing in the real robot
+  See merge request control/tiago_wbc!31
+* Reduce gains for testing in the real robot
+* Contributors: Adria Roig, Adrià Roig
+
 2.0.1 (2025-02-19)
 ------------------
 * Merge branch 'local_path' into 'alum-devel'
