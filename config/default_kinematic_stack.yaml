@@ -39,7 +39,7 @@ pal_wbc_controller:
       link_name: "arm_tool_link"
       reference_type: "pal_references::InteractiveMarkerReference"
       pid_position_gains:
-        k_p: 10.0
+        k_p: 2.0
         k_d: 0.0
         k_i: 0.0
         i_min: 0.0
@@ -58,7 +58,7 @@ pal_wbc_controller:
       link_name: "arm_tool_link"
       reference_type: "pal_references::InteractiveMarkerReference"
       pid_orientation_gains:
-        k_p: 10.0
+        k_p: 2.0
         k_d: 0.0
         k_i: 0.0
         i_min: 0.0
@@ -80,7 +80,7 @@ pal_wbc_controller:
       damping: 0.1
       camera_frame: "head_front_camera_rgb_optical_frame"
       reference_type: "pal_references::InteractiveMarkerReference"
-      gain: 10.0
+      gain: 1.0
     default_reference:
       type: "pal_wbc/ReferenceKinematicTask"
       weight: 1.0
@@ -90,4 +90,4 @@ pal_wbc_controller:
       joint_names: ["arm_1_joint", "arm_2_joint", "arm_3_joint", "arm_4_joint", "arm_5_joint", "arm_6_joint", "arm_7_joint", "torso_lift_joint", "head_1_joint", "head_2_joint"]
       desired_position: [1.7, -0.5, -3.4, 0.5, 0.0, 0.0, 0.0, 0.14, 0.0, 0.0]
       reference_type: "pal_references::DynamicReconfigureReference"
-      gain: 2.0
+      gain: 1.0
