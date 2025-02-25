@@ -2,8 +2,8 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.0.2 (2025-02-25)
+------------------
 * Merge branch 'low_gains' into 'alum-devel'
   Reduce gains for testing in the real robot
   See merge request control/tiago_wbc!31
