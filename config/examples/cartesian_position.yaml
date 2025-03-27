@@ -1,0 +1,19 @@
+cartesian_position:  # Control end-effector Cartesian position
+  type: "pal_wbc/GoToKinematicTask"
+  weight: 1.0
+  priority: 2
+  start: true
+  damping: 0.1
+  link_name: "arm_tool_link"  # Controlled link
+  reference_type: "pal_references::TopicPoseReference"  #Follows geometry_msgs::msg::Pose In this case, it would be named /arm_tool_link_pose
+  pid_position_gains:  # PID parameters for position control
+    k_p: 2.0
+    k_d: 0.0
+    k_i: 0.0
+    i_min: 0.0
+    i_max: 0.0
+    antiwindup: false
+    damping_ratio: 1.0
+    critically_damped: false
+  offset_position: [0.0, 0.0, 0.0]  # No additional displacement
+  coordinates: [X, Y, Z]  # Controls translation in Cartesian space

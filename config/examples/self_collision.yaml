@@ -1,0 +1,15 @@
+self_collision:  # Self-collision avoidance
+  type: "pal_wbc/SelfCollisionSafetyKinematicTask"
+  weight: 1.0
+  priority: 1
+  start: true
+  damping: 1.e-4  # Damping to smooth reactions
+  package_name: "tiago_wbc"
+  collision_decomposition_description: "/config/tiago_capsule_params.yaml"  # Collision configuration
+  extra_capsule_descriptions: "/config/tiago_extra_collision_descriptions.yaml"
+  collision_operations: "/config/tiago_collision_operations.xml"
+  number_collisions: 10  # Number of monitored collisions
+  min_distance: 0.08  # Minimum distance before reacting
+  influence_distance: 0.08  # Collision influence distance
+  epsilon: 0.02  # Safety margin
+  safety_distance: 0.0  # Minimum safety distance
