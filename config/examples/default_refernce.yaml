@@ -1,0 +1,10 @@
+default_reference:  # Default reference for joint positions
+  type: "pal_wbc/ReferenceKinematicTask"
+  weight: 1.0
+  priority: 5  # Lowest priority
+  start: true
+  damping: 0.1
+  joint_names: ["arm_1_joint", "arm_2_joint", "arm_3_joint", "arm_4_joint", "arm_5_joint", "arm_6_joint", "arm_7_joint", "torso_lift_joint", "head_1_joint", "head_2_joint"]
+  desired_position: [1.7, -0.5, -3.4, 0.5, 0.0, 0.0, 0.0, 0.14, 0.0, 0.0]  # Default joint positions
+  reference_type: "pal_references::DynamicReconfigureReference"  # Allows dynamic reference adjustment
+  gain: 1.0

@@ -101,11 +101,22 @@ blending_duration:
 ```
 
 ## Task Configuration  
-Edit, add, or remove tasks in the [`config/tiago_extra_collision_descriptions.yaml`](config/default_kinematic_stack.yaml) file. This file defines the available tasks and its parameters for the TIAGo robot, allowing customization. 
+Edit, add, or remove tasks in the [`config/default_kinematic_stack.yaml`](config/default_kinematic_stack.yaml) file. This file defines the available tasks and its parameters for the TIAGo robot, allowing customization. 
 
 Ensure that any modifications align with the overall task structure and maintain compatibility with the robot’s motion planning framework.
 
 ⚠️ **Warning:** Always test any changes in a simulation environment before applying them to the real robot. Incorrect configurations could lead to unintended collisions, potentially damaging the robot or its surroundings.  
+
+### Reference Types  
+
+- **`pal_references::InteractiveMarkerReference`**: The end effector is controlled by moving the interactive marker in *RViz2*.  
+
+- **`pal_references::TopicPoseReference`**: The end effector is controlled via a topic that publishes a `geometry_msgs/msg/Pose`. The topic name follows the pattern `<link_name>_pose`. In this case, it would be `/arm_tool_link_pose`. This is visualizable in rvizz as `/visualization_markers` as a MarkerArray.
+
+
+<img src=".images/image-1.png" alt="Description" width="500">
+<img src=".images/image-3.png" alt="Description" width="500">
+
 
 
 

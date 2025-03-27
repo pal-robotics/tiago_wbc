@@ -1,0 +1,15 @@
+joint_limits:  # Control of joint limits
+  type: "pal_wbc/JointPositionLimitTask"  # Defines the task as joint position limit control
+  weight: 1.0  # Relative weight in optimization
+  priority: 0  # Highest priority (executed first)
+  start: true  # Activated at startup
+  damping: 0.0  # No damping
+  joint_names: ["arm_1_joint", "arm_2_joint", "arm_3_joint", "arm_4_joint", "arm_5_joint", "arm_6_joint", "arm_7_joint", "torso_lift_joint", "head_1_joint", "head_2_joint"]  # Affected joints
+  upper_bound_position: []  # Upper position limit (empty = gets limits from URDF)
+  lower_bound_position: []  # Lower position limit
+  upper_bound_velocity: []  # Upper velocity limit
+  lower_bound_velocity: []  # Lower velocity limit
+  acceleration_limits: []  # Acceleration limit
+  vel_limit_gain: 1.0  # Gain for velocity limits
+  disable_vel_limit: false  # Does not disable velocity limits
+  disable_acc_limit: true  # Disables acceleration limits

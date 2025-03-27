@@ -1,0 +1,9 @@
+gaze:  # Control robot's gaze direction
+type: "pal_wbc/GazeKinematicTask"
+weight: 1.0
+priority: 4
+start: true
+damping: 0.1
+camera_frame: "head_front_camera_rgb_optical_frame"  # Camera used for gaze control
+reference_type: "pal_references::InteractiveMarkerReference"  # Control based on an interactive marker
+gain: 1.0  # Control gain
