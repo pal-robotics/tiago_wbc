@@ -2,6 +2,14 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update head optical frame
+* Readme
+* Examples
+* Readme and images
+* Contributors: Adrià Roig, Roger Perramon, rogerperramon
+
 2.0.2 (2025-02-25)
 ------------------
 * Merge branch 'low_gains' into 'alum-devel'
