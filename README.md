@@ -30,6 +30,8 @@ ros2 control switch_controllers --deactivate arm_controller torso_controller hea
 ros2 launch tiago_wbc tiago_wbc.launch.py
 ```
 
+⚠️ **Warning:** If you are controlling the real robot, you will need to launch the controller inside the robot using ssh.
+
 ### Visualizing in RViz2
 RViz2 is used to visualize and interact with the controller.
 
@@ -44,12 +46,14 @@ RViz2 is used to visualize and interact with the controller.
 
 <img src=".images/image.png" alt="Description" width="650">
 
+⚠️ **Warning:** If you are controlling the real robot, you will need to open RViz2 from a terminal connected to the robot by using `pal_connect`. 
+
 ### Adding Controller Markers
 
 1. Click the `Add` button again.
 2. Go to the `By topic` page.
 3. Find `/arm_tool_link_marker` and double-click `InteractiveMarkers`.
-4. Repeat for `/head_front_camera_rgb_optical_frame_marker`.
+4. Repeat for `/head_front_camera_optical_frame_marker`.
 
 Once added, moving these markers will control the TIAGo model in RViz, which should also reflect in the Gazebo simulation or the real robot.
 
@@ -116,8 +120,6 @@ Ensure that any modifications align with the overall task structure and maintain
 
 <img src=".images/image-1.png" alt="Description" width="500">
 <img src=".images/image-3.png" alt="Description" width="500">
-
-
 
 
 ## Reconfiguring Parameters
