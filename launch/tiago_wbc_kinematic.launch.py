@@ -36,7 +36,7 @@ from ament_index_python.packages import get_package_share_directory
 
 from launch_pal.arg_utils import LaunchArgumentsBase, read_launch_argument
 from launch_pal.robot_arguments import CommonArgs
-from tiago_pro_description.launch_arguments import TiagoArgs
+from tiago_description.launch_arguments import TiagoArgs
 from launch_pal.param_utils import parse_parametric_yaml
 
 
@@ -168,7 +168,7 @@ def setup_wbc_controller(
             parameters=[
                 {
                     "collision_decomposition_description": os.path.join(
-                        pkg_share_folder, "config", "tiago_pro_capsule_params.yaml"
+                        pkg_share_folder, "config", "tiago_capsule_params.yaml"
                     )
                 },
                 {"extra_capsule_descriptions": LaunchConfiguration("extra_capsule_file")},
@@ -197,7 +197,7 @@ def declare_actions(launch_description: LaunchDescription):
     """Declare main actions for the launch description."""
     pkg_share_folder = get_package_share_directory("tiago_wbc")
     whole_body_yaml = os.path.join(pkg_share_folder, "config", "whole_body_kinematic_controller.yaml")
-    extra_capsule_yaml_path = os.path.join(pkg_share_folder, "config", "tiago_pro_extra_collision_descriptions.yaml")
+    extra_capsule_yaml_path = os.path.join(pkg_share_folder, "config", "tiago_extra_collision_descriptions.yaml")
 
     launch_description.add_action(
         OpaqueFunction(
