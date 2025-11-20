@@ -17,12 +17,13 @@
     </group>
 
     <group name="gripper_group">
-        <link name="gripper_left_finger_link" />
-        <link name="gripper_right_finger_link" />
+        <link name="arm_tool_link" />
     </group>
 
     <enable_collisions_group group1="arm_group" group2="gripper_group" />
     <enable_collisions_group group1="arm_group" group2="head_group" />
     <enable_collisions_group group1="arm_group" group2="base_torso_group" />
+    <enable_collisions_group group1="head_group" group2="gripper_group" />
+
 </robot>
 
