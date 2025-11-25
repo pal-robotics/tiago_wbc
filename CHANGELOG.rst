@@ -2,8 +2,8 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.2.0 (2025-11-25)
+------------------
 * Merge branch 'ipe/fix/collision-path' into 'alum-devel'
   update collision path and gripper collisions
   See merge request control/tiago_wbc!36
