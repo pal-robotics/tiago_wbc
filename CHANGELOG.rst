@@ -2,8 +2,8 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.1.1 (2025-11-25)
+------------------
 * Merge branch 'ipe/fix/collision-path-v2.1' into 'v2.1'
   update collision path and gripper collisions
   See merge request control/tiago_wbc!37
