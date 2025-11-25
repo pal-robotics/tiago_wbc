@@ -1,15 +1,15 @@
 extra_capsule_description:
-    capsule_params:
-      - link_name: arm_7_link
-        position: [0.0, 0.0, 0.1]
+  capsule_params:
+    pal-gripper:
+      - link_name: arm_tool_link
+        position: [0.15, 0.0, 0.0]
         orientation:
-          x: 0.0
-          y: 0.0
-          z: 0.0
-          w: 1.0
-        length: 0.15
-        cr: 0.12
-
+            x: 0.035064797186019
+            y: -0.694086973721726
+            z: 0
+            w: 0.66990568275981
+        length: 0.203656813620677
+        cr: 0.0812827977631393
 
 
 

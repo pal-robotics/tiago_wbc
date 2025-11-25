@@ -14,7 +14,7 @@ pal_wbc_controller:
     solver_type: "QpReductionuEqualitiesQuadprogHeapAllocation"
     stack_from_yaml: true
     package_name: "tiago_wbc"
-    stack_configuration: "/config/default_kinematic_stack.yaml"
+    stack_configuration: ${PATH_TO_STACK_FILE}
     use_odom: false
     initialize_bfp_tf: false
     openloop: true

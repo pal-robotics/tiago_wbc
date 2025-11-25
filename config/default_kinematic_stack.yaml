@@ -23,8 +23,8 @@ pal_wbc_controller:
       damping: 1.e-4
       package_name: "tiago_wbc"
       collision_decomposition_description: "/config/tiago_capsule_params.yaml"
-      extra_capsule_descriptions: "/config/tiago_extra_collision_descriptions.yaml"
-      collision_operations: "/config/tiago_collision_operations.xml"
+      extra_capsule_descriptions: ${PATH_TO_EXTRA_CAPSULE_FILE}
+      collision_operations: ${PATH_TO_COLLISION_OP_FILE}
       number_collisions: 10
       min_distance: 0.08
       influence_distance: 0.08
@@ -37,7 +37,7 @@ pal_wbc_controller:
       start: true
       damping: 0.1
       link_name: "arm_tool_link"
-      reference_type: "pal_references::InteractiveMarkerReference" # "pal_references::TopicPoseReference"
+      reference_type: "pal_references::${REFERENCE_TYPE}" # "pal_references::TopicPoseReference"
       pid_position_gains:
         k_p: 2.0
         k_d: 0.0
@@ -56,7 +56,7 @@ pal_wbc_controller:
       start: true
       damping: 0.1
       link_name: "arm_tool_link"
-      reference_type: "pal_references::InteractiveMarkerReference" # "pal_references::TopicPoseReference"
+      reference_type: "pal_references::${REFERENCE_TYPE}" # "pal_references::TopicPoseReference"
       pid_orientation_gains:
         k_p: 2.0
         k_d: 0.0
@@ -79,7 +79,7 @@ pal_wbc_controller:
       start: true
       damping: 0.1
       camera_frame: "head_front_camera_optical_frame"
-      reference_type: "pal_references::InteractiveMarkerReference"
+      reference_type: "pal_references::${REFERENCE_TYPE}"
       gain: 1.0
     default_reference:
       type: "pal_wbc/ReferenceKinematicTask"
