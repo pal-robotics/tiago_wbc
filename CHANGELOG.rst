@@ -2,6 +2,17 @@
 Changelog for package tiago_wbc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'ipe/fix/collision-path' into 'alum-devel'
+  update collision path and gripper collisions
+  See merge request control/tiago_wbc!36
+* fix collision group for gripper
+* fix gripper extra collision
+* update extra collision with gripper
+* update collision path
+* Contributors: Sai Kishor Kothakota, ileniaperrella
+
 2.1.0 (2025-05-13)
 ------------------
 * Update head optical frame
